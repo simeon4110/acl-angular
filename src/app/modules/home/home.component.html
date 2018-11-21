@@ -1,0 +1,82 @@
+<div fxLayout="row" fxLayoutAlign="center start">
+  <div class="jumbotron" fxFlex="80">
+    <h1 class="display-text" style="text-align: center; margin-top: -10px; margin-bottom: 10px">
+      Moments' Monuments: The ACL Database and Toolkit
+    </h1>
+    <mat-divider></mat-divider>
+    <p class="lead">
+      This database and toolkit, named for Dante Gabriel Rossetti's The House of Life, aims to offer every sonnet in the
+      English language, from the sixteenth century to the present, in interoperable formats. The database is open to
+      public use. However, due to stringent data integrity requirements, only authorized users may contribute to the
+      database.
+    </p>
+    <p class="lead">
+      The ACL database provides a public RESTful API interface to facilitate programmatic database queries for academic
+      work in the digital humanities. For more information, or to request researcher / contributor access, please email
+      Michael Ullyot at <a href="mailto:ullyot@ucalgary.ca">ullyot@ucalgary.ca</a> with a brief description of what you
+      intend to use the database for and why you need non-public access.
+    </p>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+  <mat-card fxFlex="30">
+    <mat-card-header>
+      <div mat-card-avatar class="tei-header-image"></div>
+      <mat-card-title>Text Encoding Initiative</mat-card-title>
+      <mat-card-subtitle>Encoding <i>all</i> the texts.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p>
+        The Text Encoding Initiative (TEI) is a consortium which collectively develops and maintains a standard for
+        the representation of texts in digital form. Its chief deliverable is a set of Guidelines which specify
+        encoding methods for machine-readable texts, chiefly in the humanities, social sciences and linguistics.
+      </p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="tei()">TEI Website</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card fxFlex="30">
+    <mat-card-header>
+      <div mat-card-avatar class="acl-header-image"></div>
+      <mat-card-title>Augmented Criticism Lab</mat-card-title>
+      <mat-card-subtitle>The vision and main contributors.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p>
+        <a href="https://acriticismlab.org" target="_blank" rel="noopener">The Augmented Criticism Lab</a> is a
+        digital initiative that investigates the relationship between computational literary studies and traditional
+        philology. Building on theories of corpus linguistics, algorithmic criticism, and scalable
+        reading, we strive for an augmented criticism—a brand of literary investigation that boasts
+        a distinct blend of computational processes and artful introspection.
+      </p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="michaelsBlog()">Michael Ullyot</button>
+      <button mat-button color="primary" (click)="joshBlog()">Josh Harkema</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card fxFlex="30">
+    <mat-card-header>
+      <div mat-card-avatar class="python-header-image"></div>
+      <mat-card-title>Python Database Connector</mat-card-title>
+      <mat-card-subtitle>Powering programmatic analysis.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p>
+        We provide and maintain a Python class for easilly connecting to our database via the RESTful API. This
+        class provides basic query functions and JSON object serialization. This allows a user to skip most of the
+        data parsing and jump straight into NLTK or NLP analysis of the data.
+      </p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="pythonConnector()">GitLab Repository</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
