@@ -6,7 +6,17 @@ import {AppComponent} from './app.component';
 import {NavComponent} from './core/nav/nav.component';
 import {FooterComponent} from './core/footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatToolbarModule
+} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowseComponent} from './modules/browse/browse.component';
 import {SearchComponent} from './modules/search/search.component';
@@ -14,8 +24,12 @@ import {HomeComponent} from './modules/home/home.component';
 import {AboutComponent} from './modules/about/about.component';
 import {ToolsComponent} from './modules/tools/tools.component';
 import {RouterModule, Routes} from '@angular/router';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
+import {ProfileComponent} from './modules/profile/profile.component';
+import {HttpClientModule} from '@angular/common/http';
+import {LoginFormComponent} from './shared/forms/login-form/login-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -34,7 +48,9 @@ const appRoutes: Routes = [
     SearchComponent,
     HomeComponent,
     AboutComponent,
-    ToolsComponent
+    ToolsComponent,
+    ProfileComponent,
+    LoginFormComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -51,9 +67,15 @@ const appRoutes: Routes = [
     MatIconModule,
     MatCardModule,
     MatDividerModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    HttpClientModule
   ],
   providers: [],
+  entryComponents: [LoginFormComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

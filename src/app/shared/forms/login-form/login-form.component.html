@@ -1,0 +1,21 @@
+<div class="login-form-container">
+  <form (ngSubmit)="submit()" [formGroup]="loginForm">
+    <mat-form-field>
+      <input formControlName="username" matInput placeholder="username">
+      <mat-error>
+        <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
+          You must enter a valid username.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="password" matInput placeholder="password" type="password">
+      <mat-error>
+        <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+          You must enter a valid password.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <button [disabled]="!loginForm.valid" color="accent" mat-raised-button>Submit</button>
+  </form>
+</div>

@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center start">
   <div class="jumbotron" fxFlex="80">
-    <h1 class="display-text" style="text-align: center; margin-top: -10px; margin-bottom: 10px">
+    <h1 class="display-text">
       Moments' Monuments: The ACL Database and Toolkit
     </h1>
     <mat-divider></mat-divider>
@@ -18,8 +18,8 @@
     </p>
   </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
-  <mat-card fxFlex="30">
+<div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="center center" fxLayoutGap="25px" style="padding: 0 20px">
+  <mat-card fxFlex="1 1 30%">
     <mat-card-header>
       <div mat-card-avatar class="tei-header-image"></div>
       <mat-card-title>Text Encoding Initiative</mat-card-title>
@@ -38,7 +38,7 @@
       <button mat-button color="primary" (click)="tei()">TEI Website</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="30">
+  <mat-card fxFlex="1 1 30%">
     <mat-card-header>
       <div mat-card-avatar class="acl-header-image"></div>
       <mat-card-title>Augmented Criticism Lab</mat-card-title>
@@ -47,11 +47,10 @@
     <mat-divider></mat-divider>
     <mat-card-content>
       <p>
-        <a href="https://acriticismlab.org" target="_blank" rel="noopener">The Augmented Criticism Lab</a> is a
-        digital initiative that investigates the relationship between computational literary studies and traditional
-        philology. Building on theories of corpus linguistics, algorithmic criticism, and scalable
-        reading, we strive for an augmented criticism—a brand of literary investigation that boasts
-        a distinct blend of computational processes and artful introspection.
+        The Augmented Criticism Lab is a digital initiative that investigates the relationship between computational
+        literary studies and traditional philology. Building on theories of corpus linguistics, algorithmic criticism,
+        and scalable reading, we strive for an augmented criticism—a brand of literary investigation that boasts a
+        distinct blend of computational processes and artful introspection.
       </p>
       <mat-divider></mat-divider>
     </mat-card-content>
@@ -60,7 +59,7 @@
       <button mat-button color="primary" (click)="joshBlog()">Josh Harkema</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="30">
+  <mat-card fxFlex="1 1 30%">
     <mat-card-header>
       <div mat-card-avatar class="python-header-image"></div>
       <mat-card-title>Python Database Connector</mat-card-title>
@@ -69,7 +68,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
       <p>
-        We provide and maintain a Python class for easilly connecting to our database via the RESTful API. This
+        We provide and maintain a Python class for easily connecting to our database via the RESTful API. This
         class provides basic query functions and JSON object serialization. This allows a user to skip most of the
         data parsing and jump straight into NLTK or NLP analysis of the data.
       </p>

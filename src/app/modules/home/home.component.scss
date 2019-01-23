@@ -5,6 +5,12 @@
   padding: 2rem 1rem;
 }
 
+.jumbotron h1 {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 10px
+}
+
 @media (min-width: 576px) {
   .jumbotron {
     padding: 2rem 3rem;

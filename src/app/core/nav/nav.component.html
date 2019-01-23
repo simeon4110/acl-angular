@@ -9,7 +9,7 @@
     <button mat-button class="nav-item-link" routerLink="/about" routerLinkActive="mat-accent">About</button>
   </div>
   <span class="nav-spacer"></span>
-  <button mat-raised-button color="accent" style="margin-right: 5px" [mat-menu-trigger-for]="userMenu">Login</button>
+  <button (click)="login()" color="accent" mat-raised-button style="margin-right: 5px">LOGIN</button>
   <button mat-button [mat-menu-trigger-for]="collapseMenu" fxHide="false" fxHide.gt-sm>
     <mat-icon>menu</mat-icon>
   </button>
