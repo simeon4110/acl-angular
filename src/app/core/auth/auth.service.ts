@@ -16,6 +16,7 @@ export class AuthService {
   public user: UserModel;
   public auth: AuthModel;
   public authState: EventEmitter<boolean> = new EventEmitter();
+  public isAuthorized = false;
 
   constructor(private http: HttpClient) {
   }
@@ -41,6 +42,7 @@ export class AuthService {
       this.auth = resp;
       this.loadUserDetails();
       localStorage.setItem('auth', JSON.stringify(this.auth));
+      this.isAuthorized = true;
       this.authState.emit(true);
     }, e => console.log(e));
   }
@@ -56,6 +58,7 @@ export class AuthService {
     this.user = null;
     this.auth = null;
     localStorage.clear();
+    this.isAuthorized = false;
     this.authState.emit(false);
   }
 
@@ -73,6 +76,7 @@ export class AuthService {
       }).subscribe(resp => {
         if (resp['active']) {
           this.user.authorities = resp['authorities'];
+          this.isAuthorized = true;
           this.authState.emit(true);
           passed = true;
         } else {

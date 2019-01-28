@@ -55,8 +55,8 @@ const appRoutes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard],
     children: [
-      {path: 'add-item', component: ItemAddComponent, outlet: 'profile', canActivate: [AuthGuard]},
-      {path: 'user-details', component: UserDetailsComponent, outlet: 'profile', canActivate: [AuthGuard]}
+      {path: 'add-item', component: ItemAddComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
+      {path: 'user-details', component: UserDetailsComponent, outlet: 'profile-out', canActivate: [AuthGuard]}
     ]
   }
 ];
