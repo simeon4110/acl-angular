@@ -1,0 +1,125 @@
+<mat-horizontal-stepper #stepper [linear]="true">
+  <mat-step [stepControl]="authorForm">
+    <div *ngIf="author">
+      <ng-template matStepLabel>{{author.firstName}} {{author.lastName}}</ng-template>
+      <p class="author-display"><b>Selected Author:</b> {{author.firstName}} {{author.lastName}}</p>
+      <div class="button-row">
+        <button (click)="resetAuthor()" color="warn" mat-raised-button>Reset</button>
+        <button [disabled]="!author" color="accent" mat-raised-button matStepperNext>Next</button>
+      </div>
+    </div>
+    <form (ngSubmit)="searchAuthor()" *ngIf="!author" [formGroup]="authorForm">
+      <ng-template matStepLabel>Select author</ng-template>
+      <mat-form-field>
+        <input formControlName="firstName" matInput placeholder="first name">
+        <mat-error>
+          <span *ngIf="!authorForm.get('firstName').valid && authorForm.get('firstName').touched">
+            You must enter a valid first name.
+          </span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input [required]="true" formControlName="lastName" matInput placeholder="last name">
+        <mat-error>
+          <span *ngIf="!authorForm.get('lastName').valid && authorForm.get('lastName').touched">
+            You must enter a valid last name.
+          </span>
+        </mat-error>
+      </mat-form-field>
+      <div class="button-row">
+        <button [disabled]="!authorForm.valid" color="accent" mat-raised-button>Search</button>
+        <button [disabled]="!author" color="accent" mat-raised-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="itemDetailsForm">
+    <form [formGroup]="itemDetailsForm">
+      <ng-template matStepLabel>Enter source details</ng-template>
+      <div class="item-add-form-container">
+        <mat-form-field>
+          <input [required]="true" formControlName="placeOfPublication" matInput placeholder="place of publication">
+          <mat-error>
+          <span
+            *ngIf="!itemDetailsForm.get('placeOfPublication').valid && itemDetailsForm.get('placeOfPublication').touched">
+            You must enter a valid place of publication.
+          </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input [required]="true" formControlName="publisher" matInput placeholder="publisher">
+          <mat-error>
+          <span *ngIf="!itemDetailsForm.get('publisher').valid && itemDetailsForm.get('publisher').touched">
+            You must enter a valid publisher.
+          </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input [required]="true" formControlName="dateOfPublication" matInput
+                 placeholder="date of publication (source)"
+                 type="date">
+          <mat-error>
+          <span
+            *ngIf="!itemDetailsForm.get('dateOfPublication').valid && itemDetailsForm.get('dateOfPublication').touched">
+            You must enter a valid dateOfPublication.
+          </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [required]="true" formControlName="period" placeholder="period of initial publication">
+            <mat-option *ngFor="let period of periods" [value]="period">{{period}}</mat-option>
+          </mat-select>
+          <mat-error>
+          <span *ngIf="!itemDetailsForm.get('period').valid && itemDetailsForm.get('period').touched">
+            You must enter a valid period of initial publication.
+          </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="url" matInput placeholder="url">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="dateOfAccess" matInput placeholder="date of access" type="date">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="pageRange" matInput placeholder="page number" type="number">
+        </mat-form-field>
+        <mat-checkbox formControlName="isPublicDomain">Public domain?</mat-checkbox>
+      </div>
+      <div class="button-row">
+        <button [disabled]="itemDetailsForm.invalid" color="accent" mat-raised-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="poemForm">
+    <form [formGroup]="poemForm">
+      <div class="item-add-form-container">
+        <ng-template matStepLabel>Enter poem contents</ng-template>
+        <mat-form-field>
+          <input formControlName="title" matInput placeholder="title">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [required]="true" formControlName="form" placeholder="poetic form">
+            <mat-option *ngFor="let form of poemForms | keyvalue" [value]="form.value">{{form.key}}</mat-option>
+          </mat-select>
+          <mat-error>
+          <span *ngIf="!poemForm.get('form').valid && poemForm.get('form').touched">
+            You must enter the poem's form.
+          </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea [required]="true" formControlName="text" matInput placeholder="poem's text" rows="14"></textarea>
+          <mat-error>
+          <span *ngIf="!poemForm.get('text').valid && poemForm.get('text').touched">
+            You must enter the poem's text.
+          </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="button-row">
+        <button (click)="submit()" [disabled]="poemForm.invalid" color="accent" mat-raised-button type="submit">Submit
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

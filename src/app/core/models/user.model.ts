@@ -5,7 +5,5 @@ export class UserModel {
   isAdmin: boolean;
   requiredSonnets: number;
   canConfirm: boolean;
-  accessToken: string;
-  refreshToken: string;
   authorities: string[];
 }

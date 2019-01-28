@@ -1,3 +1,17 @@
-<p>
-  profile works!
-</p>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <a [routerLink]="['/profile', {outlets: {'profile': ['user-details']}}]" mat-list-item routerLinkActive="active">
+        <mat-icon color="primary">person</mat-icon>
+        <span>Profile</span>
+      </a>
+      <a [routerLink]="['/profile', {outlets: {'profile': ['add-item']}}]" mat-list-item routerLinkActive="active">
+        <mat-icon color="primary">library_add</mat-icon>
+        <span>Add Item</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet name="profile"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

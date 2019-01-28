@@ -9,12 +9,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatDividerModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
   MatMenuModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatStepperModule,
+  MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -27,16 +34,31 @@ import {RouterModule, Routes} from '@angular/router';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ProfileComponent} from './modules/profile/profile.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LoginFormComponent} from './shared/forms/login-form/login-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ItemAddComponent} from './modules/profile-components/item-add/item-add.component';
+import {AuthGuard} from './core/guards/auth.guard';
+import {UserDetailsComponent} from './modules/profile-components/user-details/user-details.component';
+import {AuthInterceptor} from './core/http/auth.interceptor';
+import {ItemAddConfirmationComponent} from './modules/profile-components/item-add/item-add-confirmation/item-add-confirmation.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'browse', component: BrowseComponent},
   {path: 'search', component: SearchComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'tools', component: ToolsComponent}
+  {path: 'tools', component: ToolsComponent},
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {path: 'add-item', component: ItemAddComponent, outlet: 'profile', canActivate: [AuthGuard]},
+      {path: 'user-details', component: UserDetailsComponent, outlet: 'profile', canActivate: [AuthGuard]}
+    ]
+  }
 ];
 
 @NgModule({
@@ -50,12 +72,15 @@ const appRoutes: Routes = [
     AboutComponent,
     ToolsComponent,
     ProfileComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    ItemAddComponent,
+    UserDetailsComponent,
+    ItemAddConfirmationComponent
   ],
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true}
+      {enableTracing: false}
     ),
     BrowserModule,
     AppRoutingModule,
@@ -71,11 +96,24 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
+    MatStepperModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTableModule,
+    MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
-  providers: [],
-  entryComponents: [LoginFormComponent],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
+  entryComponents: [
+    LoginFormComponent,
+    ItemAddConfirmationComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

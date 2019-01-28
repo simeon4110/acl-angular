@@ -46,13 +46,7 @@ export class AuthService {
   }
 
   public loadUserDetails(): void {
-    this.http.get(environment.userDetailsUrl, {
-      headers:
-        {
-          'Authorization': 'Bearer ' + this.auth.access_token,
-          'Content-Type': 'application/json'
-        }
-    }).subscribe((resp: UserModel) => {
+    this.http.get(environment.userDetailsUrl).subscribe((resp: UserModel) => {
       this.user = resp;
       localStorage.setItem('user', JSON.stringify(this.user));
     }, e => console.log(e));
@@ -74,8 +68,7 @@ export class AuthService {
         headers:
           {
             'Authorization': 'Basic ' + btoa('databaseAuthentication:'),
-            'grant_type': 'password',
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'grant_type': 'password'
           }
       }).subscribe(resp => {
         if (resp['active']) {

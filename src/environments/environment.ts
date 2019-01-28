@@ -7,7 +7,13 @@ export const environment = {
   oauthAuthorizeUrl: 'http://127.0.0.1:8080/oauth/authorize',
   oauthTokenUrl: 'http://127.0.0.1:8080/oauth/token',
   oauthCheckTokenUrl: 'http://127.0.0.1:8080/oauth/check_token',
-  userDetailsUrl: 'http://127.0.0.1:8080/secure/user/user_details'
+  userDetailsUrl: 'http://127.0.0.1:8080/secure/user/user_details',
+  apiBaseUrl: 'http://127.0.0.1:8080/',
+  publicationPeriods: ['1400-1499', '1500-1599', '1600-1699', '1700-1799', '1800-1899', '1900-1999', '2000-present'],
+  poemForms: {
+    'Sonnet': 'SONNET',
+    'Free Verse': 'OPEN'
+  }
 };
 
 /*
