@@ -1,19 +1,20 @@
 .mat-form-field {
   margin: 5px;
+  min-width: 35rem;
 }
 
 .item-add-form-container {
   display: flex;
   flex-direction: column;
+  max-width: 250px;
 }
 
 .mat-checkbox {
-  padding: 5px;
-  margin-bottom: 5px;
+  margin: 5px;
 }
 
 .button-row {
-  padding: 5px;
+  padding-top: 1rem;
 }
 
 .button-row .mat-raised-button {

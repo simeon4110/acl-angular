@@ -7,6 +7,7 @@ import {NavComponent} from './core/nav/nav.component';
 import {FooterComponent} from './core/footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -17,14 +18,15 @@ import {
   MatInputModule,
   MatListModule,
   MatMenuModule,
+  MatPaginatorModule,
   MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
+  MatSortModule,
   MatStepperModule,
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowseComponent} from './modules/browse/browse.component';
 import {SearchComponent} from './modules/search/search.component';
 import {HomeComponent} from './modules/home/home.component';
@@ -43,6 +45,15 @@ import {UserDetailsComponent} from './modules/profile-components/user-details/us
 import {AuthInterceptor} from './core/http/auth.interceptor';
 import {ItemAddConfirmationComponent} from './modules/profile-components/item-add/item-add-confirmation/item-add-confirmation.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {SelectAuthorComponent} from './shared/components/select-author/select-author.component';
+import {AddAuthorComponent} from './shared/components/add-author/add-author.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatProgressButtonsModule} from 'mat-progress-buttons';
+import {CardPoemComponent} from './shared/components/card-poem/card-poem.component';
+import 'hammerjs';
+import {CardBookComponent} from './shared/components/card-book/card-book.component';
+import {CardSectionComponent} from './shared/components/card-section/card-section.component';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -75,7 +86,12 @@ const appRoutes: Routes = [
     LoginFormComponent,
     ItemAddComponent,
     UserDetailsComponent,
-    ItemAddConfirmationComponent
+    ItemAddConfirmationComponent,
+    SelectAuthorComponent,
+    AddAuthorComponent,
+    CardPoemComponent,
+    CardBookComponent,
+    CardSectionComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -88,7 +104,6 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatButtonModule,
     MatToolbarModule,
-    FlexLayoutModule,
     MatIconModule,
     MatCardModule,
     MatDividerModule,
@@ -103,16 +118,27 @@ const appRoutes: Routes = [
     MatListModule,
     MatTableModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatSortModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FlexLayoutModule,
+    OverlayModule,
+    MatProgressButtonsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   entryComponents: [
     LoginFormComponent,
-    ItemAddConfirmationComponent
+    ItemAddConfirmationComponent,
+    SelectAuthorComponent,
+    AddAuthorComponent,
+    CardPoemComponent,
+    CardBookComponent,
+    CardSectionComponent
   ],
   bootstrap: [AppComponent]
 })

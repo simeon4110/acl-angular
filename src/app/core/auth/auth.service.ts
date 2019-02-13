@@ -16,9 +16,20 @@ export class AuthService {
   public user: UserModel;
   public auth: AuthModel;
   public authState: EventEmitter<boolean> = new EventEmitter();
-  public isAuthorized = false;
+  private _isAuthorized = false;
 
   constructor(private http: HttpClient) {
+  }
+
+  get isAuthorized(): boolean {
+    return this._isAuthorized;
+  }
+
+  public loadUserDetails(): void {
+    this.http.get(environment.userDetailsUrl).subscribe((resp: UserModel) => {
+      this.user = resp;
+      localStorage.setItem('user', JSON.stringify(this.user));
+    }, e => console.log(e));
   }
 
   /**
@@ -40,17 +51,10 @@ export class AuthService {
         }
     }).subscribe((resp: AuthModel) => {
       this.auth = resp;
-      this.loadUserDetails();
       localStorage.setItem('auth', JSON.stringify(this.auth));
-      this.isAuthorized = true;
+      this._isAuthorized = true;
       this.authState.emit(true);
-    }, e => console.log(e));
-  }
-
-  public loadUserDetails(): void {
-    this.http.get(environment.userDetailsUrl).subscribe((resp: UserModel) => {
-      this.user = resp;
-      localStorage.setItem('user', JSON.stringify(this.user));
+      this.loadUserDetails();
     }, e => console.log(e));
   }
 
@@ -58,8 +62,12 @@ export class AuthService {
     this.user = null;
     this.auth = null;
     localStorage.clear();
-    this.isAuthorized = false;
+    this._isAuthorized = false;
     this.authState.emit(false);
+  }
+
+  public isAdmin(): boolean {
+    return this.user.authorities.includes('ADMIN');
   }
 
   public checkToken(): boolean {
@@ -76,7 +84,7 @@ export class AuthService {
       }).subscribe(resp => {
         if (resp['active']) {
           this.user.authorities = resp['authorities'];
-          this.isAuthorized = true;
+          this._isAuthorized = true;
           this.authState.emit(true);
           passed = true;
         } else {
@@ -85,9 +93,5 @@ export class AuthService {
       });
     }
     return passed;
-  }
-
-  public isAdmin(): boolean {
-    return this.user.authorities.includes('ADMIN');
   }
 }

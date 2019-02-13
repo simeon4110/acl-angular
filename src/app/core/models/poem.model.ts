@@ -5,4 +5,5 @@ interface PoemModel extends ItemModel {
   annotation: AnnotationModel;
   hidden: boolean;
   testing: boolean;
+  authorId: number;
 }

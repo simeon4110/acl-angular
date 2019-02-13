@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{item.title}}</h1>
+<div mat-dialog-content>
+  <p class="section-paragraphs" *ngFor="let pg of item.text.split('\n')">{{pg}}</p>
+  <mat-divider></mat-divider>
+  <p>
+    <b>Date added:</b> {{item.createdDate | date}}<br>
+    <b>Period of initial publication:</b> {{item.period}}<br>
+    <b>Publication date of source text:</b> {{item.dateOfPublication | date}}<br>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="accent" mat-dialog-close>close</button>
+</div>

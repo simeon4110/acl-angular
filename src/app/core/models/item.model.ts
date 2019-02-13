@@ -8,7 +8,9 @@ interface ItemModel {
   edition: string;
   publisher: string;
   dateOfPublication: string;
+  placeOfPublication: string;
   shortTitle: string;
+  sourceTitle: string;
   url: string;
   dateOfAccess: string;
   journalName: string;
@@ -20,5 +22,8 @@ interface ItemModel {
   language: string;
   isPublicDomain: boolean;
   pageRange: string;
-
+  createdBy: string;
+  createdDate: string;
+  lastModifiedBy: string;
+  lastModifiedDate: string;
 }

@@ -1,0 +1,18 @@
+<div class="select-author-container">
+  <p>
+    Your search returned multiple authors. Please select an author from the list below.
+  </p>
+  <mat-divider style="padding: 10px;"></mat-divider>
+  <table [dataSource]="authors" class="mat-elevation-z8" mat-table>
+    <ng-container matColumnDef="firstName">
+      <th *matHeaderCellDef mat-header-cell>First Name</th>
+      <td *matCellDef="let element" mat-cell>{{element.firstName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="lastName">
+      <th *matHeaderCellDef mat-header-cell>Last Name</th>
+      <td *matCellDef="let element" mat-cell>{{element.lastName}}</td>
+    </ng-container>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr (click)="selectAuthor(row)" *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+  </table>
+</div>

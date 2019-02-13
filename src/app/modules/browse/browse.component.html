@@ -1,0 +1,40 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <form [formGroup]="typeSelectForm">
+      <mat-form-field>
+        <mat-select (selectionChange)="selectType()" formControlName="type" placeholder="item type">
+          <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+      <table [dataSource]="dataSource" mat-table matSort>
+        <ng-container matColumnDef="id">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> #</th>
+          <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="title">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> title</th>
+          <td *matCellDef="let element" mat-cell>{{element.title}}</td>
+        </ng-container>
+        <ng-container matColumnDef="author">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> author</th>
+          <td *matCellDef="let element" mat-cell>{{element.author.firstName}} {{element.author.lastName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="period">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> period</th>
+          <td *matCellDef="let element" mat-cell>{{element.period}}</td>
+        </ng-container>
+        <ng-container matColumnDef="form">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> form</th>
+          <td *matCellDef="let element" mat-cell>{{element.form | lowercase}}</td>
+        </ng-container>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 20, 50]" align="left" showFirstLastButtons></mat-paginator>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,19 @@
+<div>
+  <mat-card class="poem-card">
+    <mat-card-header>
+      <mat-card-title>{{item.title}}</mat-card-title>
+      <mat-card-subtitle>{{item.author.firstName}} {{item.author.lastName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p class="poem-text">{{formatText(item.text)}}</p>
+      <mat-divider></mat-divider>
+      <p>
+        <b>Date added:</b> {{item.createdDate | date}}<br>
+        <b>Period of initial publication:</b> {{item.period}}<br>
+        <b>Title of source text:</b> {{item.sourceTitle}}<br>
+        <b>Publication date of source text:</b> {{item.dateOfPublication | date}}<br>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
