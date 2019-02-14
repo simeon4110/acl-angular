@@ -10,7 +10,7 @@ import {AuthService} from '../auth/auth.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(private auth: AuthService, private dialog: MatDialog) {
+  constructor(public auth: AuthService, private dialog: MatDialog) {
   }
 
   ngOnInit() {

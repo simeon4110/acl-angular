@@ -23,7 +23,7 @@ export class LoginFormComponent implements OnInit {
     this.createForm();
   }
 
-  private submit() {
+  public submit() {
     const formModel = this.loginForm.value;
     this.credentials.emit([formModel.username, formModel.password]);
     this.dialogRef.close();

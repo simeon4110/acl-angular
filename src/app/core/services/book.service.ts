@@ -1,7 +1,7 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormGroup} from '@angular/forms';
-import {interval, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
 /**
@@ -13,13 +13,9 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class BookService {
-  public updateComplete: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private http: HttpClient) {
-    interval(5000 * 60).subscribe(() => this.updateCache());
   }
-
-  private _bookCache: BookModel[];
 
   add(itemForm: FormGroup, bookForm: FormGroup, author: AuthorModel): Observable<any> {
     const itemFormValue = itemForm.value;
@@ -42,10 +38,6 @@ export class BookService {
     return this.http.post(environment.apiBaseUrl + 'secure/book/add', book);
   }
 
-  get bookCache(): BookModel[] {
-    return this._bookCache;
-  }
-
   getAll(): Observable<any> {
     return this.http.get(environment.apiBaseUrl + 'book/all');
   }
@@ -56,17 +48,5 @@ export class BookService {
 
   search(title: String): Observable<any> {
     return this.http.get(environment.apiBaseUrl + 'book/get_by_title/' + title);
-  }
-
-  set bookCache(value: BookModel[]) {
-    this._bookCache = value;
-  }
-
-  updateCache(): void {
-    this.getAll().subscribe((resp: BookModel[]) => {
-      this._bookCache = resp;
-      localStorage.setItem('book_cache', JSON.stringify(this._bookCache));
-      this.updateComplete.emit(true);
-    });
   }
 }

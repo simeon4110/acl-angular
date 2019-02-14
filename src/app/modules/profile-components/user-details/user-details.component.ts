@@ -8,7 +8,7 @@ import {AuthService} from '../../../core/auth/auth.service';
 })
 export class UserDetailsComponent implements OnInit {
 
-  constructor(private auth: AuthService) {
+  constructor(public auth: AuthService) {
   }
 
   ngOnInit() {

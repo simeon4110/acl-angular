@@ -24,3 +24,10 @@ mat-sidenav-content {
 .mat-row:hover {
   background-color: #dddddd;
 }
+
+mat-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}

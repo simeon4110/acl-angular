@@ -1,6 +1,6 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {interval, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {environment} from '../../../environments/environment';
 
@@ -13,13 +13,10 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class PoemService {
-  public updateComplete: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private http: HttpClient) {
-    interval(5000 * 60).subscribe(() => this.updateCache());
   }
 
-  private _poemCache: PoemModel[];
 
   /**
    * Handles request to: /secure/poem/add
@@ -52,10 +49,6 @@ export class PoemService {
     return this.http.post(environment.apiBaseUrl + 'secure/poem/add', poem);
   }
 
-  get poemCache(): PoemModel[] {
-    return this._poemCache;
-  }
-
   admin_delete(id: number): Observable<any> {
     return this.http.delete(environment.apiBaseUrl + 'secure/poem/delete/' + id);
   }
@@ -74,17 +67,5 @@ export class PoemService {
 
   getAllSimple(): Observable<any> {
     return this.http.get(environment.apiBaseUrl + 'poem/all_simple');
-  }
-
-  set poemCache(value: PoemModel[]) {
-    this._poemCache = value;
-  }
-
-  updateCache(): void {
-    this.getAll().subscribe((resp: PoemModel[]) => {
-      this._poemCache = resp;
-      localStorage.setItem('poem_cache', JSON.stringify(this._poemCache));
-      this.updateComplete.emit(true);
-    });
   }
 }

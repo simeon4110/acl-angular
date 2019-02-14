@@ -29,6 +29,8 @@ export class BrowseComponent implements OnInit {
   types = ['Books', 'Poems'];
   selectedType = 'Poems';
 
+  isLoading = true;
+
   constructor(private fb: FormBuilder, private bookService: BookService, private poemService: PoemService, private dialog: MatDialog,
               private overlay: Overlay) {
   }
@@ -50,12 +52,19 @@ export class BrowseComponent implements OnInit {
    * Swaps out the table's dataSource and triggers a binding update.
    */
   public getItems(): void {
+    this.isLoading = true;
     if (this.selectedType === 'Poems') {
-      this.dataSource = new MatTableDataSource<PoemModel>(this.poemService.poemCache);
-      this.updateTableBindings();
+      this.poemService.getAll().subscribe((resp: PoemModel[]) => {
+        this.dataSource = new MatTableDataSource<PoemModel>(resp);
+        this.updateTableBindings();
+        this.isLoading = false;
+      });
     } else if (this.selectedType === 'Books') {
-      this.dataSource = new MatTableDataSource<BookModel>(this.bookService.bookCache);
-      this.updateTableBindings();
+      this.bookService.getAll().subscribe((resp: BookModel[]) => {
+        this.dataSource = new MatTableDataSource<BookModel>(resp);
+        this.updateTableBindings();
+        this.isLoading = false;
+      });
     }
   }
 

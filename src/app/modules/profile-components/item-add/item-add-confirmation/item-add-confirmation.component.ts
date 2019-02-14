@@ -15,12 +15,12 @@ export class ItemAddConfirmationComponent implements OnInit {
   ngOnInit() {
   }
 
-  private isReset(): void {
+  public isReset(): void {
     this.reset.emit(true);
     this.dialogRef.close();
   }
 
-  private isNotReset(): void {
+  public isNotReset(): void {
     this.reset.emit(false);
     this.dialogRef.close();
   }
