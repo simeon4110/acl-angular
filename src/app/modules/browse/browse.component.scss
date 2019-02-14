@@ -1,0 +1,33 @@
+mat-sidenav {
+  width: 12%;
+  min-width: 150px;
+  padding: 10px;
+  background-color: #efefee !important;
+  border-right: 1px solid #999999 !important;
+}
+
+.mat-sidenav-container {
+  min-height: calc(100vh - 120px);
+  height: auto;
+  background-color: #ffffff;
+}
+
+table {
+  width: 100%;
+}
+
+mat-sidenav-content {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.mat-row:hover {
+  background-color: #dddddd;
+}
+
+mat-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}

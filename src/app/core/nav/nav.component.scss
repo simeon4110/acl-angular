@@ -3,14 +3,26 @@
 }
 
 .nav-main {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
   padding-left: 0;
   margin-left: 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.nav-item-link {
+  font-size: 11pt;
+  font-weight: lighter;
+  font-family: 'Roboto', serif;
 }
 
 .nav-home-link {
-  font-size: 14pt;
+  font-size: 15pt;
+  font-family: 'Roboto Slab', sans-serif;
 }
 
-.nav-home-text {
-  padding-top: 10px;
+.mat-button:hover {
+  background-color: #5c6bc0 !important;
 }

@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{item.author.firstName}} {{item.author.lastName}}: {{item.title}}</h1>
+<div mat-dialog-content>
+  <div class="section-list">
+    <ul>
+      <a href="javascript:void(0)">
+        <li *ngFor="let section of item.sections; let i = index" [attr.data-index]="i"
+            (click)="viewSection(section)">
+          {{i + 1}}) {{section.title}}
+        </li>
+      </a>
+    </ul>
+  </div>
+  <mat-divider></mat-divider>
+  <p>
+    <b>Date added:</b> {{item.createdDate | date}}<br>
+    <b>Period of initial publication:</b> {{item.period}}<br>
+    <b>Publication date of source text:</b> {{item.dateOfPublication | date}}<br>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="accent" mat-dialog-close>close</button>
+</div>

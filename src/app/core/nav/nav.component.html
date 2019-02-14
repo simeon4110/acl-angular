@@ -1,25 +1,34 @@
 <mat-toolbar class="nav-main" color="primary">
   <button mat-button class="nav-home-link" routerLink="/">
-    <mat-icon style="margin-top: -6px; margin-right: 2px">book</mat-icon>Augmented Criticism Lab
+    <mat-icon style="margin-top: -6px; margin-right: 2px">book</mat-icon>
+    Augmented Criticism Lab
   </button>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button="/browse" routerLinkActive="active">Browse</button>
-    <button mat-button="/search" routerLinkActive="active">Search</button>
-    <button mat-button="/tools" routerLinkActive="active">Tools</button>
-    <button mat-button="/about" routerLinkActive="active">About</button>
+  <div fxLayout="row" fxShow="false" fxShow.gt-xs>
+    <button mat-button class="nav-item-link" routerLink="/browse" routerLinkActive="mat-accent">Browse</button>
+    <button mat-button class="nav-item-link" routerLink="/search" routerLinkActive="mat-accent">Search</button>
+    <button mat-button class="nav-item-link" routerLink="/tools" routerLinkActive="mat-accent">Tools</button>
+    <button mat-button class="nav-item-link" routerLink="/about" routerLinkActive="mat-accent">About</button>
   </div>
   <span class="nav-spacer"></span>
-  <button mat-button [mat-menu-trigger-for]="userMenu">Login</button>
-  <button mat-button [mat-menu-trigger-for]="collapseMenu" fxHide="false" fxHide.gt-sm>
+  <button (click)="login()" *ngIf="!auth.isAuthorized" color="accent" mat-raised-button style="margin-right: 5px">LOGIN
+  </button>
+  <button *ngIf="auth.isAuthorized" [matMenuTriggerFor]="userMenu" color="accent" mat-raised-button>
+    {{auth.user.username}}
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <button [mat-menu-trigger-for]="collapseMenu" fxHide="false" fxHide.gt-xs mat-button>
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
-<mat-menu x-position="before" #collapseMenu="matMenu">
-  <button mat-menu-item routerLink="/browse">Browse</button>
+<mat-menu xPosition="before" #collapseMenu="matMenu">
+  <button mat-menu-item routerLink="/browse" routerLinkActive="disabled">Browse</button>
   <button mat-menu-item routerLink="/search">Search</button>
   <button mat-menu-item routerLink="/tools">Tools</button>
   <button mat-menu-item routerLink="/about">About</button>
 </mat-menu>
-<mat-menu x-position="before" #userMenu="matMenu">
-
+<mat-menu xPosition="before" #userMenu="matMenu">
+  <button mat-menu-item [routerLink]="['/profile', {outlets: {'profile-out': ['user-details']}}]">Profile</button>
+  <button mat-menu-item [routerLink]="['/profile', {outlets: {'profile-out': ['add-item']}}]">Add Item</button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="auth.logoff()">Logout</button>
 </mat-menu>

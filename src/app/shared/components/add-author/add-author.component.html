@@ -1,0 +1,16 @@
+<div class="add-author-form-container" style="width: 100%; padding-left: 10px">
+  <form (ngSubmit)="addAuthor()" [formGroup]="authorForm">
+    <mat-form-field>
+      <input formControlName="firstName" matInput placeholder="first name">
+    </mat-form-field>
+    <mat-form-field>
+      <input [required]="true" formControlName="lastName" matInput placeholder="last name">
+      <mat-error>
+        <span *ngIf="!authorForm.get('lastName').valid && authorForm.get('lastName').touched">
+          You must enter a last name.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <button [disabled]="!authorForm.valid" color="accent" mat-raised-button>Submit</button>
+  </form>
+</div>

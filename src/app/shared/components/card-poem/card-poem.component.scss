@@ -1,0 +1,15 @@
+.poem-card {
+  max-width: 400px;
+}
+
+mat-card-actions {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+
+.poem-text {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 12.5pt !important;
+  white-space: pre-wrap;
+}

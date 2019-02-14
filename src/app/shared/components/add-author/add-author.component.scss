@@ -1,0 +1,8 @@
+.add-author-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-author-form-container > * {
+  width: 100%;
+}

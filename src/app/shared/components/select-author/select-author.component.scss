@@ -1,0 +1,16 @@
+.select-author-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.select-author-container > * {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-row:hover {
+  background-color: #dddddd;
+}

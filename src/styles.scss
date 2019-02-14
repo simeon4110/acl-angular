@@ -1,7 +1,106 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config(
+  $font-family: 'Roboto Slab'
+);
 
-body {
+@include angular-material-typography($custom-typography);
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
+// Small devices
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (min-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+// Extra large devices
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
+html, body {
   padding: 0;
   margin: 0;
+}
+
+/* Typographic styles are here. */
+
+.display-text {
+  font-size: 3.5rem;
+  font-weight: lighter;
+  font-family: 'Roboto Slab', serif;
+}
+
+.lead {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.171875rem;
+  font-weight: 300;
+  padding: 0 2rem;
+}
+
+.mat-card-content p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.mat-raised-button {
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+}
+
+.mat-flat-button {
+  font-family: 'Roboto', sans-serif;
+}
+
+.mat-button {
+  font-family: 'Roboto', sans-serif;
+}
+
+.item-add-textbox {
+  min-width: 70rem !important;
+  @include sm() {
+    min-width: 75% !important;
+  }
+
+  @include lg {
+    min-width: 69% !important;
+  }
+}
+
+.cdk-global-scrollblock {
+  position: initial;
+  width: initial;
+  overflow: hidden;
 }
