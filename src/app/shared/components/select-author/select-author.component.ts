@@ -18,7 +18,6 @@ export class SelectAuthorComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<SelectAuthorComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.authors = data;
-    console.log(this.authors);
   }
 
   ngOnInit() {

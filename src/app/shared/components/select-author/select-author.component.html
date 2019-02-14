@@ -1,6 +1,7 @@
 <div class="select-author-container">
   <p>
-    Your search returned multiple authors. Please select an author from the list below.
+    Your search returned multiple authors. Please select an author from the list below. If your author is not in the
+    list click 'ADD NEW' to add the author to the database.
   </p>
   <mat-divider style="padding: 10px;"></mat-divider>
   <table [dataSource]="authors" class="mat-elevation-z8" mat-table>
@@ -15,4 +16,7 @@
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
     <tr (click)="selectAuthor(row)" *matRowDef="let row; columns: displayedColumns" mat-row></tr>
   </table>
+  <div style="padding-top: 20px">
+    <button (click)="selectAuthor(null)" color="accent" mat-raised-button>Add New</button>
+  </div>
 </div>

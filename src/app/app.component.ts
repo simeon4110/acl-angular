@@ -9,6 +9,8 @@ import {SwUpdate} from '@angular/service-worker';
 import {AuthService} from './core/auth/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {PoemService} from './core/services/poem.service';
+import {BookService} from './core/services/book.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,8 @@ export class AppComponent implements OnInit {
   title = 'acl';
   private authState;
 
-  constructor(private swUpdate: SwUpdate, private auth: AuthService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private swUpdate: SwUpdate, private auth: AuthService, private router: Router, private snackBar: MatSnackBar,
+              private poemService: PoemService, private bookService: BookService) {
   }
 
   ngOnInit() {
@@ -47,6 +50,20 @@ export class AppComponent implements OnInit {
       this.auth.checkToken();
     } else {
       this.auth.authState.emit(false);
+    }
+
+    // Load poem database into poem cache or load cache if found.
+    if (localStorage.getItem('poem_cache') !== null) {
+      this.poemService.poemCache = JSON.parse(localStorage.getItem('poem_cache'));
+    } else {
+      this.poemService.updateCache();
+    }
+
+    // Load book database into book cache or load cache if found.
+    if (localStorage.getItem('book_cache') !== null) {
+      this.bookService.bookCache = JSON.parse(localStorage.getItem('book_cache'));
+    } else {
+      this.bookService.updateCache();
     }
   }
 }

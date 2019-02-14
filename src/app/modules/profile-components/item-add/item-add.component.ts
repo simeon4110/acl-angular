@@ -129,36 +129,7 @@ export class ItemAddComponent implements OnInit {
     };
 
     this.authorService.search(authorJson).subscribe((resp: AuthorModel[]) => {
-      // A single result, only result selected as author and form moved to next step.
-      if (resp.length === 1) {
-        this.author = resp[0];
-        this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} found, please continue.`,
-          this.stepper.next(), {duration: 2000});
-        this.searchAuthorButton.active = false;
-
-        // No result, user is prompted to enter a new user.
-      } else if (resp.length === 0) {
-        this.dialog.open(AddAuthorComponent, {width: '250px'})
-          .componentInstance.addedAuthor.subscribe((author: AuthorModel) => {
-          this.author = author;
-          this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`,
-            this.stepper.next(), {duration: 2000});
-        });
-        this.searchAuthorButton.active = false;
-
-        // Multiple results, user is prompted to select the correct author.
-        // :todo: add ability to add new author if the author is not in the list.
-      } else if (resp.length >= 2) { // More than one result.
-        this.dialog.open(SelectAuthorComponent, {
-          data: resp,
-          width: '400px'
-        }).componentInstance.selectedAuthor.subscribe((author: AuthorModel) => {
-          this.author = author;
-          this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} selected, please continue.`,
-            this.stepper.next(), {duration: 2000});
-        });
-        this.searchAuthorButton.active = false;
-      }
+      this.handleAuthorSearchResp(resp);
     });
   }
 
@@ -210,6 +181,39 @@ export class ItemAddComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  private handleAuthorSearchResp(resp: AuthorModel[]): void {
+    // A single result, only result selected as author and form moved to next step.
+    if (resp.length === 1) {
+      this.author = resp[0];
+      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} found, please continue.`)._dismissAfter(2000);
+      this.stepper.next();
+      this.dialog.closeAll();
+    }
+
+    // No result, user is prompted to enter a new user.
+    if (resp.length === 0) {
+      this.addAuthor();
+    }
+
+    // Multiple results, user is prompted to select the correct author.
+    if (resp.length >= 2) { // More than one result.
+      this.dialog.open(SelectAuthorComponent, {
+        data: resp,
+        width: '400px'
+      }).componentInstance.selectedAuthor.subscribe((author: AuthorModel) => {
+        if (author === null) {
+          this.addAuthor();
+        } else {
+          this.author = author;
+          this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`)._dismissAfter(2000);
+          this.stepper.next();
+          this.dialog.closeAll();
+        }
+      });
+    }
+    this.searchAuthorButton.active = false;
+  }
+
   public autoFillForm(book: any): void {
     const bookValue: BookModel = book.option.value;
     console.log(bookValue);
@@ -226,6 +230,16 @@ export class ItemAddComponent implements OnInit {
   }
 
   // Form creation methods:
+
+  private addAuthor(): void {
+    this.dialog.open(AddAuthorComponent, {width: '250px'})
+      .componentInstance.addedAuthor.subscribe((author: AuthorModel) => {
+      this.author = author;
+      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`)._dismissAfter(2000);
+      this.stepper.next();
+      this.dialog.closeAll();
+    });
+  }
 
   private createItemTypeSelectForm(): void {
     this.itemSelectForm = this.fb.group({

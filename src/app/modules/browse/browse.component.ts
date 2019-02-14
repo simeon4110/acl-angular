@@ -20,20 +20,14 @@ import {Overlay} from '@angular/cdk/overlay';
 export class BrowseComponent implements OnInit {
   typeSelectForm: FormGroup;
 
+  // The table and its bindings.
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['id', 'title', 'author', 'form', 'period'];
+  displayedColumns: string[] = ['id', 'title', 'author.firstName', 'author.lastName', 'form', 'period'];
   dataSource: MatTableDataSource<any>;
 
-  types = [
-    'Books',
-    'Poems'
-  ];
-
+  types = ['Books', 'Poems'];
   selectedType = 'Poems';
-
-  poems: PoemModel[];
-  books: BookModel[];
 
   constructor(private fb: FormBuilder, private bookService: BookService, private poemService: PoemService, private dialog: MatDialog,
               private overlay: Overlay) {
@@ -44,35 +38,31 @@ export class BrowseComponent implements OnInit {
     this.getItems();
   }
 
+  /**
+   * Triggered when user changes the item type option.
+   */
   public selectType(): void {
     this.selectedType = this.typeSelectForm.value.type;
     this.getItems();
   }
 
+  /**
+   * Swaps out the table's dataSource and triggers a binding update.
+   */
   public getItems(): void {
     if (this.selectedType === 'Poems') {
-      this.getPoems();
+      this.dataSource = new MatTableDataSource<PoemModel>(this.poemService.poemCache);
+      this.updateTableBindings();
     } else if (this.selectedType === 'Books') {
-      this.getBooks();
+      this.dataSource = new MatTableDataSource<BookModel>(this.bookService.bookCache);
+      this.updateTableBindings();
     }
   }
 
-  public getBooks(): void {
-    this.bookService.getAll().subscribe((resp: BookModel[]) => {
-      this.books = resp;
-      this.dataSource = new MatTableDataSource<BookModel>(this.books);
-      this.updateTableBindings();
-    });
-  }
-
-  public getPoems(): void {
-    this.poemService.getAll().subscribe((resp: PoemModel[]) => {
-      this.poems = resp;
-      this.dataSource = new MatTableDataSource<PoemModel>(this.poems);
-      this.updateTableBindings();
-    });
-  }
-
+  /**
+   * Routes to the correct dialog display component for a given item type. (i.e. BOOK, POEM, etc.)
+   * @param item the item to popup a dialog display for.
+   */
   public showItem<T extends ItemModel>(item: T): void {
     if (item.category === 'POEM') {
       console.log(item);
@@ -88,9 +78,22 @@ export class BrowseComponent implements OnInit {
     }
   }
 
+  /**
+   * Rebinds the paginator, sort, and custom sort to the table DataSource.
+   */
   private updateTableBindings(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'author.firstName':
+          return item.author.firstName;
+        case 'author.lastName':
+          return item.author.lastName;
+        default:
+          return item[property];
+      }
+    };
   }
 
   private createTypeSelectForm(): void {
