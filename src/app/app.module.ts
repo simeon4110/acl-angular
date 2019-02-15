@@ -92,7 +92,7 @@ const appRoutes: Routes = [
     AddAuthorComponent,
     CardPoemComponent,
     CardBookComponent,
-    CardSectionComponent
+    CardSectionComponent,
   ],
   imports: [
     RouterModule.forRoot(

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {environment} from '../../../environments/environment';
+import {AuthService} from '../auth/auth.service';
 
 /**
  * Interactions with /poem and /secure/poem endpoints are defined here.
@@ -14,7 +15,7 @@ import {environment} from '../../../environments/environment';
 })
 export class PoemService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthService) {
   }
 
 
@@ -38,7 +39,7 @@ export class PoemService {
       period: itemFormValue.period,
       url: itemFormValue.url,
       dateOfAccess: itemFormValue.dateOfAccess,
-      pageRange: itemFormValue.pageRange,
+      pageRange: `${itemFormValue.pageRangeBegin}-${itemFormValue.pageRangeEnd}`,
       isPublicDomain: itemFormValue.isPublicDomain,
       title: poemFormValue.title,
       form: poemFormValue.form,
@@ -62,10 +63,20 @@ export class PoemService {
   }
 
   getAll(): Observable<any> {
+    if (this.auth.isAuthorized) {
+      return this.http.get(environment.apiBaseUrl + 'secure/poem/all');
+    }
     return this.http.get(environment.apiBaseUrl + 'poem/all');
   }
 
   getAllSimple(): Observable<any> {
+    if (this.auth.isAuthorized) {
+      return this.http.get(environment.apiBaseUrl + 'secure/poem/all_simple');
+    }
     return this.http.get(environment.apiBaseUrl + 'poem/all_simple');
+  }
+
+  getTwoRandomPoems(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + 'poem/two_random');
   }
 }

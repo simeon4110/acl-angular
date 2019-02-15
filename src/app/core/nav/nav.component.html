@@ -7,6 +7,7 @@
     <button mat-button class="nav-item-link" routerLink="/browse" routerLinkActive="mat-accent">Browse</button>
     <button mat-button class="nav-item-link" routerLink="/search" routerLinkActive="mat-accent">Search</button>
     <button mat-button class="nav-item-link" routerLink="/tools" routerLinkActive="mat-accent">Tools</button>
+    <button (click)="gotoDocs()" class="nav-item-link" mat-button>API Documentation</button>
     <button mat-button class="nav-item-link" routerLink="/about" routerLinkActive="mat-accent">About</button>
   </div>
   <span class="nav-spacer"></span>
@@ -24,6 +25,7 @@
   <button mat-menu-item routerLink="/browse" routerLinkActive="disabled">Browse</button>
   <button mat-menu-item routerLink="/search">Search</button>
   <button mat-menu-item routerLink="/tools">Tools</button>
+  <button mat-menu-item (click)="gotoDocs()">API Documentation</button>
   <button mat-menu-item routerLink="/about">About</button>
 </mat-menu>
 <mat-menu xPosition="before" #userMenu="matMenu">

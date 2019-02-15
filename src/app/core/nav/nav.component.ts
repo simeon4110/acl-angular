@@ -16,6 +16,10 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
+  public gotoDocs(): void {
+    window.open('https://app.swaggerhub.com/apis-docs/augmented-criticism/ACL/1.0.0-oas3', '_blank');
+  }
+
   private login() {
     const dialogRef = this.dialog.open(LoginFormComponent, {
       width: '250px'

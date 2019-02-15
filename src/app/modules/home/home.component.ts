@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {PoemService} from '../../core/services/poem.service';
 
 @Component({
   selector: 'app-home',
@@ -6,11 +7,29 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  randomPoems: PoemModel[];
 
-  constructor() {
+  constructor(private poemService: PoemService) {
   }
 
   ngOnInit() {
+    this.poemService.getTwoRandomPoems().subscribe((resp: PoemModel[]) => this.randomPoems = resp);
+  }
+
+  public michaelsBlog(): void {
+    window.open('http://ullyot.ucalgaryblogs.ca/', '_blank');
+  }
+
+  public joshBlog(): void {
+    window.open('http://joshharkema.com', '_blank');
+  }
+
+  public tei(): void {
+    window.open('http://www.tei-c.org/index.xml', '_blank');
+  }
+
+  public pythonConnector(): void {
+    window.open('https://git.joshharkema.com/poem-dev/poem-connector', '_blank');
   }
 
 }

@@ -35,7 +35,7 @@
       <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary">TEI Website</button>
+      <button mat-button color="primary" (click)="tei()">TEI Website</button>
     </mat-card-actions>
   </mat-card>
   <mat-card fxFlex="1 1 30%">
@@ -55,8 +55,8 @@
       <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary">Michael Ullyot</button>
-      <button mat-button color="primary">Josh Harkema</button>
+      <button mat-button color="primary" (click)="michaelsBlog()">Michael Ullyot</button>
+      <button mat-button color="primary" (click)="joshBlog()">Josh Harkema</button>
     </mat-card-actions>
   </mat-card>
   <mat-card fxFlex="1 1 30%">
@@ -75,7 +75,33 @@
       <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary">GitLab Repository</button>
+      <button mat-button color="primary" (click)="pythonConnector()">GitLab Repository</button>
     </mat-card-actions>
+  </mat-card>
+</div>
+<div style="padding: 25px">
+  <mat-divider></mat-divider>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <h1 class="mat-display-1" style="margin-bottom: 2rem !important;">Explore the Collection: Two Poems at Random</h1>
+</div>
+<div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="center center" fxLayoutGap="15px" style="padding: 0 20px"
+     *ngIf="randomPoems" style="margin-bottom: 20px">
+  <mat-card *ngFor="let poem of randomPoems" fxFlex="1 1 35%">
+    <mat-card-header>
+      <mat-card-title>{{poem.title}}</mat-card-title>
+      <mat-card-subtitle>{{poem.author.firstName}} {{poem.author.lastName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p class="poem-text">{{poem.text}}</p>
+      <mat-divider></mat-divider>
+      <p>
+        <b>Date added:</b> {{poem.createdDate | date}}<br>
+        <b>Period of initial publication:</b> {{poem.period}}<br>
+        <b>Title of source text:</b> {{poem.sourceTitle}}<br>
+        <b>Publication date of source text:</b> {{poem.dateOfPublication | date}}<br>
+      </p>
+    </mat-card-content>
   </mat-card>
 </div>

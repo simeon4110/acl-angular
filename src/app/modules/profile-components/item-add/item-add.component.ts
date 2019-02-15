@@ -10,6 +10,7 @@ import {AuthorService} from '../../../core/services/author.service';
 import {PoemService} from '../../../core/services/poem.service';
 import {MatProgressButtonOptions} from 'mat-progress-buttons';
 import {BookService} from '../../../core/services/book.service';
+import {ShortStoryService} from '../../../core/services/short-story.service';
 
 /**
  * This is the form for adding items to the database. The confirmation popup is in item-add-confirmation.
@@ -29,6 +30,7 @@ export class ItemAddComponent implements OnInit {
   sectionForm: FormGroup;       // a sections's details.
   sectionParentForm: FormGroup; // a section's parent book.
   bookForm: FormGroup;          // a book's details.
+  shortStoryForm: FormGroup;    // a short story's details.
 
   selectedType: string;         // all items have types.
   selectedBook: BookModel;      // sections have books.
@@ -39,6 +41,7 @@ export class ItemAddComponent implements OnInit {
   periods = environment.publicationPeriods;
   poemForms = environment.poemForms;
   itemTypes = environment.itemTypes;
+  bookTypes = environment.bookTypes;
 
   // Get bindings to child elements.
   @ViewChild('stepper') stepper;
@@ -50,7 +53,8 @@ export class ItemAddComponent implements OnInit {
   itemSubmitButton: MatProgressButtonOptions;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private snackBar: MatSnackBar,
-              private authorService: AuthorService, private poemService: PoemService, private bookService: BookService) {
+              private authorService: AuthorService, private poemService: PoemService, private bookService: BookService,
+              private shortStoryService: ShortStoryService) {
   }
 
   ngOnInit() {
@@ -61,6 +65,7 @@ export class ItemAddComponent implements OnInit {
     this.createSectionForm();
     this.createSectionParentForm();
     this.createBookForm();
+    this.createShortStoryForm();
   }
 
   /**
@@ -71,6 +76,10 @@ export class ItemAddComponent implements OnInit {
     if (this.selectedType !== 'Chapter / Section') {
       this.stepper.next();
     }
+    if (this.selectedType === 'Poem') {
+      this.itemDetailsForm.controls['sourceTitle'].setValidators(Validators.required);
+      this.itemDetailsForm.controls['sourceTitle'].updateValueAndValidity();
+    }
   }
 
   /**
@@ -80,27 +89,58 @@ export class ItemAddComponent implements OnInit {
     this.poemService.add(this.itemDetailsForm, this.poemForm, this.author).subscribe(() => {
       this.dialog.open(ItemAddConfirmationComponent).componentInstance.reset.subscribe((resp: boolean) => {
         if (resp) {
-          this.resetAuthor();
-          this.itemSelectForm.reset();
-          this.itemDetailsForm.reset();
           this.poemForm.reset();
-          this.formDirective.resetForm();
-          this.stepper.reset();
-          this.snackBar.open('The poem has been added successfully.', this.gotoStepperIndex(0), {
-            duration: 2000
-          });
+          this.resetAllForms();
+          this.gotoStepperIndex(0);
         } else {
           this.poemForm.reset();
-          this.stepper.reset();
-          this.snackBar.open('The poem has been added successfully', this.gotoStepperIndex(3), {
-            duration: 2000
-          });
+          this.gotoStepperIndex(3);
         }
       });
     }, error => {
       console.log(error);
-      this.snackBar.open(`Something went wrong: ${error.toString()}`, this.gotoStepperIndex(0), {
+      this.snackBar.open(`Something went wrong: ${error.message}`, this.gotoStepperIndex(0), {
         duration: 2000
+      });
+    });
+  }
+
+  public submitBook(): void {
+    this.bookService.add(this.itemDetailsForm, this.bookForm, this.author).subscribe(() => {
+      this.dialog.open(ItemAddConfirmationComponent).componentInstance.reset.subscribe((resp: boolean) => {
+        if (resp) {
+          this.bookForm.reset();
+          this.resetAllForms();
+          this.gotoStepperIndex(0);
+        } else {
+          this.bookForm.reset();
+          this.gotoStepperIndex(3);
+        }
+      });
+    }, error => {
+      console.log(error);
+      this.snackBar.open(`Something went wrong: ${error.message}`, this.gotoStepperIndex(0), {
+        duration: 2000
+      });
+    });
+  }
+
+  public submitShortStory(): void {
+    this.shortStoryService.add(this.itemDetailsForm, this.shortStoryForm, this.author).subscribe(() => {
+      this.dialog.open(ItemAddConfirmationComponent).componentInstance.reset.subscribe((resp: boolean) => {
+        if (resp) {
+          this.shortStoryForm.reset();
+          this.resetAllForms();
+          this.gotoStepperIndex(0);
+        } else {
+          this.shortStoryForm.reset();
+          this.gotoStepperIndex(3);
+        }
+      }, error => {
+        console.log(error);
+        this.snackBar.open(`Something went wrong: ${error.message}`, this.gotoStepperIndex(0), {
+          duration: 2000
+        });
       });
     });
   }
@@ -181,38 +221,6 @@ export class ItemAddComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  private handleAuthorSearchResp(resp: AuthorModel[]): void {
-    // A single result, only result selected as author and form moved to next step.
-    if (resp.length === 1) {
-      this.author = resp[0];
-      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} found, please continue.`)._dismissAfter(2000);
-      this.stepper.next();
-      this.dialog.closeAll();
-    }
-
-    // No result, user is prompted to enter a new user.
-    if (resp.length === 0) {
-      this.addAuthor();
-    }
-
-    // Multiple results, user is prompted to select the correct author.
-    if (resp.length >= 2) { // More than one result.
-      this.dialog.open(SelectAuthorComponent, {
-        data: resp,
-        width: '400px'
-      }).componentInstance.selectedAuthor.subscribe((author: AuthorModel) => {
-        if (author === null) {
-          this.addAuthor();
-        } else {
-          this.author = author;
-          this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`)._dismissAfter(2000);
-          this.stepper.next();
-          this.dialog.closeAll();
-        }
-      });
-    }
-    this.searchAuthorButton.active = false;
-  }
 
   public autoFillForm(book: any): void {
     const bookValue: BookModel = book.option.value;
@@ -225,7 +233,11 @@ export class ItemAddComponent implements OnInit {
       period: bookValue.period,
       url: bookValue.url,
       dateOfAccess: this.parseDateToForm(bookValue.dateOfAccess),
-      pageRange: bookValue.pageRange
+      journalName: bookValue.journalName,
+      journalVolume: bookValue.journalVolume,
+      journalIssue: bookValue.journalIssue,
+      pageNumberStart: bookValue.pageRange.split('-')[0],
+      pageNumberEnd: bookValue.pageRange.split('-')[1]
     });
   }
 
@@ -298,7 +310,9 @@ export class ItemAddComponent implements OnInit {
       language: ['English'],
       isPublicDomain: [''],
       period: ['', Validators.required],
-      pageRange: ['']
+      edition: [''],
+      pageRangeBegin: [''],
+      pageRangeEnd: ['']
     });
   }
 
@@ -329,8 +343,8 @@ export class ItemAddComponent implements OnInit {
   private createBookForm(): void {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
-      period: ['', Validators.required],
-      type: ['', Validators.required]
+      type: ['', Validators.required],
+      finished: ['', Validators.required]
     });
 
     this.searchBookButton = {
@@ -347,11 +361,62 @@ export class ItemAddComponent implements OnInit {
     };
   }
 
+  private createShortStoryForm(): void {
+    this.shortStoryForm = this.fb.group({
+      title: ['', Validators.required],
+      text: ['', Validators.required],
+      finished: ['', Validators.required]
+    });
+  }
+
+  // Helper methods:
+
   private parseDateToForm(input: string): string {
     if (input === null) {
       return null;
     }
     const date = new Date(Date.parse(input));
     return date.toISOString().substring(0, 10);
+  }
+
+  private handleAuthorSearchResp(resp: AuthorModel[]): void {
+    // A single result, only result selected as author and form moved to next step.
+    if (resp.length === 1) {
+      this.author = resp[0];
+      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} found, please continue.`)._dismissAfter(2000);
+      this.stepper.next();
+      this.dialog.closeAll();
+    }
+
+    // No result, user is prompted to enter a new user.
+    if (resp.length === 0) {
+      this.addAuthor();
+    }
+
+    // Multiple results, user is prompted to select the correct author.
+    if (resp.length >= 2) { // More than one result.
+      this.dialog.open(SelectAuthorComponent, {
+        data: resp,
+        width: '400px'
+      }).componentInstance.selectedAuthor.subscribe((author: AuthorModel) => {
+        if (author === null) {
+          this.addAuthor();
+        } else {
+          this.author = author;
+          this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`)._dismissAfter(2000);
+          this.stepper.next();
+          this.dialog.closeAll();
+        }
+      });
+    }
+    this.searchAuthorButton.active = false;
+  }
+
+  private resetAllForms(): void {
+    this.resetAuthor();
+    this.itemSelectForm.reset();
+    this.itemDetailsForm.reset();
+    this.formDirective.resetForm();
+    this.stepper.reset();
   }
 }

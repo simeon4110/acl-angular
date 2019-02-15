@@ -1,7 +1,7 @@
 mat-sidenav {
   width: 12%;
   min-width: 150px;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   background-color: #efefee !important;
   border-right: 1px solid #999999 !important;
 }
@@ -26,8 +26,9 @@ mat-sidenav-content {
 }
 
 mat-card {
-  display: flex;
+  position: absolute;
+  top: calc(50vh / 2);
+  right: calc(50vw);
   justify-content: center;
   align-items: center;
-  padding-top: 50px;
 }
