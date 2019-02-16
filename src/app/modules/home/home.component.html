@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center start">
-  <div class="jumbotron" fxFlex="80">
+  <div class="jumbotron" fxFlex="1 1 80" fxFlex.sm="1 1 95%" fxFlex.xs="1 1 95%">
     <h1 class="display-text">
       Moments' Monuments: The ACL Database and Toolkit
     </h1>
@@ -18,8 +18,9 @@
     </p>
   </div>
 </div>
-<div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="center center" fxLayoutGap="15px" style="padding: 0 20px">
-  <mat-card fxFlex="1 1 30%">
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="15px"
+     style="padding: 0 15px">
+  <mat-card fxFlex="1 1 30%" fxFlex.sm="1 1 80%" fxFlex.xs="1 1 90%">
     <mat-card-header>
       <div mat-card-avatar class="tei-header-image"></div>
       <mat-card-title>Text Encoding Initiative</mat-card-title>
@@ -38,7 +39,7 @@
       <button mat-button color="primary" (click)="tei()">TEI Website</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="1 1 30%">
+  <mat-card fxFlex="1 1 30%" fxFlex.sm="1 1 80%" fxFlex.xs="1 1 90%">
     <mat-card-header>
       <div mat-card-avatar class="acl-header-image"></div>
       <mat-card-title>Augmented Criticism Lab</mat-card-title>
@@ -59,7 +60,7 @@
       <button mat-button color="primary" (click)="joshBlog()">Josh Harkema</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="1 1 30%">
+  <mat-card fxFlex="1 1 30%" fxFlex.sm="1 1 80%" fxFlex.xs="1 1 90%">
     <mat-card-header>
       <div mat-card-avatar class="python-header-image"></div>
       <mat-card-title>Python Database Connector</mat-card-title>
@@ -83,18 +84,20 @@
   <mat-divider></mat-divider>
 </div>
 <div fxLayout="row" fxLayoutAlign="center center">
-  <h1 class="mat-display-1" style="margin-bottom: 2rem !important;">Explore the Collection: Two Poems at Random</h1>
+  <h1 class="mat-display-1" style="margin-bottom: 2rem !important; text-align: center" fxFlex="1 1 80%">
+    Explore the Collection: Two Poems at Random
+  </h1>
 </div>
-<div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="center center" fxLayoutGap="15px" style="padding: 0 20px"
-     *ngIf="randomPoems" style="margin-bottom: 20px">
-  <mat-card *ngFor="let poem of randomPoems" fxFlex="1 1 35%">
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="15px"
+     style="padding: 0 20px; margin-bottom: 2rem" *ngIf="randomPoems">
+  <mat-card *ngFor="let poem of randomPoems" fxFlex="0 1 35%" fxFlex.sm="1 1 80%" fxFlex.xs="1 1 90%">
     <mat-card-header>
       <mat-card-title>{{poem.title}}</mat-card-title>
       <mat-card-subtitle>{{poem.author.firstName}} {{poem.author.lastName}}</mat-card-subtitle>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-      <p class="poem-text">{{poem.text}}</p>
+      <p class="poem-text hanging-indent">{{poem.text}}</p>
       <mat-divider></mat-divider>
       <p>
         <b>Date added:</b> {{poem.createdDate | date}}<br>

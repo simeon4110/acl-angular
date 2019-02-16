@@ -1,16 +1,20 @@
 <mat-toolbar class="nav-main" color="primary">
-  <button mat-button class="nav-home-link" routerLink="/">
+  <button class="nav-home-link" fxShow="false" fxShow.gt-xs mat-button routerLink="/">
     <mat-icon style="margin-top: -6px; margin-right: 2px">book</mat-icon>
     Augmented Criticism Lab
   </button>
-  <div fxLayout="row" fxShow="false" fxShow.gt-xs>
+  <button class="nav-home-link" fxHide="false" fxHide.gt-xs mat-button routerLink="/">
+    <mat-icon style="margin-top: -6px; margin-right: 2px">book</mat-icon>
+    ACL
+  </button>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
     <button mat-button class="nav-item-link" routerLink="/browse" routerLinkActive="mat-accent">Browse</button>
     <button mat-button class="nav-item-link" routerLink="/search" routerLinkActive="mat-accent">Search</button>
     <button mat-button class="nav-item-link" routerLink="/tools" routerLinkActive="mat-accent">Tools</button>
     <button mat-button class="nav-item-link" routerLink="/about" routerLinkActive="mat-accent">About</button>
     <button (click)="gotoDocs()" class="nav-item-link" mat-button>
       API Documentation
-      <mat-icon style="font-size: 11pt; align-self: end">open_in_new</mat-icon>
+      <mat-icon style="font-size: 10pt; align-self: start;">open_in_new</mat-icon>
     </button>
   </div>
   <span class="nav-spacer"></span>
@@ -20,7 +24,7 @@
     {{auth.user.username}}
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
-  <button [mat-menu-trigger-for]="collapseMenu" fxHide="false" fxHide.gt-xs mat-button>
+  <button [mat-menu-trigger-for]="collapseMenu" fxHide="false" fxHide.gt-sm mat-button>
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
@@ -28,8 +32,8 @@
   <button mat-menu-item routerLink="/browse" routerLinkActive="disabled">Browse</button>
   <button mat-menu-item routerLink="/search">Search</button>
   <button mat-menu-item routerLink="/tools">Tools</button>
-  <button mat-menu-item (click)="gotoDocs()">API Documentation</button>
   <button mat-menu-item routerLink="/about">About</button>
+  <button mat-menu-item (click)="gotoDocs()">API Documentation</button>
 </mat-menu>
 <mat-menu xPosition="before" #userMenu="matMenu">
   <button mat-menu-item [routerLink]="['/profile', {outlets: {'profile-out': ['user-details']}}]">Profile</button>

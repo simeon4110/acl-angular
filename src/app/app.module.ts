@@ -54,7 +54,7 @@ import {CardPoemComponent} from './shared/components/card-poem/card-poem.compone
 import 'hammerjs';
 import {CardBookComponent} from './shared/components/card-book/card-book.component';
 import {CardSectionComponent} from './shared/components/card-section/card-section.component';
-import {OverlayModule} from '@angular/cdk/overlay';
+import {OverlayContainer, OverlayModule} from '@angular/cdk/overlay';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -145,4 +145,7 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+  }
 }
