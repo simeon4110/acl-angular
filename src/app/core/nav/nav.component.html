@@ -7,8 +7,11 @@
     <button mat-button class="nav-item-link" routerLink="/browse" routerLinkActive="mat-accent">Browse</button>
     <button mat-button class="nav-item-link" routerLink="/search" routerLinkActive="mat-accent">Search</button>
     <button mat-button class="nav-item-link" routerLink="/tools" routerLinkActive="mat-accent">Tools</button>
-    <button (click)="gotoDocs()" class="nav-item-link" mat-button>API Documentation</button>
     <button mat-button class="nav-item-link" routerLink="/about" routerLinkActive="mat-accent">About</button>
+    <button (click)="gotoDocs()" class="nav-item-link" mat-button>
+      API Documentation
+      <mat-icon style="font-size: 11pt; align-self: end">open_in_new</mat-icon>
+    </button>
   </div>
   <span class="nav-spacer"></span>
   <button (click)="login()" *ngIf="!auth.isAuthorized" color="accent" mat-raised-button style="margin-right: 5px">LOGIN
