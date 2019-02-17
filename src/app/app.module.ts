@@ -57,23 +57,7 @@ import 'hammerjs';
 import {CardBookComponent} from './shared/components/card-book/card-book.component';
 import {CardSectionComponent} from './shared/components/card-section/card-section.component';
 import {OverlayContainer, OverlayModule} from '@angular/cdk/overlay';
-import {NgcCookieConsentConfig, NgcCookieConsentModule} from 'ngx-cookieconsent';
 
-const cookieConfig: NgcCookieConsentConfig = {
-  cookie: {
-    domain: environment.baseDomain
-  },
-  palette: {
-    popup: {
-      background: '#000000'
-    },
-    button: {
-      background: '#f1d600'
-    }
-  },
-  theme: 'edgeless',
-  type: 'opt-out'
-};
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -149,8 +133,7 @@ const appRoutes: Routes = [
     NgxSpinnerModule,
     FlexLayoutModule,
     OverlayModule,
-    MatProgressButtonsModule.forRoot(),
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    MatProgressButtonsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

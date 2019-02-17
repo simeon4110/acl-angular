@@ -3,14 +3,15 @@
  * @author Josh Harkema
  */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 @import '~@angular/material/theming';
 @import "app/dark-theme";
 @import "app/light-theme";
 @import "app/core/footer/footer.component";
 @import "app/modules/home/home.component";
 @import "app/shared/components/card-book/card-book.component";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+
 
 @include mat-core();
 
@@ -41,7 +42,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 }
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Roboto Slab',
+  $font-family: 'RobotoSlab',
   $body-1: mat-typography-level(14pt, 20pt, normal),
   $body-2: mat-typography-level(13pt, 16pt, normal)
 );
