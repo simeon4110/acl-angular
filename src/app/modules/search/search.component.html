@@ -1,6 +1,7 @@
 <div style="min-height: calc(100vh - 125px)">
-  <div *ngIf="!isAdvanced" class="top-menu" fxLayout="row" fxLayoutAlign="center center">
-    <span class="nav-spacer"></span>
+  <div *ngIf="!isAdvanced" class="top-menu" fxLayout="row" fxLayoutAlign="center center"
+       fxLayoutAlign.gt-sm="start center">
+    <span class="nav-spacer" fxShow.gt-xs></span>
     <form (ngSubmit)="doSearchEveryWhere()" [formGroup]="searchEveryWhereForm">
       <mat-form-field class="big">
         <input formControlName="searchString" matInput placeholder="search all the things">
@@ -11,7 +12,7 @@
     <button (click)="openAdvancedSearchDialog()" mat-icon-button>
       <mat-icon class="big-icon">list</mat-icon>
     </button>
-    <span class="nav-spacer"></span>
+    <span class="nav-spacer" fxShow.gt-xs></span>
   </div>
   <div>
     <table [dataSource]="dataSource" mat-table matSort>
@@ -49,7 +50,7 @@
     </mat-card>
   </div>
   <div *ngIf="!dataSource" fxLayout="row" fxLayoutAlign="center center" style="padding-top: 10rem">
-    <mat-card fxFlex="0 0 30%">
+    <mat-card fxFlex.gt-lg="0 0 35%" fxFlex.md="1 1 60%" fxFlex.sm="1 1 90% " style="margin: -35px 10px 0 10px">
       <mat-card-header>
         <div class="joke-card-image" mat-card-avatar></div>
         <mat-card-title>nothing to see here</mat-card-title>
