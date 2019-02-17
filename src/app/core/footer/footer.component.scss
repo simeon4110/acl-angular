@@ -21,7 +21,7 @@
 
     text-align: center;
     background-color: darken($card, 5);
-    border-top: 1px solid mat-color($primary, 100);
+    border-top: 1px solid mat-color($accent, 100);
   }
 
   /* Stealing class names from Boot Strap. */

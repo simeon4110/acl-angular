@@ -58,6 +58,7 @@ import {CardBookComponent} from './shared/components/card-book/card-book.compone
 import {CardSectionComponent} from './shared/components/card-section/card-section.component';
 import {OverlayContainer, OverlayModule} from '@angular/cdk/overlay';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {SearchFormComponent} from './shared/forms/search-form/search-form.component';
 
 
 const appRoutes: Routes = [
@@ -97,6 +98,7 @@ const appRoutes: Routes = [
     CardPoemComponent,
     CardBookComponent,
     CardSectionComponent,
+    SearchFormComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -147,7 +149,8 @@ const appRoutes: Routes = [
     AddAuthorComponent,
     CardPoemComponent,
     CardBookComponent,
-    CardSectionComponent
+    CardSectionComponent,
+    SearchFormComponent
   ],
   bootstrap: [
     AppComponent,

@@ -1,0 +1,77 @@
+<h1 mat-dialog-title>advanced search</h1>
+<div mat-dialog-content>
+  <form [formGroup]="searchForm">
+    <div fxLayout="row" fxLayoutGap="5px">
+      <mat-form-field style="width: 10rem !important;">
+        <mat-select formControlName="firstFieldName" placeholder="field" [required]="true">
+          <mat-option *ngFor="let field of fields | keyvalue" [value]="field.key">{{field.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="firstFieldMatchType" placeholder="match type" [required]="true">
+          <mat-option *ngFor="let matchType of matchTypes" [value]="matchType">{{matchType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width: 25rem !important;">
+        <input matInput formControlName="firstFieldSearchString" placeholder="search string" [required]="true">
+        <mat-error>
+        <span *ngIf="!searchForm.get('firstFieldSearchString').valid &&
+        searchForm.get('firstFieldSearchString').touched">
+          What's a search without something to search for?
+        </span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="itemType" placeholder="item type" [required]="true">
+          <mat-option *ngFor="let itemType of itemTypes" [value]="itemType">{{itemType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width: 15rem !important;">
+        <input matInput formControlName="publicationDate" placeholder="publication date" type="date">
+      </mat-form-field>
+    </div>
+    <div formArrayName="rows">
+      <div fxLayout="row" fxLayoutGap="5px" *ngFor="let row of rows.controls; let pointIndex=index"
+           [formGroupName]="pointIndex">
+        <mat-form-field>
+          <mat-select formControlName="joinParameter" placeholder="join type" [required]="true">
+            <mat-option *ngFor="let parameter of joinParameters" [value]="parameter">{{parameter}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="fieldName" placeholder="field" [required]="true">
+            <mat-option *ngFor="let field of fields | keyvalue" [value]="field.key">{{field.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="matchType" placeholder="match type" [required]="true">
+            <mat-option *ngFor="let type of matchTypes" [value]="type">{{type}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width: 25rem !important;">
+          <input matInput formControlName="searchString" placeholder="search string" [required]="true">
+          <mat-error>
+            <span *ngIf="!searchForm.get('firstFieldSearchString').valid &&
+              searchForm.get('firstFieldSearchString').touched">
+              What's a search without something to search for?
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <button mat-icon-button color="accent" style="padding-top: 10px !important;" (click)="deleteRow(pointIndex)"
+                matTooltip="delete row">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+      <div fxLayout="row">
+        <button mat-icon-button color="accent" style="margin-left: -10px !important;" (click)="addRow()"
+                matTooltip="add row">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="submit()">submit</button>
+  <button mat-raised-button color="warn" mat-dialog-close>close</button>
+</div>

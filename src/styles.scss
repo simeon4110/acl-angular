@@ -8,6 +8,7 @@
 @import "app/light-theme";
 @import "app/core/footer/footer.component";
 @import "app/modules/home/home.component";
+@import "app/modules/search/search.component";
 @import "app/shared/components/card-book/card-book.component";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
@@ -25,11 +26,12 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
   @include light-theme-style($light-theme);
   @include footer-component-theme($light-theme);
   @include home-component-theme($light-theme);
+  @include search-component-theme($light-theme);
   @include card-book-component-theme($light-theme);
 }
 
 $dark-primary: mat-palette($mat-pink);
-$dark-accent: mat-palette($mat-deep-purple);
+$dark-accent: mat-palette($mat-blue-gray);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
@@ -38,6 +40,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   @include dark-theme-style($dark-theme);
   @include footer-component-theme($dark-theme);
   @include home-component-theme($dark-theme);
+  @include search-component-theme($dark-theme);
   @include card-book-component-theme($dark-theme);
 }
 
@@ -53,6 +56,7 @@ $custom-typography: mat-typography-config(
 /* Edges are for losers. */
 html {
   height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -129,4 +133,9 @@ mat-card-actions {
 /* Add padding to slide toggler. */
 mat-slide-toggle {
   padding-right: 5px;
+}
+
+
+.mat-tooltip {
+  font-size: 12pt !important;
 }

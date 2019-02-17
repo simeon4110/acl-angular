@@ -7,23 +7,12 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class SearchService {
-  public static searchFields = {
-    'author first name': 'author.firstName',
-    'author last name': 'author.lastName',
-    'year of initial publication': 'publicationYear',
-    'title': 'title',
-    'period of initial publication': 'period',
-    'poetic form': 'poem_form',
-    'text': 'text',
-    'item type': 'category',
-    'title of source text': 'source_title',
-  };
 
   constructor(private http: HttpClient) {
   }
 
   public doSearch(searchString: string): Observable<any> {
-    const params = new HttpParams().set('search_string', searchString);
+    const params = new HttpParams().set('query_string', searchString);
     return this.http.get(environment.apiBaseUrl + 'search', {params: params});
   }
 }
