@@ -1,4 +1,4 @@
-<mat-horizontal-stepper #stepper [linear]="true">
+<mat-horizontal-stepper #stepper [linear]="false">
   <mat-step [stepControl]="itemSelectForm">
     <div *ngIf="!selectedType">
       <ng-template matStepLabel>Select an item type</ng-template>
@@ -22,186 +22,185 @@
     <form (change)="updateSpinnerButton(sectionParentForm, searchBookButton)"
           *ngIf="selectedType === 'Chapter / Section' && !selectedBook"
           [formGroup]="sectionParentForm">
-      <mat-form-field>
-        <input [required]="true" formControlName="title" matInput placeholder="title of source book">
-        <mat-error>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input [required]="true" formControlName="title" matInput placeholder="title of source book">
+          <mat-error>
           <span *ngIf="!sectionParentForm.get('title').valid && sectionParentForm.get('title').touched">
             Sections / Chapters require a source book.
           </span>
-        </mat-error>
-      </mat-form-field>
-      <div class="button-row">
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" style="padding-top: 10px">
         <mat-spinner-button (click)="searchBook()" [options]="searchBookButton">Search</mat-spinner-button>
       </div>
     </form>
     <div *ngIf="selectedBook">
-      <h3><b>Selected Book: </b> {{selectedBook.title}}</h3>
-      <div class="button-row">
-        <button (click)="resetBook()" color="accent" mat-raised-button>Reset Book</button>
+      <h3 class="mat-h3"><b>Selected Book: </b> {{selectedBook.title}}</h3>
+      <div fxLayout="row" style="padding-top: 10px">
+        <button (click)="resetBook()" color="primary" mat-raised-button>Reset Book</button>
       </div>
     </div>
   </mat-step>
   <mat-step [stepControl]="authorForm">
     <div *ngIf="author">
-      <ng-template matStepLabel>Selected Author: {{author.firstName}} {{author.lastName}}</ng-template>
-      <h3><b>Selected Author:</b> {{author.firstName}} {{author.lastName}}</h3>
-      <div class="button-row">
-        <button (click)="resetAuthor()" color="accent" mat-raised-button>Reset author</button>
+      <div fxLayout="row">
+        <ng-template matStepLabel>Selected Author: {{author.firstName}} {{author.lastName}}</ng-template>
+        <h3 class="mat-h3"><b>Selected Author:</b> {{author.firstName}} {{author.lastName}}</h3>
+      </div>
+      <div fxLayout="row" style="padding-top: 10px">
+        <button (click)="resetAuthor()" color="primary" mat-raised-button>Reset author</button>
       </div>
     </div>
-    <div fxFlexLayout="col">
-      <form (change)="updateSpinnerButton(authorForm, searchAuthorButton)" (ngSubmit)="searchAuthor()" *ngIf="!author"
-            [formGroup]="authorForm">
-        <ng-template matStepLabel>Select author</ng-template>
-        <div>
-          <mat-form-field>
-            <input formControlName="firstName" matInput placeholder="first name">
-            <mat-error>
+    <form (change)="updateSpinnerButton(authorForm, searchAuthorButton)" (ngSubmit)="searchAuthor()" *ngIf="!author"
+          [formGroup]="authorForm">
+      <ng-template matStepLabel>Select author</ng-template>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input formControlName="firstName" matInput placeholder="first name">
+          <mat-error>
           <span *ngIf="!authorForm.get('firstName').valid && authorForm.get('firstName').touched">
             You must enter a valid first name.
           </span>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input [required]="true" formControlName="lastName" matInput placeholder="last name">
-            <mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input [required]="true" formControlName="lastName" matInput placeholder="last name">
+          <mat-error>
           <span *ngIf="!authorForm.get('lastName').valid && authorForm.get('lastName').touched">
             You must enter a valid last name.
           </span>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="button-row">
-          <mat-spinner-button (click)="searchAuthor()" [options]="searchAuthorButton" style="margin-right: 5px">
-            Search
-          </mat-spinner-button>
-          <button [disabled]="!author" color="accent" mat-raised-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" style="padding-top: 10px">
+        <mat-spinner-button (click)="searchAuthor()" [options]="searchAuthorButton" style="margin-right: 5px">
+          Search
+        </mat-spinner-button>
+        <button [disabled]="!author" color="primary" mat-raised-button matStepperNext>Next</button>
+      </div>
+    </form>
   </mat-step>
   <mat-step [stepControl]="itemDetailsForm">
     <ng-template matStepLabel>Enter source details</ng-template>
-    <div fxFlexLayout="col">
-      <form [formGroup]="itemDetailsForm">
-
-        <div>
-          <mat-form-field>
-            <input (input)="updateAutoComplete()" [matAutocomplete]="autoGroup" [required]="selectedType === 'Poem'"
-                   formControlName="sourceTitle" matInput placeholder="title of source text">
-            <mat-autocomplete #autoGroup (optionSelected)="autoFillForm($event)">
-              <mat-option *ngFor="let book of autoComplete" [value]="book">
-                {{book.title}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-error>
+    <form [formGroup]="itemDetailsForm">
+      <div fxLayout="row">
+        <mat-form-field>
+          <input (input)="updateAutoComplete()" [matAutocomplete]="autoGroup" [required]="selectedType === 'Poem'"
+                 formControlName="sourceTitle" matInput placeholder="title of source text">
+          <mat-autocomplete #autoGroup (optionSelected)="autoFillForm($event)">
+            <mat-option *ngFor="let book of autoComplete" [value]="book">
+              {{book.title}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error>
           <span
             *ngIf="!itemDetailsForm.get('sourceTitle').valid && itemDetailsForm.get('sourceTitle').touched">
             You must enter a valid source title.
           </span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input [required]="true" formControlName="placeOfPublication" matInput placeholder="place of publication">
-            <mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input [required]="true" formControlName="placeOfPublication" matInput placeholder="place of publication">
+          <mat-error>
           <span
             *ngIf="!itemDetailsForm.get('placeOfPublication').valid && itemDetailsForm.get('placeOfPublication').touched">
             You must enter a valid place of publication.
           </span>
-            </mat-error>
-          </mat-form-field>
-        </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-        <div>
-          <mat-form-field>
-            <input [required]="true" formControlName="publisher" matInput placeholder="publisher">
-            <mat-error>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input [required]="true" formControlName="publisher" matInput placeholder="publisher">
+          <mat-error>
           <span *ngIf="!itemDetailsForm.get('publisher').valid && itemDetailsForm.get('publisher').touched">
             You must enter a valid publisher.
           </span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input [required]="true" formControlName="dateOfPublication" matInput
-                   placeholder="date of publication (source)"
-                   type="date">
-            <mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input [required]="true" formControlName="dateOfPublication" matInput
+                 placeholder="date of publication (source)"
+                 type="date">
+          <mat-error>
           <span
             *ngIf="!itemDetailsForm.get('dateOfPublication').valid && itemDetailsForm.get('dateOfPublication').touched">
             You must enter a valid dateOfPublication.
           </span>
-            </mat-error>
-          </mat-form-field>
-        </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-        <div>
-          <mat-form-field>
-            <mat-select [required]="true" formControlName="period" placeholder="period of initial publication">
-              <mat-option *ngFor="let period of periods" [value]="period">{{period}}</mat-option>
-            </mat-select>
-            <mat-error>
+      <div fxLayout="row">
+        <mat-form-field>
+          <mat-select [required]="true" formControlName="period" placeholder="period of initial publication">
+            <mat-option *ngFor="let period of periods" [value]="period">{{period}}</mat-option>
+          </mat-select>
+          <mat-error>
           <span *ngIf="!itemDetailsForm.get('period').valid && itemDetailsForm.get('period').touched">
             You must enter a valid period of initial publication.
           </span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="url" matInput placeholder="url">
-          </mat-form-field>
-        </div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="url" matInput placeholder="url">
+        </mat-form-field>
+      </div>
 
-        <div>
-          <mat-form-field>
-            <input formControlName="dateOfAccess" matInput placeholder="date of access" type="date">
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="journalName" matInput placeholder="journal name">
-          </mat-form-field>
-        </div>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input formControlName="dateOfAccess" matInput placeholder="date of access" type="date">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="journalName" matInput placeholder="journal name">
+        </mat-form-field>
+      </div>
 
-        <div>
-          <mat-form-field>
-            <input formControlName="journalVolume" matInput placeholder="journal volume">
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="journalIssue" matInput placeholder="journal issue">
-          </mat-form-field>
-        </div>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input formControlName="journalVolume" matInput placeholder="journal volume">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="journalIssue" matInput placeholder="journal issue">
+        </mat-form-field>
+      </div>
 
-        <div>
-          <mat-form-field>
-            <input formControlName="edition" matInput placeholder="edition">
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="DOI" matInput placeholder="DOI">
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input formControlName="pageRangeBegin" matInput placeholder="page number start" type="number">
-          </mat-form-field>
-          <mat-form-field>
-            <input formControlName="pageRangeEnd" matInput placeholder="page number end" type="number">
-          </mat-form-field>
-        </div>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input formControlName="edition" matInput placeholder="edition">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="DOI" matInput placeholder="DOI">
+        </mat-form-field>
+      </div>
 
-        <div>
-          <mat-checkbox formControlName="isPublicDomain">Public domain?</mat-checkbox>
-          <br/>
-          <div class="button-row">
-            <button [disabled]="itemDetailsForm.invalid" color="accent" mat-raised-button matStepperNext>Next</button>
-          </div>
-        </div>
-      </form>
-    </div>
+      <div fxLayout="row">
+        <mat-form-field>
+          <input formControlName="pageRangeBegin" matInput placeholder="page number start" type="number">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="pageRangeEnd" matInput placeholder="page number end" type="number">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row">
+        <mat-checkbox color="primary" formControlName="isPublicDomain">Public domain?</mat-checkbox>
+      </div>
+      <div fxLayout="row" style="padding-top: 10px">
+        <button [disabled]="itemDetailsForm.invalid" color="primary" mat-raised-button matStepperNext>Next</button>
+      </div>
+    </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Enter item contents</ng-template>
-    <div *ngIf="selectedType === 'Poem'" fxFlexLayout="row">
+    <div *ngIf="selectedType === 'Poem'">
       <form [formGroup]="poemForm">
-        <div fxFlexLayout="col">
+        <div fxLayout="row">
           <mat-form-field>
             <input formControlName="title" matInput placeholder="title">
           </mat-form-field>
@@ -216,8 +215,8 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div fxFlexLayout="col">
-          <mat-form-field class="item-add-textbox">
+        <div fxLayout="row">
+          <mat-form-field fxFlex="0 0 calc(70% + 10px)">
             <textarea [cdkAutosizeMinRows]="14" [required]="true" cdkTextareaAutosize formControlName="text"
                       matInput placeholder="the poem's text"></textarea>
             <mat-error>
@@ -226,21 +225,25 @@
               </span>
             </mat-error>
           </mat-form-field>
-          <br/>
-          <mat-checkbox formControlName="finished">
+        </div>
+        <div fxLayout="row">
+          <mat-checkbox color="primary" formControlName="finished">
             By checking this box you confirm the information you have entered is correct.
           </mat-checkbox>
+        </div>
+        <div fxLayout="row" style="padding-top: 10px">
           <div class="button-row">
-            <button (click)="submitPoem()" [disabled]="poemForm.invalid" color="accent" mat-raised-button type="submit">
+            <button (click)="submitPoem()" [disabled]="poemForm.invalid" color="primary" mat-raised-button
+                    type="submit">
               Submit
             </button>
           </div>
         </div>
       </form>
     </div>
-    <div *ngIf="selectedType === 'Book'" fxFlexLayout="row">
+    <div *ngIf="selectedType === 'Book'">
       <form [formGroup]="bookForm">
-        <div fxFlexLayout="col">
+        <div fxLayout="row">
           <mat-form-field>
             <input [required]="true" formControlName="title" matInput placeholder="title">
             <mat-error>
@@ -259,21 +262,23 @@
               </span>
             </mat-error>
           </mat-form-field>
-          <br/>
-          <mat-checkbox formControlName="finished">
+        </div>
+        <div fxLayout="row">
+          <mat-checkbox color="primary" formControlName="finished">
             By checking this box you confirm the information you have entered is correct.
           </mat-checkbox>
-          <div class="button-row">
-            <button (click)="submitBook()" [disabled]="bookForm.invalid" color="accent" mat-raised-button type="submit">
-              Submit
-            </button>
-          </div>
+        </div>
+        <div fxLayout="row" style="padding-top: 10px">
+          <button (click)="submitBook()" [disabled]="bookForm.invalid" color="primary" mat-raised-button
+                  type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>
-    <div *ngIf="selectedType === 'Short Story'" fxFlexLayout="row">
+    <div *ngIf="selectedType === 'Short Story'">
       <form [formGroup]="shortStoryForm">
-        <div fxFlexLayout="col">
+        <div fxLayout="row">
           <mat-form-field>
             <input [required]="true" formControlName="title" matInput placeholder="title">
             <mat-error>
@@ -282,7 +287,9 @@
               </span>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="item-add-textbox">
+        </div>
+        <div fxLayout="row">
+          <mat-form-field fxFlex="0 0 calc(70% + 10px)">
             <textarea [cdkAutosizeMinRows]="20" [required]="true" cdkTextareaAutosize formControlName="text" matInput
                       placeholder="the story's text"></textarea>
             <mat-error>
@@ -291,16 +298,17 @@
               </span>
             </mat-error>
           </mat-form-field>
-          <br/>
-          <mat-checkbox formControlName="finished">
+        </div>
+        <div fxLayout="row">
+          <mat-checkbox color="primary" formControlName="finished">
             By checking this box you confirm the information you have entered is correct.
           </mat-checkbox>
-          <div class="button-row">
-            <button (click)="submitShortStory()" [disabled]="shortStoryForm.invalid" color="accent" mat-raised-button
-                    type="submit">
-              Submit
-            </button>
-          </div>
+        </div>
+        <div fxLayout="row" style="padding-top: 10px">
+          <button (click)="submitShortStory()" [disabled]="shortStoryForm.invalid" color="primary" mat-raised-button
+                  type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>

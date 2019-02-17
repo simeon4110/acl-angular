@@ -1,0 +1,129 @@
+/* The light theme is best. */
+@import "~@angular/material/theming";
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
+// Small devices
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (min-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+// Extra large devices
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
+@mixin dark-theme-style($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $text: map-get($foreground, text);
+  $card: map-get($background, card);
+
+  /* Override the default link colour with the accent color. */
+  p a {
+    color: mat-color($primary, 300);
+  }
+
+
+  /* Additional styling for nav links */
+  .nav-item-link-active {
+    color: mat-color($accent, A100) !important;
+    font-weight: bold;
+  }
+
+  .nav-item-link:hover {
+    background-color: mat-color($primary, A200) !important;
+  }
+
+
+  /* Style for making table row links obvious. */
+  .mat-row:hover {
+    background-color: lighten($card, 5);
+  }
+
+
+  /* The default bold font weight is too heavy. I changed the color instead */
+  .mat-body-2 b {
+    color: mat-color($primary, 300);
+    font-weight: 500;
+  }
+
+
+  /* Styling for the sidenavs */
+  mat-sidenav {
+    width: 12%;
+    min-width: 210px;
+    margin: 0;
+    background-color: darken($card, 5) !important;
+    border-right: 1px solid #000000 !important;
+  }
+
+  .mat-sidenav-container {
+    min-height: calc(100vh - 125px);
+    background-color: $card;
+  }
+
+  mat-sidenav-content {
+    position: relative;
+    min-height: calc(100vh - 125px);
+  }
+
+  .sidebar-item-active {
+    background-color: lighten($card, 5) !important;
+  }
+
+
+  /* Change the color of the footer border to be darker */
+  .footer {
+    border-top: 1px solid mat-color($primary, 700) !important;
+  }
+
+
+  /* Customization of the stroked buttons. */
+  .mat-stroked-button {
+    background-color: mat-color($accent, 200) !important;
+    color: #000000 !important;
+    text-transform: uppercase;
+    align-items: center;
+  }
+
+
+  /* Customization of the divider. */
+  mat-divider.style-fix {
+    height: 36px;
+    margin-left: 8px;
+    margin-right: 10px;
+    border-color: #000000 !important;
+    border-width: 1px;
+  }
+}

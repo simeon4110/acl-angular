@@ -2,11 +2,12 @@
   <mat-sidenav mode="side" opened>
     <mat-nav-list>
       <a [routerLink]="['/profile', {outlets: {'profile-out': ['user-details']}}]" mat-list-item
-         routerLinkActive="active">
+         routerLinkActive="active sidebar-item-active">
         <mat-icon color="primary">person</mat-icon>
         <span>Profile</span>
       </a>
-      <a [routerLink]="['/profile', {outlets: {'profile-out': ['add-item']}}]" mat-list-item routerLinkActive="active">
+      <a [routerLink]="['/profile', {outlets: {'profile-out': ['add-item']}}]" mat-list-item
+         routerLinkActive="active sidebar-item-active">
         <mat-icon color="primary">library_add</mat-icon>
         <span>Add Item</span>
       </a>

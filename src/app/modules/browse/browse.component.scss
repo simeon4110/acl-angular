@@ -1,34 +1,16 @@
-mat-sidenav {
-  width: 12%;
-  min-width: 210px;
-  padding: 10px 10px 0 10px;
-  background-color: #efefee !important;
-  border-right: 1px solid #999999 !important;
-}
-
-.mat-sidenav-container {
-  min-height: calc(100vh - 120px);
-  height: auto;
-  background-color: #ffffff;
-}
-
 table {
   width: 100%;
-}
-
-mat-sidenav-content {
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-}
-
-.mat-row:hover {
-  background-color: #dddddd;
+  padding: 0 5px 0 5px;
 }
 
 mat-card {
   position: absolute;
-  top: calc(50vh / 2);
-  right: calc(50vw);
+  top: calc(30vh);
+  right: calc(44vw);
   justify-content: center;
   align-items: center;
+}
+
+mat-form-field {
+  padding: 10px;
 }

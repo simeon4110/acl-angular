@@ -1,0 +1,36 @@
+@import "~@angular/material/theming";
+
+@mixin footer-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $text: map-get($foreground, text);
+  $card: map-get($background, card);
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 30px;
+    height: 60px;
+
+    @media (min-width: 768px) {
+      line-height: 60px;
+    }
+
+    text-align: center;
+    background-color: darken($card, 5);
+    border-top: 1px solid mat-color($primary, 100);
+  }
+
+  /* Stealing class names from Boot Strap. */
+  .text-muted {
+    color: $text;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .text-muted a {
+    color: mat-color($primary, 300) !important;
+  }
+}

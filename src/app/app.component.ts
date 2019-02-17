@@ -9,6 +9,7 @@ import {SwUpdate} from '@angular/service-worker';
 import {AuthService} from './core/auth/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,10 @@ import {MatSnackBar} from '@angular/material';
 export class AppComponent implements OnInit {
   title = 'acl';
   private authState;
+  themeClass: string;
 
-  constructor(private swUpdate: SwUpdate, private auth: AuthService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private swUpdate: SwUpdate, private auth: AuthService, private router: Router,
+              private snackBar: MatSnackBar, private overlayContainer: OverlayContainer) {
   }
 
   ngOnInit() {
@@ -48,5 +51,18 @@ export class AppComponent implements OnInit {
     } else {
       this.auth.authState.emit(false);
     }
+  }
+
+  public swapTheme(newTheme: string): void {
+    this.themeClass = `${newTheme} mat-app-background`;
+
+    const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
+    const themeClassesToRemove = Array.from(overlayContainerClasses).filter((item: string) => {
+      item.includes('-theme');
+    });
+    if (themeClassesToRemove.length > 0) {
+      overlayContainerClasses.remove(...themeClassesToRemove);
+    }
+    overlayContainerClasses.add(newTheme);
   }
 }

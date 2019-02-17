@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  baseDomain: 'acriticismlab.org',
   oauthAuthorizeUrl: 'https://api.acriticismlab.org/oauth/authorize',
   oauthTokenUrl: 'https://api.acriticismlab.org/oauth/token',
   oauthCheckTokenUrl: 'https://api.acriticismlab.org/oauth/check_token',

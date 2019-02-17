@@ -1,0 +1,117 @@
+/* The light theme is default. */
+@import "~@angular/material/theming";
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
+// Small devices
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (min-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+// Extra large devices
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
+@mixin light-theme-style($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $text: map-get($foreground, text);
+  $card: map-get($background, card);
+
+  /* Override the default link colour with the accent color. */
+  p a {
+    color: mat-color($primary, 300);
+  }
+
+
+  /* Additional styling for nav links */
+  .nav-item-link-active {
+    color: mat-color($accent, 300) !important;
+  }
+
+  .nav-item-link:hover {
+    background-color: mat-color($primary, A200) !important;
+  }
+
+
+  /* Style for making table row links obvious. */
+  .mat-row:hover {
+    background-color: darken($card, 5);
+  }
+
+
+  /* The default bold font weight is too heavy. */
+  .mat-body-2 b {
+    font-weight: 600;
+  }
+
+
+  /* Styling for the sidenavs */
+  mat-sidenav {
+    width: 12%;
+    min-width: 210px;
+    margin: 0;
+    background-color: darken($card, 5) !important;
+    border-right: 1px solid darken($card, 10) !important;
+  }
+
+  .mat-sidenav-container {
+    min-height: calc(100vh - 125px);
+    background-color: $card !important;
+  }
+
+  mat-sidenav-content {
+    position: relative;
+    min-height: calc(100vh - 125px);
+  }
+
+
+  /* Customization of the stroked buttons */
+  .mat-stroked-button {
+    background-color: darken($card, 5) !important;
+    color: $text !important;
+    text-transform: uppercase;
+    align-items: center;
+  }
+
+
+  /* Customization of the divider. */
+  mat-divider.style-fix {
+    height: 36px;
+    margin-left: 8px;
+    margin-right: 10px;
+    border-color: #ffffff !important;
+    border-width: 1px;
+  }
+}

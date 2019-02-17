@@ -264,8 +264,8 @@ export class ItemAddComponent implements OnInit {
       spinnerSize: 19,
       raised: true,
       stroked: false,
-      buttonColor: 'accent',
-      spinnerColor: 'accent',
+      buttonColor: 'primary',
+      spinnerColor: 'primary',
       fullWidth: false,
       disabled: true,
       mode: 'indeterminate'
@@ -284,8 +284,8 @@ export class ItemAddComponent implements OnInit {
       spinnerSize: 19,
       raised: true,
       stroked: false,
-      buttonColor: 'accent',
-      spinnerColor: 'accent',
+      buttonColor: 'primary',
+      spinnerColor: 'primary',
       fullWidth: false,
       disabled: true,
       mode: 'indeterminate'
@@ -353,8 +353,8 @@ export class ItemAddComponent implements OnInit {
       spinnerSize: 19,
       raised: true,
       stroked: false,
-      buttonColor: 'accent',
-      spinnerColor: 'accent',
+      buttonColor: 'primary',
+      spinnerColor: 'primary',
       fullWidth: false,
       disabled: true,
       mode: 'indeterminate'

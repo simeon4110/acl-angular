@@ -1,72 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+/* This CSS contains the global styles and dynamic styling definitions.
+ *
+ * @author Josh Harkema
+ */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 @import '~@angular/material/theming';
+@import "app/dark-theme";
+@import "app/light-theme";
+@import "app/core/footer/footer.component";
+@import "app/modules/home/home.component";
+@import "app/shared/components/card-book/card-book.component";
 
 @include mat-core();
 
-$candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
-$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent);
+$light-primary: mat-palette($mat-indigo);
+$light-accent: mat-palette($mat-pink);
+$light-warn: mat-palette($mat-deep-orange);
+$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 
-@include angular-material-theme($candy-app-theme);
+.light-theme {
+  @include angular-material-theme($light-theme);
+  @include light-theme-style($light-theme);
+  @include footer-component-theme($light-theme);
+  @include home-component-theme($light-theme);
+  @include card-book-component-theme($light-theme);
+}
 
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-primary: mat-palette($mat-pink);
+$dark-accent: mat-palette($mat-deep-purple);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-.unicorn-dark-theme {
+.dark-theme {
   @include angular-material-theme($dark-theme);
+  @include dark-theme-style($dark-theme);
+  @include footer-component-theme($dark-theme);
+  @include home-component-theme($dark-theme);
+  @include card-book-component-theme($dark-theme);
 }
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Roboto Slab'
+  $font-family: 'Roboto Slab',
+  $body-1: mat-typography-level(14pt, 20pt, normal),
+  $body-2: mat-typography-level(13pt, 16pt, normal)
 );
 
 @include angular-material-typography($custom-typography);
 
-// Small tablets and large smartphones (landscape view)
-$screen-sm-min: 576px;
 
-// Small tablets (portrait view)
-$screen-md-min: 768px;
-
-// Tablets and small desktops
-$screen-lg-min: 992px;
-
-// Large tablets and desktops
-$screen-xl-min: 1200px;
-
-// Small devices
-@mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
-
-// Medium devices
-@mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
-}
-
-// Large devices
-@mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
-}
-
-// Extra large devices
-@mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
-}
-
+/* Edges are for losers. */
 html {
   height: 100%;
 }
@@ -78,34 +61,50 @@ body {
   min-height: 100%;
 }
 
-// This deals with spacing for the footer block.
+
+/* Adds the spacing at the bottom to account for the footer. */
 body::after {
   content: '';
   display: block;
-  height: 60px;
+  height: 50px;
 }
 
-/* Custom Typographic styles are here. */
-
-.display-text {
-  font-size: 3.5rem;
-  font-weight: lighter;
-  font-family: 'Roboto Slab', serif;
+td {
+  font-size: 12pt !important;
 }
 
-.lead {
+/* Styling for nav links */
+.nav-item-link {
+  font-size: 12pt;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.171875rem;
-  font-weight: 300;
-  padding: 0 2rem;
 }
 
+
+/* Override font size in drop down menus. */
+.mat-menu-item {
+  font-size: 12pt !important;
+}
+
+
+/* Adds padding to p elements in cards */
 .mat-card-content p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
   padding: 1rem 1rem 0 1rem;
 }
 
+
+/* Override the default font for non-lead text. */
+.mat-body-2 {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+
+/* This allows the poem text to automatically wrap on \n newlines. */
+.poem-text {
+  white-space: pre-wrap;
+}
+
+
+/* Override the button fonts / colors. */
 .mat-raised-button {
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
@@ -119,52 +118,14 @@ body::after {
   font-family: 'Roboto', sans-serif;
 }
 
-.item-add-textbox {
-  min-width: 70rem !important;
-  @include sm() {
-    min-width: 75% !important;
-  }
 
-  @include lg {
-    min-width: 69% !important;
-  }
+/* add extra padding to the mat-card-actions row */
+mat-card-actions {
+  padding-left: 7px !important;
 }
 
-//
-//.cdk-global-scrollblock {
-//  position: initial;
-//  width: initial;
-//  overflow: hidden;
-//}
 
-// Footer styles are global styles for a good reason.
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  line-height: 30px;
-  height: 60px;
-
-  @include md() {
-    line-height: 60px;
-  }
-
-  text-align: center;
-  background-color: #f5f5f5;
-  border-top: 1px solid #eeeeee !important;
-}
-
-// Stealing from Boot Strap.
-.text-muted {
-  color: #95a5a6 !important;
-  font-family: 'Roboto', sans-serif;
-}
-
-.text-muted a {
-  color: #0d47a1 !important;
-}
-
-// For pre-wrapped text.
-.hanging-indent {
-  text-indent: 3em hanging;
+/* Add padding to slide toggler. */
+mat-slide-toggle {
+  padding-right: 5px;
 }
