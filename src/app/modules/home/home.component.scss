@@ -1,33 +1,55 @@
-.jumbotron {
-  margin-bottom: 2rem;
-  background-color: #ecf0f1;
-  border-radius: 3px;
-  padding: 2rem 1rem;
-}
+@import "~@angular/material/theming";
 
-.jumbotron h1 {
-  text-align: center;
-  margin-top: -10px;
-  margin-bottom: 10px
-}
+@mixin home-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $text: map-get($foreground, text);
+  $card: map-get($background, card);
 
-@media (min-width: 576px) {
   .jumbotron {
-    padding: 2rem 3rem;
+    margin-bottom: 2rem;
+    background-color: $card;
+    border-radius: 3px;
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
-}
 
-.tei-header-image {
-  background-image: url('http://www.tei-c.org/wp-content/uploads/2017/07/TEI-175.jpg');
-  background-size: cover;
-}
+  .jumbotron h1 {
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 10px
+  }
 
-.acl-header-image {
-  background-image: url('../../../assets/icons/icon-384x384.png');
-  background-size: cover;
-}
+  @media (min-width: 576px) {
+    .jumbotron {
+      padding: 2rem 3rem;
+    }
+  }
 
-.python-header-image {
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg');
-  background-size: cover;
+  .tei-header-image {
+    background-image: url('assets/icons/TEI-175.jpg');
+    background-size: cover;
+  }
+
+  .acl-header-image {
+    background-image: url('assets/icons/icon-384x384.png');
+    background-size: cover;
+  }
+
+  .python-header-image {
+    background-image: url('assets/icons/Python-logo-notext.svg');
+    background-size: cover;
+  }
+
+  .poem-text {
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 12.5pt !important;
+    white-space: pre-wrap;
+  }
+
+  .header-image-offset {
+    margin-top: 7px;
+  }
 }

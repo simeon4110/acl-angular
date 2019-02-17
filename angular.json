@@ -25,12 +25,16 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/assets/icons/icon-384x384.png",
               "src/manifest.json"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/cookieconsent/build/cookieconsent.min.js"
+            ]
           },
           "configurations": {
             "production": {

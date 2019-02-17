@@ -1,8 +1,11 @@
-<div>
-  <p>The item has been added successfully, would you like to add another item from the same source by the same
-    author?</p>
-  <div class="button-row">
-    <button (click)="isNotReset()" color="accent" mat-raised-button>Yes, don't reset the form</button>
-    <button (click)="isReset()" color="accent" mat-raised-button>No, reset the form</button>
-  </div>
+<h1 mat-dialog-title>Success! Would you like to reset the form?</h1>
+<div mat-dialog-content>
+  <p>
+    The item has been added successfully, would you like to add another item from the same source by the same
+    author?
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button (click)="isNotReset()" color="accent" mat-raised-button>leave the form as is</button>
+  <button (click)="isReset()" color="accent" mat-raised-button>reset the form</button>
 </div>

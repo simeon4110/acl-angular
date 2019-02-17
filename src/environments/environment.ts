@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseDomain: 'localhost',
   oauthAuthorizeUrl: 'http://127.0.0.1:8080/oauth/authorize',
   oauthTokenUrl: 'http://127.0.0.1:8080/oauth/token',
   oauthCheckTokenUrl: 'http://127.0.0.1:8080/oauth/check_token',
@@ -14,7 +15,7 @@ export const environment = {
     'Sonnet': 'SONNET',
     'Free Verse': 'OPEN'
   },
-  itemTypes: ['Poem', 'Book', 'Chapter / Section'],
+  itemTypes: ['Poem', 'Book', 'Chapter / Section', 'Short Story'],
   bookTypes: {
     'Fiction': 'FICTION',
     'Non-fiction': 'NON-FICTION',

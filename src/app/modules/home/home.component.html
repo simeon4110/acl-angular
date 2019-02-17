@@ -1,16 +1,16 @@
 <div fxLayout="row" fxLayoutAlign="center start">
-  <div class="jumbotron" fxFlex="80">
-    <h1 class="display-text">
+  <div class="jumbotron" fxFlex="1 1 80" fxFlex.sm="1 1 95%" fxFlex.xs="1 1 95%">
+    <h1 class="mat-display-3">
       Moments' Monuments: The ACL Database and Toolkit
     </h1>
     <mat-divider></mat-divider>
-    <p class="lead">
+    <p class="mat-body-1">
       This database and toolkit, named for Dante Gabriel Rossetti's The House of Life, aims to offer every sonnet in the
       English language, from the sixteenth century to the present, in interoperable formats. The database is open to
       public use. However, due to stringent data integrity requirements, only authorized users may contribute to the
       database.
     </p>
-    <p class="lead">
+    <p class="mat-body-1">
       The ACL database provides a public RESTful API interface to facilitate programmatic database queries for academic
       work in the digital humanities. For more information, or to request researcher / contributor access, please email
       Michael Ullyot at <a href="mailto:ullyot@ucalgary.ca">ullyot@ucalgary.ca</a> with a brief description of what you
@@ -18,35 +18,36 @@
     </p>
   </div>
 </div>
-<div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="center center" fxLayoutGap="15px" style="padding: 0 20px">
-  <mat-card fxFlex="1 1 30%">
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="15px"
+     style="margin: 10px">
+  <mat-card fxFlex="1 1 30%" fxFlex.sm="1 1 70%" fxFlex.xs="1 1 80%">
     <mat-card-header>
-      <div mat-card-avatar class="tei-header-image"></div>
+      <div mat-card-avatar class="tei-header-image header-image-offset"></div>
       <mat-card-title>Text Encoding Initiative</mat-card-title>
       <mat-card-subtitle>Encoding <i>all</i> the texts.</mat-card-subtitle>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-      <p>
+      <p class="mat-body-2">
         The Text Encoding Initiative (TEI) is a consortium which collectively develops and maintains a standard for
         the representation of texts in digital form. Its chief deliverable is a set of Guidelines which specify
         encoding methods for machine-readable texts, chiefly in the humanities, social sciences and linguistics.
       </p>
       <mat-divider></mat-divider>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="primary">TEI Website</button>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1px">
+      <button mat-raised-button color="primary" (click)="tei()">TEI Website</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="1 1 30%">
+  <mat-card fxFlex="1 1 30%" fxFlex.sm="1 1 80%" fxFlex.xs="1 1 90%">
     <mat-card-header>
-      <div mat-card-avatar class="acl-header-image"></div>
+      <div mat-card-avatar class="acl-header-image header-image-offset"></div>
       <mat-card-title>Augmented Criticism Lab</mat-card-title>
       <mat-card-subtitle>The vision and main contributors.</mat-card-subtitle>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-      <p>
+      <p class="mat-body-2">
         The Augmented Criticism Lab is a digital initiative that investigates the relationship between computational
         literary studies and traditional philology. Building on theories of corpus linguistics, algorithmic criticism,
         and scalable reading, we strive for an augmented criticism—a brand of literary investigation that boasts a
@@ -54,28 +55,58 @@
       </p>
       <mat-divider></mat-divider>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="primary">Michael Ullyot</button>
-      <button mat-button color="primary">Josh Harkema</button>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1px">
+      <button mat-raised-button color="primary" (click)="michaelsBlog()">Michael Ullyot</button>
+      <button mat-raised-button color="primary" (click)="joshBlog()">Josh Harkema</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="1 1 30%">
+  <mat-card fxFlex="1 1 30%" fxFlex.sm="1 1 80%" fxFlex.xs="1 1 90%">
     <mat-card-header>
-      <div mat-card-avatar class="python-header-image"></div>
+      <div mat-card-avatar class="python-header-image header-image-offset"></div>
       <mat-card-title>Python Database Connector</mat-card-title>
       <mat-card-subtitle>Powering programmatic analysis.</mat-card-subtitle>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-      <p>
+      <p class="mat-body-2">
         We provide and maintain a Python class for easily connecting to our database via the RESTful API. This
         class provides basic query functions and JSON object serialization. This allows a user to skip most of the
         data parsing and jump straight into NLTK or NLP analysis of the data.
       </p>
       <mat-divider></mat-divider>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="primary">GitLab Repository</button>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1px">
+      <button mat-raised-button color="primary" (click)="pythonConnector()">GitLab Repository</button>
     </mat-card-actions>
+  </mat-card>
+</div>
+<div style="padding: 25px">
+  <mat-divider></mat-divider>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <h1 class="mat-display-1" style="margin-bottom: 2rem !important; text-align: center" fxFlex="1 1 80%"
+      fxFlex.xs="1 1 90%">
+    Explore the Collection: Two Poems at Random
+  </h1>
+</div>
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="15px"
+     style="margin: 10px; padding-bottom: 20px" *ngIf="randomPoems">
+  <mat-card *ngFor="let poem of randomPoems" fxFlex="0 1 35%" fxFlex.md="0 1 45%" fxFlex.sm="1 1 70%"
+            fxFlex.xs="1 1 80%">
+    <mat-card-header>
+      <mat-card-title>{{poem.title}}</mat-card-title>
+      <mat-card-subtitle>{{poem.author.firstName}} {{poem.author.lastName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p class="poem-text mat-body-2">{{poem.text}}</p>
+      <mat-divider></mat-divider>
+      <p class="mat-body-2">
+        <b>Date added:</b> {{poem.createdDate | date}}<br>
+        <b>Period of initial publication:</b> {{poem.period}}<br>
+        <b>Title of source text:</b> {{poem.sourceTitle}}<br>
+        <b>Publication date of source text:</b> {{poem.dateOfPublication | date}}<br>
+      </p>
+    </mat-card-content>
   </mat-card>
 </div>
