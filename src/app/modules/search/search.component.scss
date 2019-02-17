@@ -1,0 +1,70 @@
+@import "~@angular/material/theming";
+
+@mixin search-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $text: map-get($foreground, text);
+  $card: map-get($background, card);
+
+  table {
+    width: 100%;
+    padding: 0 5px 0 5px;
+  }
+
+  .spinner-card {
+    position: absolute;
+    top: calc(30vh);
+    right: calc(44vw);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .top-menu {
+    background-color: mat-color($accent, 600);
+    height: 130px;
+    border-bottom: 1px solid mat-color($accent, 100);
+  }
+
+  .joke-card-image {
+    background-image: url('~src/assets/icons/awesome-face.png');
+    background-size: cover;
+    margin-top: 7px !important;
+  }
+  .top-menu-big {
+    background-color: mat-color($accent, 600);
+    height: 200px;
+    border-bottom: 1px solid mat-color($accent, 100);
+  }
+
+  .big {
+    font-size: 16pt !important;
+    color: $text !important;
+    width: 45rem;
+    margin-top: -50px !important;
+  }
+
+  .search-container {
+    height: calc(100vh - 125px);
+    background-color: $card !important;
+  }
+
+  .big-icon {
+    font-size: 48pt !important;
+    height: 48pt !important;
+    width: 48pt !important;
+    padding-left: 100px;
+  }
+
+  .nav-spacer {
+    flex: 1 1 auto;
+  }
+
+  .dummy-card {
+    max-width: 30%;
+  }
+}
+
+
+

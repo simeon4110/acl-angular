@@ -1,3 +1,71 @@
-<p>
-  search works!
-</p>
+<div style="min-height: calc(100vh - 125px)">
+  <div *ngIf="!isAdvanced" class="top-menu" fxLayout="row" fxLayoutAlign="center center">
+    <span class="nav-spacer"></span>
+    <form (ngSubmit)="doSearchEveryWhere()" [formGroup]="searchEveryWhereForm">
+      <mat-form-field class="big">
+        <input formControlName="searchString" matInput placeholder="search all the things">
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-hint>to fine tune your results click the advanced search button on the right</mat-hint>
+      </mat-form-field>
+    </form>
+    <button (click)="openAdvancedSearchDialog()" mat-icon-button>
+      <mat-icon class="big-icon">list</mat-icon>
+    </button>
+    <span class="nav-spacer"></span>
+  </div>
+  <div>
+    <table [dataSource]="dataSource" mat-table matSort>
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> #</th>
+        <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> title</th>
+        <td *matCellDef="let element" mat-cell>{{element.title}}</td>
+      </ng-container>
+      <ng-container matColumnDef="author.firstName">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> first name</th>
+        <td *matCellDef="let element" mat-cell>{{element.author.firstName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="author.lastName">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> last name</th>
+        <td *matCellDef="let element" mat-cell>{{element.author.lastName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="period">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> period</th>
+        <td *matCellDef="let element" mat-cell>{{element.period}}</td>
+      </ng-container>
+      <ng-container matColumnDef="form">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> form</th>
+        <td *matCellDef="let element" mat-cell>{{element.form | lowercase}}</td>
+      </ng-container>
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" align="left" showFirstLastButtons>
+    </mat-paginator>
+    <mat-card *ngIf="isLoading" class="spinner-card">
+      <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </mat-card>
+  </div>
+  <div *ngIf="!dataSource" fxLayout="row" fxLayoutAlign="center center" style="padding-top: 10rem">
+    <mat-card fxFlex="0 0 30%">
+      <mat-card-header>
+        <div class="joke-card-image" mat-card-avatar></div>
+        <mat-card-title>nothing to see here</mat-card-title>
+        <mat-card-subtitle>I hate big chunks of empty space</mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <p class="mat-body-1">
+          Maybe some other time I'll put stuff here to bother you when the search table is blank; I added a button
+          to the bottom, it doesn't do anything, feel free to click to your heart's content.
+        </p>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button color="primary" mat-raised-button style="margin-left: 5px">click me</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
