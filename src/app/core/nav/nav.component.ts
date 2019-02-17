@@ -22,17 +22,15 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem('theme') !== '' && localStorage.getItem('theme') !== null) {
-      switch (localStorage.getItem('theme')) {
-        case 'dark-theme':
-          this.themeClass = localStorage.getItem('theme');
-          this.isDark = true;
-          this.setTheme(this.themeClass);
-          break;
-        default:
-          this.themeClass = 'light-theme';
-          this.isDark = false;
-          this.setTheme(this.themeClass);
+    this.themeClass = this.appComponent.themeClass;
+    if (localStorage.getItem('theme')) {
+      if (localStorage.getItem('theme') === 'dark-theme') {
+        this.isDark = true;
+        this.setTheme(localStorage.getItem('theme'));
+      } else {
+        this.themeClass = 'light-theme';
+        this.isDark = false;
+        this.setTheme(this.themeClass);
       }
     }
   }

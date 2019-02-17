@@ -41,13 +41,15 @@
   <mat-divider [vertical]="true" class="style-fix"></mat-divider>
 
   <!--Login / profile buttons-->
-  <button (click)="login()" *ngIf="!auth.isAuthorized" color="primary" mat-stroked-button>
-    LOGIN
-  </button>
-  <button *ngIf="auth.isAuthorized" [matMenuTriggerFor]="userMenu" color="primary" mat-stroked-button>
-    {{auth.user.username}}
-    <mat-icon style="padding-bottom: 4px">arrow_drop_down</mat-icon>
-  </button>
+  <div *ngIf="auth.isAuthorized !== null">
+    <button (click)="login()" *ngIf="!auth.isAuthorized" color="primary" mat-stroked-button>
+      LOGIN
+    </button>
+    <button *ngIf="auth.isAuthorized" [matMenuTriggerFor]="userMenu" color="primary" mat-stroked-button>
+      {{auth.user.username}}
+      <mat-icon style="padding-bottom: 4px">arrow_drop_down</mat-icon>
+    </button>
+  </div>
 
   <!--Trigger for collapsed hamburger menu-->
   <button [mat-menu-trigger-for]="collapseMenu" fxHide="false" fxHide.gt-sm mat-button>

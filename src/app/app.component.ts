@@ -19,7 +19,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 export class AppComponent implements OnInit {
   title = 'acl';
   private authState;
-  themeClass: string;
+  themeClass = 'light-theme';
 
   constructor(private swUpdate: SwUpdate, private auth: AuthService, private router: Router,
               private snackBar: MatSnackBar, private overlayContainer: OverlayContainer) {
