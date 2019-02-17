@@ -57,6 +57,7 @@ import 'hammerjs';
 import {CardBookComponent} from './shared/components/card-book/card-book.component';
 import {CardSectionComponent} from './shared/components/card-section/card-section.component';
 import {OverlayContainer, OverlayModule} from '@angular/cdk/overlay';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
 const appRoutes: Routes = [
@@ -136,7 +137,8 @@ const appRoutes: Routes = [
     MatProgressButtonsModule.forRoot()
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   entryComponents: [
     LoginFormComponent,
@@ -147,7 +149,9 @@ const appRoutes: Routes = [
     CardBookComponent,
     CardSectionComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ]
 })
 export class AppModule {
   constructor(overlayContainer: OverlayContainer) {
