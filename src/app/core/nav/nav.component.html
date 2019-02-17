@@ -36,12 +36,6 @@
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1px" fxShow="false" fxShow.gt-sm>
     <mat-slide-toggle (toggleChange)="toggleTheme()" [checked]="isDark" matTooltip="toggle dark mode">
     </mat-slide-toggle>
-    <button *ngIf="isDark" mat-icon-button>
-      <mat-icon>brightness_5</mat-icon>
-    </button>
-    <button *ngIf="!isDark" mat-icon-button>
-      <mat-icon>brightness_3</mat-icon>
-    </button>
   </div>
 
   <mat-divider [vertical]="true" class="style-fix"></mat-divider>

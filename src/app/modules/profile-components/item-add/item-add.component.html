@@ -1,4 +1,4 @@
-<mat-horizontal-stepper #stepper [linear]="false">
+<mat-horizontal-stepper #stepper [linear]="true">
   <mat-step [stepControl]="itemSelectForm">
     <div *ngIf="!selectedType">
       <ng-template matStepLabel>Select an item type</ng-template>
@@ -19,9 +19,7 @@
         </mat-error>
       </mat-form-field>
     </form>
-    <form (change)="updateSpinnerButton(sectionParentForm, searchBookButton)"
-          *ngIf="selectedType === 'Chapter / Section' && !selectedBook"
-          [formGroup]="sectionParentForm">
+    <form *ngIf="selectedType === 'Chapter / Section' && !selectedBook" [formGroup]="sectionParentForm">
       <div fxLayout="row">
         <mat-form-field>
           <input [required]="true" formControlName="title" matInput placeholder="title of source book">
@@ -33,7 +31,9 @@
         </mat-form-field>
       </div>
       <div fxLayout="row" style="padding-top: 10px">
-        <mat-spinner-button (click)="searchBook()" [options]="searchBookButton">Search</mat-spinner-button>
+        <button (click)="searchBook()" [disabled]="!sectionParentForm.valid" color="primary" mat-raised-button>
+          Search
+        </button>
       </div>
     </form>
     <div *ngIf="selectedBook">
@@ -53,8 +53,7 @@
         <button (click)="resetAuthor()" color="primary" mat-raised-button>Reset author</button>
       </div>
     </div>
-    <form (change)="updateSpinnerButton(authorForm, searchAuthorButton)" (ngSubmit)="searchAuthor()" *ngIf="!author"
-          [formGroup]="authorForm">
+    <form (ngSubmit)="searchAuthor()" *ngIf="!author" [formGroup]="authorForm">
       <ng-template matStepLabel>Select author</ng-template>
       <div fxLayout="row">
         <mat-form-field>
@@ -77,9 +76,10 @@
         </mat-form-field>
       </div>
       <div fxLayout="row" style="padding-top: 10px">
-        <mat-spinner-button (click)="searchAuthor()" [options]="searchAuthorButton" style="margin-right: 5px">
+        <button (click)="searchAuthor()" [disabled]="!authorForm.valid" color="primary" mat-raised-button
+                style="margin-right: 5px">
           Search
-        </mat-spinner-button>
+        </button>
         <button [disabled]="!author" color="primary" mat-raised-button matStepperNext>Next</button>
       </div>
     </form>
@@ -232,12 +232,9 @@
           </mat-checkbox>
         </div>
         <div fxLayout="row" style="padding-top: 10px">
-          <div class="button-row">
-            <button (click)="submitPoem()" [disabled]="poemForm.invalid" color="primary" mat-raised-button
-                    type="submit">
-              Submit
-            </button>
-          </div>
+          <button (click)="submitPoem()" [disabled]="poemForm.invalid" color="primary" mat-raised-button type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>
@@ -269,8 +266,7 @@
           </mat-checkbox>
         </div>
         <div fxLayout="row" style="padding-top: 10px">
-          <button (click)="submitBook()" [disabled]="bookForm.invalid" color="primary" mat-raised-button
-                  type="submit">
+          <button (click)="submitBook()" [disabled]="bookForm.invalid" color="primary" mat-raised-button type="submit">
             Submit
           </button>
         </div>

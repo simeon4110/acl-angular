@@ -8,7 +8,6 @@ import {SelectAuthorComponent} from '../../../shared/components/select-author/se
 import {AddAuthorComponent} from '../../../shared/components/add-author/add-author.component';
 import {AuthorService} from '../../../core/services/author.service';
 import {PoemService} from '../../../core/services/poem.service';
-import {MatProgressButtonOptions} from 'mat-progress-buttons';
 import {BookService} from '../../../core/services/book.service';
 import {ShortStoryService} from '../../../core/services/short-story.service';
 
@@ -47,11 +46,6 @@ export class ItemAddComponent implements OnInit {
   @ViewChild('stepper') stepper;
   @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
 
-  // These bind the animated buttons.
-  searchBookButton: MatProgressButtonOptions;
-  searchAuthorButton: MatProgressButtonOptions;
-  itemSubmitButton: MatProgressButtonOptions;
-
   constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private snackBar: MatSnackBar,
               private authorService: AuthorService, private poemService: PoemService, private bookService: BookService,
               private shortStoryService: ShortStoryService) {
@@ -75,10 +69,6 @@ export class ItemAddComponent implements OnInit {
     this.selectedType = this.itemSelectForm.value.selectedType;
     if (this.selectedType !== 'Chapter / Section') {
       this.stepper.next();
-    }
-    if (this.selectedType === 'Poem') {
-      this.itemDetailsForm.controls['sourceTitle'].setValidators(Validators.required);
-      this.itemDetailsForm.controls['sourceTitle'].updateValueAndValidity();
     }
   }
 
@@ -151,8 +141,6 @@ export class ItemAddComponent implements OnInit {
    * prompted to add a new author.
    */
   public searchAuthor(): void {
-    this.searchAuthorButton.active = true;
-
     // This deals with the fact that Spring REST doesn't like NULL strings in certain contexts.
     const formModel = this.authorForm.value;
     if (formModel.firstName === null) {
@@ -175,9 +163,7 @@ export class ItemAddComponent implements OnInit {
 
   public searchBook(): void {
     const formModel = this.sectionParentForm.value;
-    this.searchBookButton.active = true;
     this.bookService.search(formModel.title.replace(' ', '_')).subscribe((resp: BookModel[]) => {
-      this.searchBookButton.active = false;
       if (resp.length === 1) {
         this.selectedBook = resp[0];
         this.snackBar.open(`${this.selectedBook.title} found, please continue.`, this.stepper.next(), {duration: 2000});
@@ -185,15 +171,6 @@ export class ItemAddComponent implements OnInit {
         this.snackBar.open('That book does not exist, please enter it into the database.', null, {duration: 2000});
       }
     });
-  }
-
-  /**
-   * Handles dynamic binding for disabled mat-spinner-buttons.
-   * @param form the form to check for validity.
-   * @param options the mat-spinner-button options to update.
-   */
-  public updateSpinnerButton(form: FormGroup, options: MatProgressButtonOptions): void {
-    options.disabled = !form.valid;
   }
 
   /**
@@ -257,19 +234,6 @@ export class ItemAddComponent implements OnInit {
     this.itemSelectForm = this.fb.group({
       selectedType: ['', Validators.required]
     });
-
-    this.itemSubmitButton = {
-      active: false,
-      text: 'Submit',
-      spinnerSize: 19,
-      raised: true,
-      stroked: false,
-      buttonColor: 'primary',
-      spinnerColor: 'primary',
-      fullWidth: false,
-      disabled: true,
-      mode: 'indeterminate'
-    };
   }
 
   private createAuthorForm(): void {
@@ -277,19 +241,6 @@ export class ItemAddComponent implements OnInit {
       firstName: [''],
       lastName: ['', Validators.required]
     });
-
-    this.searchAuthorButton = {
-      active: false,
-      text: 'Search',
-      spinnerSize: 19,
-      raised: true,
-      stroked: false,
-      buttonColor: 'primary',
-      spinnerColor: 'primary',
-      fullWidth: false,
-      disabled: true,
-      mode: 'indeterminate'
-    };
   }
 
   private createDetailsForm(): void {
@@ -346,19 +297,6 @@ export class ItemAddComponent implements OnInit {
       type: ['', Validators.required],
       finished: ['', Validators.required]
     });
-
-    this.searchBookButton = {
-      active: false,
-      text: 'Search',
-      spinnerSize: 19,
-      raised: true,
-      stroked: false,
-      buttonColor: 'primary',
-      spinnerColor: 'primary',
-      fullWidth: false,
-      disabled: true,
-      mode: 'indeterminate'
-    };
   }
 
   private createShortStoryForm(): void {
@@ -383,9 +321,8 @@ export class ItemAddComponent implements OnInit {
     // A single result, only result selected as author and form moved to next step.
     if (resp.length === 1) {
       this.author = resp[0];
-      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} found, please continue.`)._dismissAfter(2000);
       this.stepper.next();
-      this.dialog.closeAll();
+      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} found, please continue.`)._dismissAfter(2000);
     }
 
     // No result, user is prompted to enter a new user.
@@ -404,12 +341,10 @@ export class ItemAddComponent implements OnInit {
         } else {
           this.author = author;
           this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`)._dismissAfter(2000);
-          this.stepper.next();
           this.dialog.closeAll();
         }
       });
     }
-    this.searchAuthorButton.active = false;
   }
 
   private resetAllForms(): void {
