@@ -1,6 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material';
 
+/**
+ * Advanced search form component.
+ * @author Josh Harkema
+ */
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
@@ -12,19 +17,20 @@ export class SearchFormComponent implements OnInit {
   searchForm: FormGroup;
   joinParameters = ['and', 'or', 'not'];
   matchTypes = ['contains', 'is (exact)', 'starts with'];
-  itemTypes = ['any', 'poems', 'novels', 'short stories'];
 
   fields = {
     'any': 'any',
     'author.firstName': 'author\'s first name',
     'author.lastName': 'author\'s last name',
-    'title': 'title',
+    'title': 'book / poem title',
+    'chapter_title': 'chapter title (sections)',
+    'parent_title': 'book title (sections)',
     'period': 'period',
     'poem_form': 'poetic form',
     'text': 'text'
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<SearchFormComponent>) {
   }
 
   get rows(): FormArray {
@@ -52,7 +58,19 @@ export class SearchFormComponent implements OnInit {
 
   submit(): void {
     this.formValue.emit(this.searchForm);
-    // this.dialogRef.close();
+    this.dialogRef.close();
+  }
+
+  updateChecked(setAny: boolean): void {
+    if (!setAny) {
+      this.searchForm.get('itemTypeAny').patchValue(false);
+    } else if (setAny) {
+      this.searchForm.get('itemTypeBook').patchValue(false);
+      this.searchForm.get('itemTypePoem').patchValue(false);
+      this.searchForm.get('itemTypeSection').patchValue(false);
+      this.searchForm.get('itemTypeShortStory').patchValue(false);
+      this.searchForm.get('itemTypeAny').patchValue(true);
+    }
   }
 
   private createSearchForm(): void {
@@ -60,7 +78,11 @@ export class SearchFormComponent implements OnInit {
       firstFieldName: [this.fields['any'], Validators.required],
       firstFieldMatchType: [this.matchTypes[0], Validators.required],
       firstFieldSearchString: ['', Validators.required],
-      itemType: [this.itemTypes[0], Validators.required],
+      itemTypeAny: [true],
+      itemTypeBook: [''],
+      itemTypePoem: [''],
+      itemTypeSection: [''],
+      itemTypeShortStory: [''],
       publicationDate: [''],
       rows: this.fb.array([
         this.fb.group({

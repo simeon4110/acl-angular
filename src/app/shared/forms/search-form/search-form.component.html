@@ -1,6 +1,24 @@
 <h1 mat-dialog-title>advanced search</h1>
 <div mat-dialog-content>
+  <mat-divider style="padding: 10px"></mat-divider>
   <form [formGroup]="searchForm">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" style="padding-bottom: 25px">
+      <label>Item Type:</label>
+      <mat-checkbox formControlName="itemTypeAny" (change)="updateChecked(true)">any
+      </mat-checkbox>
+      <mat-checkbox formControlName="itemTypeBook" (change)="updateChecked(false)">
+        books
+      </mat-checkbox>
+      <mat-checkbox formControlName="itemTypePoem" (change)="updateChecked(false)">
+        poems
+      </mat-checkbox>
+      <mat-checkbox formControlName="itemTypeSection" (change)="updateChecked(false)">
+        sections / chapters
+      </mat-checkbox>
+      <mat-checkbox formControlName="itemTypeShortStory" (change)="updateChecked(false)">
+        short stories
+      </mat-checkbox>
+    </div>
     <div fxLayout="row" fxLayoutGap="5px">
       <mat-form-field style="width: 10rem !important;">
         <mat-select formControlName="firstFieldName" placeholder="field" [required]="true">
@@ -20,11 +38,6 @@
           What's a search without something to search for?
         </span>
         </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select formControlName="itemType" placeholder="item type" [required]="true">
-          <mat-option *ngFor="let itemType of itemTypes" [value]="itemType">{{itemType}}</mat-option>
-        </mat-select>
       </mat-form-field>
       <mat-form-field style="width: 15rem !important;">
         <input matInput formControlName="publicationDate" placeholder="publication date" type="date">

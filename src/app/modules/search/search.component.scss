@@ -21,7 +21,7 @@
     align-items: center;
   }
 
-  .top-menu {
+  .search-toolbar {
     background-color: mat-color($accent, 600);
     height: 130px;
     border-bottom: 1px solid mat-color($accent, 100);
@@ -63,6 +63,10 @@
 
   .dummy-card {
     max-width: 30%;
+  }
+
+  .checkbox-row {
+
   }
 }
 
