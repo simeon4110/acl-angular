@@ -1,5 +1,5 @@
 <div style="min-height: calc(100vh - 125px)">
-  <div *ngIf="!isAdvanced" class="top-menu" fxLayout="row" fxLayoutAlign="center center"
+  <div class="search-toolbar" fxLayout="row" fxLayoutAlign="center center"
        fxLayoutAlign.gt-sm="start center">
     <span class="nav-spacer" fxShow.gt-xs></span>
     <form (ngSubmit)="doSearchEveryWhere()" [formGroup]="searchEveryWhereForm">

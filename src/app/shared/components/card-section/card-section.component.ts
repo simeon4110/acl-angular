@@ -12,10 +12,12 @@ import {MAT_DIALOG_DATA} from '@angular/material';
   styleUrls: ['./card-section.component.scss']
 })
 export class CardSectionComponent implements OnInit {
-  item: SectionModel;
+  item: any;
+  searchString: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    this.item = data;
+    this.item = data.item;
+    this.searchString = data.searchString;
   }
 
   ngOnInit() {

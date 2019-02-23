@@ -13,9 +13,11 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 })
 export class CardPoemComponent implements OnInit {
   item: any;
+  searchString: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    this.item = data;
+    this.item = data.item;
+    this.searchString = data.searchString;
   }
 
   ngOnInit() {

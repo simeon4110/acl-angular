@@ -15,9 +15,11 @@ import {Overlay} from '@angular/cdk/overlay';
 })
 export class CardBookComponent implements OnInit {
   item: any;
+  searchString: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private overlay: Overlay) {
-    this.item = data;
+    this.item = data.item;
+    this.searchString = data.searchString;
   }
 
   ngOnInit() {

@@ -9,7 +9,10 @@
           "/favicon.ico",
           "/index.html",
           "/*.css",
-          "/*.js"
+          "/*.js",
+          "/*.jpg",
+          "/*.svg",
+          "/*.png"
         ]
       }
     }, {
@@ -18,7 +21,10 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/assets/**"
+          "/assets/**",
+          "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "https://fonts.googleapis.com/css?family=Roboto",
+          "https://fonts.googleapis.com/css?family=Roboto+Slab"
         ]
       }
     }
@@ -29,8 +35,8 @@
       "urls": ["https://api.acriticismlab.org/**"],
       "cacheConfig": {
         "maxSize": 3,
-        "maxAge": "10m",
-        "strategy": "freshness"
+        "maxAge": "30m",
+        "strategy": "performance"
       }
     }
   ]

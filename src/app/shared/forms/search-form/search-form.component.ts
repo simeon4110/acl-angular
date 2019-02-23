@@ -1,6 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material';
 
+/**
+ * Advanced search form component.
+ * @author Josh Harkema
+ */
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
@@ -10,21 +15,25 @@ export class SearchFormComponent implements OnInit {
   @Output() formValue: EventEmitter<FormGroup> = new EventEmitter();
 
   searchForm: FormGroup;
+
+  // Define search params.
   joinParameters = ['and', 'or', 'not'];
   matchTypes = ['contains', 'is (exact)', 'starts with'];
-  itemTypes = ['any', 'poems', 'novels', 'short stories'];
 
+  // Define all search fields here, adding / removing fields won't break anything.
   fields = {
     'any': 'any',
     'author.firstName': 'author\'s first name',
     'author.lastName': 'author\'s last name',
-    'title': 'title',
+    'title': 'book / poem title',
+    'chapter_title': 'chapter title (sections)',
+    'parent_title': 'book title (sections)',
     'period': 'period',
     'poem_form': 'poetic form',
     'text': 'text'
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<SearchFormComponent>) {
   }
 
   get rows(): FormArray {
@@ -35,6 +44,9 @@ export class SearchFormComponent implements OnInit {
     this.createSearchForm();
   }
 
+  /**
+   * Adds a row to the dynamic search form.
+   */
   addRow(): void {
     this.rows.push(
       this.fb.group({
@@ -46,13 +58,37 @@ export class SearchFormComponent implements OnInit {
     );
   }
 
+  /**
+   * Removes a row from the search form at a given index.
+   * @param index the index of the row to remove.
+   */
   deleteRow(index): void {
     this.rows.removeAt(index);
   }
 
+  /**
+   * Emits the searchForm and closes the search dialog window.
+   */
   submit(): void {
     this.formValue.emit(this.searchForm);
-    // this.dialogRef.close();
+    this.dialogRef.close();
+  }
+
+  /**
+   * Any can only be checked if no other item types are checked, this is the logic that deals
+   * with this requirement.
+   * @param setAny true if any is checked, false otherwise.
+   */
+  updateChecked(setAny: boolean): void {
+    if (!setAny) {
+      this.searchForm.get('itemTypeAny').patchValue(false);
+    } else if (setAny) {
+      this.searchForm.get('itemTypeBook').patchValue(false);
+      this.searchForm.get('itemTypePoem').patchValue(false);
+      this.searchForm.get('itemTypeSection').patchValue(false);
+      this.searchForm.get('itemTypeShortStory').patchValue(false);
+      this.searchForm.get('itemTypeAny').patchValue(true);
+    }
   }
 
   private createSearchForm(): void {
@@ -60,7 +96,11 @@ export class SearchFormComponent implements OnInit {
       firstFieldName: [this.fields['any'], Validators.required],
       firstFieldMatchType: [this.matchTypes[0], Validators.required],
       firstFieldSearchString: ['', Validators.required],
-      itemType: [this.itemTypes[0], Validators.required],
+      itemTypeAny: [true],
+      itemTypeBook: [''],
+      itemTypePoem: [''],
+      itemTypeSection: [''],
+      itemTypeShortStory: [''],
       publicationDate: [''],
       rows: this.fb.array([
         this.fb.group({
