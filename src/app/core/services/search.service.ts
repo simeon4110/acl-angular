@@ -28,13 +28,25 @@ export class SearchService {
         queryString += '~) ';
         break;
       case 'is (exact)':
-        queryString += '~) ';
+        queryString += ') ';
         break;
       case 'starts with':
         queryString += '*) ';
         break;
     }
     return queryString;
+  }
+
+  /**
+   * Adds quotes and ~ if the search string contains more than one word. All phrase queries are fuzzy.
+   * @param searchString the string to check.
+   * @param matchType the type of match.
+   */
+  private static parsePhraseOrTerm(searchString: string, matchType: string) {
+    if (searchString.split(' ').length > 1) {
+      return `"${searchString}"~) `;
+    }
+    return this.parseMatchType(searchString, matchType);
   }
 
   /**
@@ -45,23 +57,12 @@ export class SearchService {
    * @param matchType the match type (i.e. contains, exact, starts with.)
    */
   private static parseFirstRowQuery(queryString: string, searchString: string, fieldName: string, matchType: string) {
-    console.log('FIRST ROW: ' + queryString);
-    let matchSuffix = '';
-    switch (matchType) {
-      case 'contains':
-        matchSuffix = '~';
-        break;
-      case 'starts with':
-        matchSuffix = '*';
-        break;
-      default:
-        matchSuffix = '~';
-    }
+    searchString = this.parsePhraseOrTerm(searchString, matchType);
     if (fieldName === 'any') {
-      return `(text:"${searchString}"${matchSuffix} OR title:"${searchString}"${matchSuffix} ` +
-        `OR author.firstName:"${searchString}"${matchSuffix} OR author.lastName:"${searchString}"${matchSuffix}) `;
+      return `(text:${searchString} OR title:${searchString} OR author.firstName:${searchString} ` +
+        `OR author.lastName:${searchString}`;
     } else {
-      return `(${fieldName}:"${searchString}"${matchSuffix}) `;
+      return `(${fieldName}:${searchString}`;
     }
   }
 
@@ -87,8 +88,8 @@ export class SearchService {
         queryString += 'NOT ';
     }
 
-    queryString += `(${fieldName}:"${searchString}"`;
-    queryString = SearchService.parseMatchType(queryString, matchType);
+    searchString = this.parsePhraseOrTerm(searchString, matchType);
+    queryString += `(${fieldName}:${searchString}`;
     return queryString;
   }
 
@@ -105,8 +106,6 @@ export class SearchService {
     const formValue = searchForm.value;
     let queryString = '';
     const queryItemTypes = [];
-
-    console.log(formValue);
 
     // Parse the item types.
     if (formValue.itemTypeAny) {
@@ -142,7 +141,6 @@ export class SearchService {
     }
     let params = new HttpParams().set('query_string', queryString);
     params = params.append('item_types', `${queryItemTypes.join(',')}`);
-    console.log(params.toString());
     return this.http.get(environment.apiBaseUrl + 'search', {params: params});
   }
 }
