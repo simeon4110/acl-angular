@@ -31,7 +31,9 @@ export class CardBookComponent implements OnInit {
    */
   public viewSection(section: SectionModel): void {
     this.dialog.open(CardSectionComponent, {
-      data: section,
+      data: {
+        item: section
+      },
       scrollStrategy: this.overlay.scrollStrategies.noop()
     });
   }
