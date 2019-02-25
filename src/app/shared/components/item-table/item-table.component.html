@@ -7,7 +7,7 @@
     <ng-container matColumnDef="title">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> title</th>
       <td *matCellDef="let element" mat-cell>
-        {{element.type === 'SECT' ? element.parentTitle + " - " + element.title : element.title}}</td>
+        {{element.category === 'SECT' ? element.parentTitle + " - " + element.title : element.title}}</td>
     </ng-container>
     <ng-container matColumnDef="category">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> category</th>
