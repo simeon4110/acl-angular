@@ -1,11 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {SearchFormComponent} from '../../shared/forms/search-form/search-form.component';
 import {SearchService} from '../../core/services/search.service';
-import {CardPoemComponent} from '../../shared/components/card-poem/card-poem.component';
-import {CardBookComponent} from '../../shared/components/card-book/card-book.component';
-import {Overlay} from '@angular/cdk/overlay';
+import {ItemTableComponent} from '../../shared/components/item-table/item-table.component';
 
 @Component({
   selector: 'app-search',
@@ -13,19 +11,14 @@ import {Overlay} from '@angular/cdk/overlay';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService,
-              private overlay: Overlay) {
-  }
-
+  @ViewChild(ItemTableComponent) table: ItemTableComponent;
   searchEveryWhereForm: FormGroup;
   isLoading = false;
+  isEmpty = true;
+  searchString = '';
 
-  // The table and its bindings.
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['id', 'title', 'author.firstName', 'author.lastName', 'form', 'period'];
-  dataSource: MatTableDataSource<any>;
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService) {
+  }
 
   /**
    * A basic parser that searches an item's text, title, and author first/last name.
@@ -33,8 +26,8 @@ export class SearchComponent implements OnInit {
    * @param searchString the search string to search for.
    */
   private static parseAnyFieldQuery(queryString: string, searchString: string): string {
-    queryString += `(text:"${searchString}~" OR title:"${searchString}~" OR author.firstName:"${searchString}~" ` +
-      `OR author.lastName:"${searchString}~") `;
+    queryString += `(text:"${searchString}"~ OR title:"${searchString}"~ OR author.firstName:"${searchString}"~ ` +
+      `OR author.lastName:"${searchString}"~) `;
     return queryString;
   }
 
@@ -49,6 +42,7 @@ export class SearchComponent implements OnInit {
     this.dialog.open(SearchFormComponent).componentInstance.formValue.subscribe((resp: FormGroup) => {
       this.isLoading = true;
       this.doSearch(resp);
+      this.isEmpty = false;
     });
   }
 
@@ -60,9 +54,10 @@ export class SearchComponent implements OnInit {
     let searchString = '';
     searchString = SearchComponent.parseAnyFieldQuery(searchString, this.searchEveryWhereForm.value.searchString);
     this.searchService.doBasicSearch(searchString).subscribe((resp: ItemModel[]) => {
-      this.dataSource = new MatTableDataSource<ItemModel>(resp);
-      this.updateTableBindings();
+      this.table.updateTable(resp);
+      console.log(resp);
       this.isLoading = false;
+      this.isEmpty = false;
     }, error => {
       console.log(error);
       this.isLoading = false;
@@ -70,60 +65,33 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * Runs the advanced search.
+   * Runs the advanced search and extracts a searchString for item text highlighting if needed.
    * @param searchForm the value of the searchForm.
    */
   public doSearch(searchForm: FormGroup): void {
     this.searchService.doSearch(searchForm).subscribe((resp: ItemModel[]) => {
-      this.dataSource = new MatTableDataSource<ItemModel>(resp);
-      this.updateTableBindings();
+      // This pulls out a string to highlight in the item cards if it is applicable.
+      const formValue = searchForm.value;
+      if (formValue.firstFieldName === 'text') {
+        this.searchString = formValue.firstFieldSearchString;
+      } else {
+        for (const f of formValue.rows) {
+          if (this.searchString === '' && f.fieldName === 'text') {
+            this.searchString = f.searchString;
+          }
+        }
+      }
+      this.table.updateTable(resp);
       this.isLoading = false;
     }, error => {
       console.log(error);
       this.isLoading = false;
     });
-  }
-
-  /**
-   * Routes to the correct dialog display component for a given item type. (i.e. BOOK, POEM, etc.)
-   * @param item the item to popup a dialog display for.
-   */
-  public showItem<T extends ItemModel>(item: T): void {
-    if (item.category === 'POEM') {
-      console.log(item);
-      this.dialog.open(CardPoemComponent, {
-        data: item
-      });
-    } else if (item.category === 'BOOK') {
-      console.log(item);
-      this.dialog.open(CardBookComponent, {
-        scrollStrategy: this.overlay.scrollStrategies.noop(),
-        data: item
-      });
-    }
   }
 
   private createSearchEveryWhereForm(): void {
     this.searchEveryWhereForm = this.fb.group({
       searchString: ['']
     });
-  }
-
-  /**
-   * Rebinds the paginator, sort, and custom sort to the table DataSource.
-   */
-  private updateTableBindings(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.dataSource.sortingDataAccessor = (item, property) => {
-      switch (property) {
-        case 'author.firstName':
-          return item.author.firstName;
-        case 'author.lastName':
-          return item.author.lastName;
-        default:
-          return item[property];
-      }
-    };
   }
 }

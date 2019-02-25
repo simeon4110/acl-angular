@@ -85,6 +85,6 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="submit()">submit</button>
+  <button mat-raised-button color="primary" (click)="submit()" [disabled]="!searchForm.valid">submit</button>
   <button mat-raised-button color="warn" mat-dialog-close>close</button>
 </div>

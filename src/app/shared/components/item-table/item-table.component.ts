@@ -15,8 +15,8 @@ import {CardSectionComponent} from '../card-section/card-section.component';
   styleUrls: ['./item-table.component.scss']
 })
 export class ItemTableComponent implements OnInit {
-  @Input() searchString: string; // defines any text that needs to be highlighted.
   @Input() isActions: boolean; // defines if the actions column should be shown.
+  @Input() searchString: string; // defines any text that needs to be highlighted.
 
   // The table data and bindings.
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,6 +41,25 @@ export class ItemTableComponent implements OnInit {
     if (this.isActions) {
       this.displayedColumns.push('actions');
     }
+  }
+
+  getCategoryPretty(category: string): string {
+    let out = '';
+    switch (category) {
+      case 'BOOK':
+        out = 'books';
+        break;
+      case 'POEM':
+        out = 'poems';
+        break;
+      case 'SECT':
+        out = 'book sections';
+        break;
+      case 'SHST':
+        out = 'short stories';
+        break;
+    }
+    return out;
   }
 
   /**

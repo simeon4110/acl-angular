@@ -3,4 +3,5 @@ interface SectionModel extends ItemModel {
   confirmation: ConfirmationModel;
   text: string;
   parentId: number;
+  parentTitle: string;
 }

@@ -1,19 +1,16 @@
-<div>
-  <mat-card class="poem-card">
-    <mat-card-header>
-      <mat-card-title>{{item.title}}</mat-card-title>
-      <mat-card-subtitle>{{item.author.firstName}} {{item.author.lastName}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      <p class="poem-text">{{formatText(item.text)}}</p>
-      <mat-divider></mat-divider>
-      <p>
-        <b>Date added:</b> {{item.createdDate | date}}<br>
-        <b>Period of initial publication:</b> {{item.period}}<br>
-        <b>Title of source text:</b> {{item.sourceTitle}}<br>
-        <b>Publication date of source text:</b> {{item.dateOfPublication | date}}<br>
-      </p>
-    </mat-card-content>
-  </mat-card>
+<h1 mat-dialog-title style="padding-bottom: 0 !important; margin-bottom: -5px !important;">{{item.title}}</h1>
+<h3 class="mat-h3" style="padding: 0 !important;">{{item.author.firstName}} {{item.author.lastName}}</h3>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <p class="poem-text mat-body-2">{{formatText(item.text)}}</p>
+  <mat-divider></mat-divider>
+  <p>
+    <b>Date added:</b> {{item.createdDate | date}}<br>
+    <b>Period of initial publication:</b> {{item.period}}<br>
+    <b>Title of source text:</b> {{item.sourceTitle}}<br>
+    <b>Publication date of source text:</b> {{item.dateOfPublication | date}}<br>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close>close</button>
 </div>
