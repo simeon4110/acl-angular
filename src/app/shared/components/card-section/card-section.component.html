@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{item.title}}</h1>
+<h1 mat-dialog-title>{{item.parentTitle}} - {{item.title}}</h1>
 <div mat-dialog-content>
   <p class="section-paragraphs" *ngFor="let pg of item.text.split('\n')">{{pg}}</p>
   <mat-divider></mat-divider>
