@@ -59,10 +59,10 @@ export class SearchService {
   private static parseFirstRowQuery(queryString: string, searchString: string, fieldName: string, matchType: string) {
     searchString = this.parsePhraseOrTerm(searchString, matchType);
     if (fieldName === 'any') {
-      return `(text:${searchString} OR title:${searchString} OR author.firstName:${searchString} ` +
-        `OR author.lastName:${searchString}`;
+      return `(text:${searchString} OR (title:${searchString} OR (author.firstName:${searchString} ` +
+        `OR (author.lastName:${searchString} `;
     } else {
-      return `(${fieldName}:${searchString}`;
+      return `(${fieldName}:${searchString} `;
     }
   }
 

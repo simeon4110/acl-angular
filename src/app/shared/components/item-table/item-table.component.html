@@ -6,11 +6,12 @@
     </ng-container>
     <ng-container matColumnDef="title">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> title</th>
-      <td *matCellDef="let element" mat-cell>{{element.title}}</td>
+      <td *matCellDef="let element" mat-cell>
+        {{element.type === 'SECT' ? element.parentTitle + " - " + element.title : element.title}}</td>
     </ng-container>
     <ng-container matColumnDef="category">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> category</th>
-      <td *matCellDef="let element" mat-cell>{{element.category | titlecase}}s</td>
+      <td *matCellDef="let element" mat-cell>{{getCategoryPretty(element.category) | titlecase}}</td>
     </ng-container>
     <ng-container matColumnDef="author.firstName">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> first name</th>
