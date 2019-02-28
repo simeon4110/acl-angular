@@ -29,6 +29,7 @@ export class AuthService {
     this.http.get(environment.userDetailsUrl).subscribe((resp: UserModel) => {
       this.user = resp;
       localStorage.setItem('user', JSON.stringify(this.user));
+      this.checkToken();
     }, e => console.log(e));
   }
 
