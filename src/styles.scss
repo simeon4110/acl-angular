@@ -46,9 +46,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 $custom-typography: mat-typography-config(
   $font-family: 'RobotoSlab',
-  $body-1: mat-typography-level(14pt, 20pt, normal),
-  $body-2: mat-typography-level(13pt, 16pt, normal)
+  $body-1: mat-typography-level(14pt, 18pt, normal),
+  $body-2: mat-typography-level(14pt, 18pt, normal)
 );
+
 
 @include angular-material-typography($custom-typography);
 

@@ -60,6 +60,8 @@ import {OverlayContainer, OverlayModule} from '@angular/cdk/overlay';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {SearchFormComponent} from './shared/forms/search-form/search-form.component';
 import {ItemTableComponent} from './shared/components/item-table/item-table.component';
+import {AdminUserManagerComponent} from './modules/profile-components/admin-user-manager/admin-user-manager.component';
+import {UserAddFormComponent} from './shared/forms/user-add-form/user-add-form.component';
 
 
 const appRoutes: Routes = [
@@ -74,7 +76,8 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: 'add-item', component: ItemAddComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
-      {path: 'user-details', component: UserDetailsComponent, outlet: 'profile-out', canActivate: [AuthGuard]}
+      {path: 'user-details', component: UserDetailsComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
+      {path: 'add-user', component: AdminUserManagerComponent, outlet: 'profile-out', canActivate: [AuthGuard]}
     ]
   }
 ];
@@ -101,6 +104,8 @@ const appRoutes: Routes = [
     CardSectionComponent,
     SearchFormComponent,
     ItemTableComponent,
+    AdminUserManagerComponent,
+    UserAddFormComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -152,7 +157,8 @@ const appRoutes: Routes = [
     CardPoemComponent,
     CardBookComponent,
     CardSectionComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    UserAddFormComponent
   ],
   bootstrap: [
     AppComponent,

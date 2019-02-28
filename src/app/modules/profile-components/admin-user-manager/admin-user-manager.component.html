@@ -1,0 +1,39 @@
+<div>
+  <mat-card *ngIf="loading">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </mat-card>
+</div>
+<div>
+  <table [dataSource]="dataSource" mat-table matSort>
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> #</th>
+      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+    </ng-container>
+    <ng-container matColumnDef="username">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> username</th>
+      <td *matCellDef="let element" mat-cell>{{element.username}}</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> email</th>
+      <td *matCellDef="let element" mat-cell>{{element.email}}</td>
+    </ng-container>
+    <ng-container matColumnDef="authorities">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> administrator</th>
+      <td *matCellDef="let element" mat-cell>{{element.admin}}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+      <td *matCellDef="let element" mat-cell>
+        <button mat-icon-button color="accent" (click)="deleteUser(element.username)" matTooltip="delete user">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]" align="left" showFirstLastButtons></mat-paginator>
+</div>
+<div style="padding: 10px">
+  <button mat-raised-button color="primary" (click)="addUser()">add user</button>
+</div>

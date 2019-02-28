@@ -11,6 +11,19 @@
         <mat-icon color="primary">library_add</mat-icon>
         <span>Add Item</span>
       </a>
+
+      <ng-container *ngIf="auth.isAdmin()">
+        <span class="nav-spacer"></span>
+        <mat-divider></mat-divider>
+        <span class="nav-spacer"></span>
+
+        <a [routerLink]="['/profile', {outlets: {'profile-out': ['add-user']}}]" mat-list-item
+           routerLinkActive="active sidebar-item-active">
+          <mat-icon color="primary">person_add</mat-icon>
+          <span>Manage Users</span>
+        </a>
+      </ng-container>
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

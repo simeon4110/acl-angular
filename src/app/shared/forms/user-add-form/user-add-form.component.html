@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>add new user</h1>
+<div mat-dialog-content>
+  <mat-divider></mat-divider>
+  <form [formGroup]="userAddForm">
+    <div fxLayout="row" fxLayoutGap="5px">
+      <mat-form-field>
+        <input matInput formControlName="username" placeholder="username" [required]="true">
+        <mat-error>
+          <span *ngIf="!userAddForm.get('username').valid && userAddForm.get('username').touched">
+            a username is required.
+          </span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="email" placeholder="email" type="email" [required]="true">
+        <mat-error>
+          <span *ngIf="!userAddForm.get('email').valid && userAddForm.get('email').touched">
+            a valid email is required.
+          </span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="requiredSonnets" placeholder="required sonnets" type="number"
+               [required]="true">
+        <mat-error>
+          <span *ngIf="!userAddForm.get('requiredSonnets').valid && userAddForm.get('requiredSonnets').touched">
+            a number of required sonnets is required, '0' is a valid response.
+          </span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" style="padding-top: 10px">
+      <mat-checkbox formControlName="isAdmin">administrator?</mat-checkbox>
+    </div>
+    <div fxLayout="row" style="padding-top: 10px">
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    </div>
+  </form>
+</div>
