@@ -32,11 +32,18 @@
   "dataGroups": [
     {
       "name": "api.acriticismlab.org",
-      "urls": ["https://api.acriticismlab.org/**"],
+      "urls": [
+        "https://api.acriticismlab.org/secure/poem/**",
+        "https://api.acriticismlab.org/secure/book/**",
+        "https://api.acriticismlab.org/secure/section/**",
+        "https://api.acriticismlab.org/poem/**",
+        "https://api.acriticismlab.org/book/**",
+        "https://api.acriticismlab.org/section/**"
+      ],
       "cacheConfig": {
         "maxSize": 3,
         "maxAge": "30m",
-        "strategy": "performance"
+        "strategy": "freshness"
       }
     }
   ]
