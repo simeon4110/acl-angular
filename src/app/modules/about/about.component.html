@@ -1,3 +1,79 @@
-<p>
-  about works!
-</p>
+<div class="about-container">
+  <h3 class="mat-display-1">Scope</h3>
+  <p class="mat-body-1">
+    This database aims to offer every sonnet in the English language, from the sixteenth century to the present, in
+    interoperable formats. We began in May 2018 with the Norton anthology
+    <a href="http://books.wwnorton.com/books/The-Making-of-a-Sonnet/">The Making of a Sonnet</a>; expanded in June 2018
+    to <a href="https://www.gutenberg.org/">Project Gutenberg</a> books; and have since begun to incorporate every
+    sonnet in the <a href="http://www.textcreationpartnership.org/tcp-eebo/">EEBO-TCP</a> corpus of English books
+    printed from 1475-1700 (Phases 1 and 2).
+  </p>
+  <mat-divider></mat-divider>
+  <h3 class="mat-display-1">Questions</h3>
+  <p class="mat-body-1">
+    Sonnets are reducible neither to formal definitions (14 lines of rhymed iambic pentameter) nor to generic
+    definitions (first-person reflection or argument, often with a volta): the many exceptions to these ‘rules’ make
+    sonnets both flexible and prodigious. But how would our understanding of sonnets change were we to move beyond major
+    authors (Wyatt, Shakespeare, Milton) and anthologized selections to read every sonnet printed in English?
+  </p>
+  <p class="mat-body-1">
+    For instance, is the sonnet a form, or a genre? What rhyme scheme do most sonnets use? Who is the most innovative
+    sonneteer, and who the most typical? And what does the ground truth of all those sonnets do to our standard
+    definitions of this form-genre hybrid?
+  </p>
+  <mat-divider></mat-divider>
+  <h3 class="mat-display-1">Methods</h3>
+  <p class="mat-body-1">
+    We are quantifying and comparing the linguistic features of sonnets using the
+    <a href="https://www.nltk.org/">Natural Language Toolkit</a>. We have made a number of tools available via our
+    Application Program Interface (API); you can
+    <a href="https://app.swaggerhub.com/apis-docs/augmented-criticism/ACL/1.0.0-oas3">read the documentation</a> here,
+    including our gentle introduction to Python programming — for humanists who may never have written a line of code.
+  </p>
+  <mat-divider></mat-divider>
+  <h3 class="mat-display-1">Contact Us</h3>
+  <p class="mat-body-1">
+    For more information, please use this form. If you'd like to join our mailing list, check the box next to your
+    return address; we will not contact you too frequently, and will never give away your address.
+  </p>
+  <form [formGroup]="contactForm" style="padding-bottom: 20px">
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field>
+        <input [required]="true" formControlName="name" matInput placeholder="name">
+        <mat-error>
+        <span *ngIf="!contactForm.get('name').valid && contactForm.get('name').touched">
+          a valid name is required.
+        </span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input [required]="true" formControlName="email" matInput placeholder="email" type="email">
+        <mat-error>
+        <span *ngIf="!contactForm.get('email').valid && contactForm.get('email').touched">
+          a valid email address is required.
+        </span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="0 0 50%">
+      <textarea [cdkAutosizeMinRows]="14" [required]="true" cdkTextareaAutosize formControlName="message"
+                matInput placeholder="your message"></textarea>
+        <mat-error>
+        <span *ngIf="!contactForm.get('message').valid && contactForm.get('message').touched">
+          a message is required.
+        </span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" style="padding-top: 10px">
+      <mat-checkbox formControlName="mailingList">join mailing list</mat-checkbox>
+    </div>
+    <div fxLayout="row" style="padding-top: 10px">
+      <button (click)="submit()" color="primary" mat-raised-button>submit</button>
+    </div>
+  </form>
+  <mat-card *ngIf="loading">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </mat-card>
+</div>

@@ -1,0 +1,21 @@
+.about-container {
+  padding: 10px 40px 10px 40px;
+  min-height: calc(100vh - 135px);
+}
+
+.mat-divider {
+  padding: 10px;
+}
+
+mat-card {
+  position: absolute;
+  top: calc(85vh);
+  right: calc(50vw);
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-display-1 {
+  padding-bottom: 5px !important;
+  margin-bottom: 5px !important;
+}
