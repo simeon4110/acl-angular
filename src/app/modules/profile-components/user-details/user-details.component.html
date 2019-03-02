@@ -3,9 +3,11 @@
     <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
   </mat-card>
 </div>
-<div style="padding: 10px">
-  <button mat-raised-button color="primary" (click)="resetPassword()">change password</button>
-</div>
+<mat-toolbar>
+  <mat-toolbar-row fxLayout="row" fxLayoutGap="10px">
+    <button mat-stroked-button color="accent" (click)="resetPassword()">change password</button>
+  </mat-toolbar-row>
+</mat-toolbar>
 <mat-list>
   <mat-list-item>
     <p class="mat-body-1"><strong>Username:</strong> {{auth.user.username}}</p>
