@@ -1,0 +1,13 @@
+.tools-container {
+  min-height: calc(100vh - 125px);
+}
+
+.voyant-header-image {
+  background-image: url("~src/assets/icons/voyant.png");
+  background-size: cover;
+}
+
+.header-image-offset {
+  margin-top: 7px;
+}
+

@@ -51,5 +51,5 @@
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
     <tr (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
   </table>
-  <mat-paginator [pageSizeOptions]="[10, 20, 50]" align="left" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" align="left" showFirstLastButtons></mat-paginator>
 </div>
