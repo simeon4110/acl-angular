@@ -1,6 +1,6 @@
 .about-container {
-  padding: 10px 40px 10px 40px;
-  min-height: calc(100vh - 135px);
+  margin: 10px 15rem 0 15rem;
+  padding-bottom: 20px;
 }
 
 .mat-divider {
@@ -12,3 +12,15 @@
   margin-bottom: 5px !important;
 }
 
+/**
+This is needed because the divider overhangs the cards otherwise.
+ */
+mat-divider {
+  position: relative !important;
+  margin: 0 0 0 0 !important;
+  padding: 0 0 0 0 !important;
+}
+
+mat-card-content {
+  padding-bottom: 20px !important;
+}
