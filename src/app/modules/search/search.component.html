@@ -16,28 +16,8 @@
   </div>
   <div>
     <app-item-table [searchString]="searchString"></app-item-table>
-    <mat-card *ngIf="isLoading" class="spinner-card">
+    <mat-card *ngIf="loading" class="spinner-card">
       <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
-    </mat-card>
-  </div>
-  <div *ngIf="isEmpty" fxLayout="row" fxLayoutAlign="center center" style="padding-top: 10rem">
-    <mat-card fxFlex.gt-lg="0 0 35%" fxFlex.md="1 1 60%" fxFlex.sm="1 1 90% " style="margin: -35px 10px 0 10px">
-      <mat-card-header>
-        <div class="joke-card-image" mat-card-avatar></div>
-        <mat-card-title>nothing to see here</mat-card-title>
-        <mat-card-subtitle>I hate big chunks of empty space</mat-card-subtitle>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        <p class="mat-body-1">
-          Maybe some other time I'll put stuff here to bother you when the search table is blank; I added a button
-          to the bottom, it doesn't do anything, feel free to click to your heart's content.
-        </p>
-      </mat-card-content>
-      <mat-divider></mat-divider>
-      <mat-card-actions>
-        <button color="primary" mat-raised-button style="margin-left: 5px">click me</button>
-      </mat-card-actions>
     </mat-card>
   </div>
 </div>

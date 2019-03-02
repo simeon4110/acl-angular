@@ -45,8 +45,6 @@ export class NavComponent implements OnInit {
     });
     dialogRef.componentInstance.credentials.subscribe((i: string[]) => {
       this.auth.login(i[0], i[1]);
-      console.log(this.auth.checkToken());
-      console.log(this.auth.isAdmin());
     });
   }
 

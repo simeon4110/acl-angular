@@ -36,7 +36,7 @@
     For more information, please use this form. If you'd like to join our mailing list, check the box next to your
     return address; we will not contact you too frequently, and will never give away your address.
   </p>
-  <form [formGroup]="contactForm" style="padding-bottom: 20px">
+  <form (keyup)="updateButtonDisabled()" [formGroup]="contactForm" style="padding-bottom: 20px">
     <div fxLayout="row" fxLayoutGap="10px">
       <mat-form-field>
         <input [required]="true" formControlName="name" matInput placeholder="name">
@@ -70,10 +70,7 @@
       <mat-checkbox formControlName="mailingList">join mailing list</mat-checkbox>
     </div>
     <div fxLayout="row" style="padding-top: 10px">
-      <button (click)="submit()" color="primary" mat-raised-button>submit</button>
+      <mat-spinner-button (click)="submit()" [options]="btnOpts"></mat-spinner-button>
     </div>
   </form>
-  <mat-card *ngIf="loading">
-    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
-  </mat-card>
 </div>
