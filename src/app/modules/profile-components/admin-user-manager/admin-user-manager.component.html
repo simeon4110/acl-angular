@@ -31,6 +31,10 @@
         <button mat-icon-button color="primary" (click)="deleteUser(element.username)" matTooltip="delete user">
           <mat-icon>delete</mat-icon>
         </button>
+        <button mat-icon-button color="primary" (click)="resetUserPassword(element.username)"
+                matTooltip="reset password">
+          <mat-icon>lock_open</mat-icon>
+        </button>
       </td>
     </ng-container>
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

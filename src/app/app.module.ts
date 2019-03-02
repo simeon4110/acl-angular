@@ -64,6 +64,7 @@ import {AdminUserManagerComponent} from './modules/profile-components/admin-user
 import {UserAddFormComponent} from './shared/forms/user-add-form/user-add-form.component';
 import {PasswordResetFormComponent} from './shared/forms/password-reset-form/password-reset-form.component';
 import {AdminGuard} from './core/guards/admin.guard';
+import {AdminPasswordResetFormComponent} from './shared/forms/admin-password-reset-form/admin-password-reset-form.component';
 
 
 const appRoutes: Routes = [
@@ -108,7 +109,8 @@ const appRoutes: Routes = [
     ItemTableComponent,
     AdminUserManagerComponent,
     UserAddFormComponent,
-    PasswordResetFormComponent
+    PasswordResetFormComponent,
+    AdminPasswordResetFormComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -162,7 +164,8 @@ const appRoutes: Routes = [
     CardSectionComponent,
     SearchFormComponent,
     UserAddFormComponent,
-    PasswordResetFormComponent
+    PasswordResetFormComponent,
+    AdminPasswordResetFormComponent
   ],
   bootstrap: [
     AppComponent,
