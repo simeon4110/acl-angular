@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // Watch for authstate events and redirect to home.
     this.authState = this.auth.authState.subscribe((event: boolean) => {
-      if (!event) {
+      if (!event && this.auth.isAuthorized) {
         this.router.navigate(['/']);
         this.snackBar.open('Logout successful', null, {
           duration: 2000
@@ -48,8 +48,6 @@ export class AppComponent implements OnInit {
       this.auth.user = JSON.parse(localStorage.getItem('user'));
       this.auth.auth = JSON.parse(localStorage.getItem('auth'));
       this.auth.checkToken();
-    } else {
-      this.auth.authState.emit(false);
     }
   }
 

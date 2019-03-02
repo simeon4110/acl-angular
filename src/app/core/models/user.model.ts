@@ -5,5 +5,8 @@ export class UserModel {
   isAdmin: boolean;
   requiredSonnets: number;
   canConfirm: boolean;
-  authorities: string[];
+  privileges: [{
+    id: number,
+    name: string
+  }];
 }

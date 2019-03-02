@@ -13,7 +13,7 @@ import {ItemTableComponent} from '../../shared/components/item-table/item-table.
 export class SearchComponent implements OnInit {
   @ViewChild(ItemTableComponent) table: ItemTableComponent;
   searchEveryWhereForm: FormGroup;
-  isLoading = false;
+  loading = false;
   isEmpty = true;
   searchString = '';
 
@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
    */
   public openAdvancedSearchDialog(): void {
     this.dialog.open(SearchFormComponent).componentInstance.formValue.subscribe((resp: FormGroup) => {
-      this.isLoading = true;
+      this.loading = true;
       this.doSearch(resp);
       this.isEmpty = false;
     });
@@ -50,17 +50,17 @@ export class SearchComponent implements OnInit {
    * Runs the basic search (the non-advanced search.)
    */
   public doSearchEveryWhere(): void {
-    this.isLoading = true;
+    this.loading = true;
     let searchString = '';
     searchString = SearchComponent.parseAnyFieldQuery(searchString, this.searchEveryWhereForm.value.searchString);
     this.searchService.doBasicSearch(searchString).subscribe((resp: ItemModel[]) => {
       this.table.updateTable(resp);
       console.log(resp);
-      this.isLoading = false;
+      this.loading = false;
       this.isEmpty = false;
     }, error => {
       console.log(error);
-      this.isLoading = false;
+      this.loading = false;
     });
   }
 
@@ -82,10 +82,10 @@ export class SearchComponent implements OnInit {
         }
       }
       this.table.updateTable(resp);
-      this.isLoading = false;
+      this.loading = false;
     }, error => {
       console.log(error);
-      this.isLoading = false;
+      this.loading = false;
     });
   }
 

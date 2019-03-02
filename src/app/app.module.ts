@@ -62,6 +62,8 @@ import {SearchFormComponent} from './shared/forms/search-form/search-form.compon
 import {ItemTableComponent} from './shared/components/item-table/item-table.component';
 import {AdminUserManagerComponent} from './modules/profile-components/admin-user-manager/admin-user-manager.component';
 import {UserAddFormComponent} from './shared/forms/user-add-form/user-add-form.component';
+import {PasswordResetFormComponent} from './shared/forms/password-reset-form/password-reset-form.component';
+import {AdminGuard} from './core/guards/admin.guard';
 
 
 const appRoutes: Routes = [
@@ -77,7 +79,7 @@ const appRoutes: Routes = [
     children: [
       {path: 'add-item', component: ItemAddComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
       {path: 'user-details', component: UserDetailsComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
-      {path: 'add-user', component: AdminUserManagerComponent, outlet: 'profile-out', canActivate: [AuthGuard]}
+      {path: 'add-user', component: AdminUserManagerComponent, outlet: 'profile-out', canActivate: [AdminGuard]}
     ]
   }
 ];
@@ -105,7 +107,8 @@ const appRoutes: Routes = [
     SearchFormComponent,
     ItemTableComponent,
     AdminUserManagerComponent,
-    UserAddFormComponent
+    UserAddFormComponent,
+    PasswordResetFormComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -158,7 +161,8 @@ const appRoutes: Routes = [
     CardBookComponent,
     CardSectionComponent,
     SearchFormComponent,
-    UserAddFormComponent
+    UserAddFormComponent,
+    PasswordResetFormComponent
   ],
   bootstrap: [
     AppComponent,

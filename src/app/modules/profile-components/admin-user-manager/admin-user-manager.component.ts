@@ -60,6 +60,10 @@ export class AdminUserManagerComponent implements OnInit {
     });
   }
 
+  public resetUserPassword(username: string): void {
+    this.loading = true;
+  }
+
   private updateTable(): void {
     this.userService.allUsers().subscribe((resp: UserModel[]) => {
       this.users = resp;

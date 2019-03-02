@@ -26,10 +26,11 @@ export class AuthService {
   }
 
   public loadUserDetails(): void {
+    this._isAuthorized = true;
     this.http.get(environment.userDetailsUrl).subscribe((resp: UserModel) => {
       this.user = resp;
       localStorage.setItem('user', JSON.stringify(this.user));
-      this.checkToken();
+      this.authState.emit(true);
     }, e => console.log(e));
   }
 
@@ -53,8 +54,6 @@ export class AuthService {
     }).subscribe((resp: AuthModel) => {
       this.auth = resp;
       localStorage.setItem('auth', JSON.stringify(this.auth));
-      this._isAuthorized = true;
-      this.authState.emit(true);
       this.loadUserDetails();
     }, e => console.log(e));
   }
@@ -68,7 +67,7 @@ export class AuthService {
   }
 
   public isAdmin(): boolean {
-    return this.user.authorities.includes('ADMIN');
+    return this.user.privileges.some(e => e.id === 1);
   }
 
   public checkToken(): boolean {
@@ -84,10 +83,8 @@ export class AuthService {
           }
       }).subscribe(resp => {
         if (resp['active']) {
-          this.user.authorities = resp['authorities'];
-          this._isAuthorized = true;
-          this.authState.emit(true);
           passed = true;
+          this.loadUserDetails();
         } else {
           this.logoff();
         }

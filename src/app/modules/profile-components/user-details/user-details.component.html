@@ -1,11 +1,16 @@
+<div>
+  <mat-card *ngIf="loading">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </mat-card>
+</div>
+<div style="padding: 10px">
+  <button mat-raised-button color="primary" (click)="resetPassword()">change password</button>
+</div>
 <mat-list>
   <mat-list-item>
-    <span><b>Username:</b> {{auth.user.username}}</span>
+    <p class="mat-body-1"><strong>Username:</strong> {{auth.user.username}}</p>
   </mat-list-item>
   <mat-list-item>
-    <span><b>Email:</b> {{auth.user.email}}</span>
-  </mat-list-item>
-  <mat-list-item>
-    <span><b>Authorities:</b> {{auth.user.authorities}}</span>
+    <p class="mat-body-1"><strong>Email:</strong> {{auth.user.email}}</p>
   </mat-list-item>
 </mat-list>
