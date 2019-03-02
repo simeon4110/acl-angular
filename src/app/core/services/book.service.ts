@@ -47,6 +47,18 @@ export class BookService {
     return this.http.get(environment.apiBaseUrl + 'book/all');
   }
 
+  getById(id: number): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + 'book/by_id/' + id);
+  }
+
+  deleteAdmin(id: number): Observable<any> {
+    return this.http.delete(environment.apiBaseUrl + 'secure/book/delete/' + id);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(environment.apiBaseUrl + 'secure/book/user_delete/' + id);
+  }
+
   getAllSimple(): Observable<any> {
     if (this.auth.isAuthorized) {
       return this.http.get(environment.apiBaseUrl + 'secure/book/all_simple');

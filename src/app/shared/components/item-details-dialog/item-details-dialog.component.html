@@ -1,0 +1,120 @@
+<h1 mat-dialog-title>Details for item: {{item.title}}</h1>
+<div mat-dialog-content>
+  <table class="details-table">
+    <tr>
+      <td>database id</td>
+      <td>{{item.id}}</td>
+    </tr>
+    <tr>
+      <td>category</td>
+      <td>{{item.category}}</td>
+    </tr>
+    <tr>
+      <td>author first name</td>
+      <td>{{item.author.firstName}}</td>
+    </tr>
+    <tr>
+      <td>author last name</td>
+      <td>{{item.author.lastName}}</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>{{item.title}}</td>
+    </tr>
+    <tr>
+      <td>period</td>
+      <td>{{item.period}}</td>
+    </tr>
+    <tr>
+      <td>publisher</td>
+      <td>{{item.publisher}}</td>
+    </tr>
+    <tr>
+      <td>date of publication</td>
+      <td>{{item.dateOfPublication | date}}</td>
+    </tr>
+    <tr>
+      <td>place of publication</td>
+      <td>{{item.placeOfPublication}}</td>
+    </tr>
+    <tr>
+      <td>confirmed</td>
+      <td>{{item.confirmation.confirmed}}</td>
+    </tr>
+    <tr>
+      <td>confirmed by</td>
+      <td>{{item.confirmation.confirmedBy}}</td>
+    </tr>
+    <tr>
+      <td>confirmed date</td>
+      <td>{{item.confirmation.confirmedAt | date}}</td>
+    </tr>
+    <tr>
+      <td>short title</td>
+      <td>{{item.shortTitle}}</td>
+    </tr>
+    <tr>
+      <td>source title</td>
+      <td>{{item.sourceTitle}}</td>
+    </tr>
+    <tr>
+      <td>url</td>
+      <td>{{item.url}}</td>
+    </tr>
+    <tr>
+      <td>date of access</td>
+      <td>{{item.dateOfAccess | date}}</td>
+    </tr>
+    <tr>
+      <td>journal name</td>
+      <td>{{item.journalName}}</td>
+    </tr>
+    <tr>
+      <td>journal volume</td>
+      <td>{{item.journalVolume}}</td>
+    </tr>
+    <tr>
+      <td>journal issue</td>
+      <td>{{item.journalIssue}}</td>
+    </tr>
+    <tr>
+      <td>journal page range</td>
+      <td>{{item.journalPageRange}}</td>
+    </tr>
+    <tr>
+      <td>DOI</td>
+      <td>{{item.DOI}}</td>
+    </tr>
+    <tr>
+      <td>language</td>
+      <td>{{item.language}}</td>
+    </tr>
+    <tr>
+      <td>public domain</td>
+      <td>{{item.isPublicDomain}}</td>
+    </tr>
+    <tr>
+      <td>page range</td>
+      <td>{{item.pageRange}}</td>
+    </tr>
+    <tr>
+      <td>created by</td>
+      <td>{{item.createdBy}}</td>
+    </tr>
+    <tr>
+      <td>created date</td>
+      <td>{{item.createdDate | date}}</td>
+    </tr>
+    <tr>
+      <td>last modified by</td>
+      <td>{{item.lastModifiedBy}}</td>
+    </tr>
+    <tr>
+      <td>last modified date</td>
+      <td>{{item.lastModifiedDate | date}}</td>
+    </tr>
+  </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close>close</button>
+</div>

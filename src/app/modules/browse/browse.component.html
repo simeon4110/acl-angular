@@ -9,8 +9,8 @@
     </form>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-item-table></app-item-table>
-    <mat-card *ngIf="isLoading">
+    <app-item-table [isFilter]="true"></app-item-table>
+    <mat-card *ngIf="loading">
       <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
     </mat-card>
   </mat-sidenav-content>

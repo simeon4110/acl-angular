@@ -10,3 +10,9 @@ th {
 td {
   font-size: 14pt !important;
 }
+
+.mat-form-field {
+  width: calc(100% - 40px);
+  margin: 0 20px 0 20px;
+  padding-top: 5px;
+}
