@@ -65,6 +65,10 @@ import {UserAddFormComponent} from './shared/forms/user-add-form/user-add-form.c
 import {PasswordResetFormComponent} from './shared/forms/password-reset-form/password-reset-form.component';
 import {AdminGuard} from './core/guards/admin.guard';
 import {AdminPasswordResetFormComponent} from './shared/forms/admin-password-reset-form/admin-password-reset-form.component';
+import {AdminItemManagerComponent} from './modules/profile-components/admin-item-manager/admin-item-manager.component';
+import {UserItemManagerComponent} from './modules/profile-components/user-item-manager/user-item-manager.component';
+import {ClickStopPropagationDirective} from './shared/directives/click-stop-propagation.directive';
+import {ItemDetailsDialogComponent} from './shared/components/item-details-dialog/item-details-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -80,7 +84,9 @@ const appRoutes: Routes = [
     children: [
       {path: 'add-item', component: ItemAddComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
       {path: 'user-details', component: UserDetailsComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
-      {path: 'add-user', component: AdminUserManagerComponent, outlet: 'profile-out', canActivate: [AdminGuard]}
+      {path: 'user-items', component: UserItemManagerComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
+      {path: 'add-user', component: AdminUserManagerComponent, outlet: 'profile-out', canActivate: [AdminGuard]},
+      {path: 'admin-items', component: AdminItemManagerComponent, outlet: 'profile-out', canActivate: [AdminGuard]}
     ]
   }
 ];
@@ -110,7 +116,11 @@ const appRoutes: Routes = [
     AdminUserManagerComponent,
     UserAddFormComponent,
     PasswordResetFormComponent,
-    AdminPasswordResetFormComponent
+    AdminPasswordResetFormComponent,
+    AdminItemManagerComponent,
+    UserItemManagerComponent,
+    ClickStopPropagationDirective,
+    ItemDetailsDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -165,7 +175,8 @@ const appRoutes: Routes = [
     SearchFormComponent,
     UserAddFormComponent,
     PasswordResetFormComponent,
-    AdminPasswordResetFormComponent
+    AdminPasswordResetFormComponent,
+    ItemDetailsDialogComponent
   ],
   bootstrap: [
     AppComponent,

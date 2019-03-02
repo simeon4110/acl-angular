@@ -3,13 +3,18 @@
     <mat-nav-list>
       <a [routerLink]="['/profile', {outlets: {'profile-out': ['user-details']}}]" mat-list-item
          routerLinkActive="active sidebar-item-active">
-        <mat-icon color="primary">person</mat-icon>
+        <mat-icon color="primary">account_box</mat-icon>
         <span>Profile</span>
       </a>
       <a [routerLink]="['/profile', {outlets: {'profile-out': ['add-item']}}]" mat-list-item
          routerLinkActive="active sidebar-item-active">
         <mat-icon color="primary">library_add</mat-icon>
         <span>Add Item</span>
+      </a>
+      <a [routerLink]="['/profile', {outlets: {'profile-out': ['user-items']}}]" mat-list-item
+         routerLinkActive="active sidebar-item-active">
+        <mat-icon color="primary">description</mat-icon>
+        <span>My Items</span>
       </a>
 
       <ng-container *ngIf="auth.isAdmin()">
@@ -21,6 +26,11 @@
            routerLinkActive="active sidebar-item-active">
           <mat-icon color="primary">person_add</mat-icon>
           <span>Manage Users</span>
+        </a>
+        <a [routerLink]="['/profile', {outlets: {'profile-out': ['admin-items']}}]" mat-list-item
+           routerLinkActive="active sidebar-item-active">
+          <mat-icon color="primary">description</mat-icon>
+          <span>Manage Items</span>
         </a>
       </ng-container>
 

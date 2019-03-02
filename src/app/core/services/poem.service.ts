@@ -31,6 +31,7 @@ export class PoemService {
     const poemFormValue = poemForm.value;
 
     // Parse the form models into a dict.
+    // :todo: fix this so the form fields match the dict fields.
     const poem = {
       sourceTitle: poemFormValue.sourceTitle,
       placeOfPublication: itemFormValue.placeOfPublication,
@@ -50,8 +51,12 @@ export class PoemService {
     return this.http.post(environment.apiBaseUrl + 'secure/poem/add', poem);
   }
 
-  admin_delete(id: number): Observable<any> {
+  deleteAdmin(id: number): Observable<any> {
     return this.http.delete(environment.apiBaseUrl + 'secure/poem/delete/' + id);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(environment.apiBaseUrl + 'secure/poem/user_delete/' + id);
   }
 
   getById(id: number): Observable<any> {

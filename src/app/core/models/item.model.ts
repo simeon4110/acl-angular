@@ -2,6 +2,7 @@ interface ItemModel {
   id: number;
   category: string;
   author: AuthorModel;
+  confirmation: ConfirmationModel;
   title: string;
   description: string;
   period: string;
@@ -26,4 +27,5 @@ interface ItemModel {
   createdDate: string;
   lastModifiedBy: string;
   lastModifiedDate: string;
+  simple: boolean;
 }

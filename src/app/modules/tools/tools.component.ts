@@ -13,4 +13,7 @@ export class ToolsComponent implements OnInit {
   ngOnInit() {
   }
 
+  public voyant(): void {
+    window.open('https://voyant-tools.org/', '_blank');
+  }
 }

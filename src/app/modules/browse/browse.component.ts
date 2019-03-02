@@ -21,7 +21,7 @@ export class BrowseComponent implements OnInit {
   types = ['Books', 'Poems'];
   selectedType = 'Poems';
 
-  isLoading = true; // Always loads with no data.
+  loading = true; // Always loads with no data.
 
   constructor(private fb: FormBuilder, private bookService: BookService, private poemService: PoemService) {
   }
@@ -43,16 +43,16 @@ export class BrowseComponent implements OnInit {
    * Swaps out the table's dataSource and triggers a binding update.
    */
   public getItems(): void {
-    this.isLoading = true;
+    this.loading = true;
     if (this.selectedType === 'Poems') {
       this.poemService.getAll().subscribe((resp: PoemModel[]) => {
         this.table.updateTable(resp);
-        this.isLoading = false;
+        this.loading = false;
       });
     } else if (this.selectedType === 'Books') {
       this.bookService.getAll().subscribe((resp: BookModel[]) => {
         this.table.updateTable(resp);
-        this.isLoading = false;
+        this.loading = false;
       });
     }
   }

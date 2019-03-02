@@ -1,3 +1,22 @@
-<p>
-  tools works!
-</p>
+<div class="tools-container" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card style="max-width: 50%">
+    <mat-card-header>
+      <div class="voyant-header-image header-image-offset" mat-card-avatar></div>
+      <mat-card-title>Under Construction</mat-card-title>
+      <mat-card-subtitle>why not voyant while you wait?</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p class="mat-body-2">
+        Our tools GUI is currently under active development and is not <em>quite</em> ready for live users to start
+        messing around with it. If your craving for digital humanities focused tools cannot wait, voyant tools (another,
+        equally awesome, Canadian digital humanities project) provides a lot of cool functionality for the digitally
+        inclined.
+      </p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1px">
+      <button (click)="voyant()" color="primary" mat-raised-button>Voyant Tools</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
