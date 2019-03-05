@@ -67,14 +67,6 @@ body {
   min-height: 100%;
 }
 
-
-/* Adds the spacing at the bottom to account for the footer. */
-body::after {
-  content: '';
-  display: block;
-  height: 50px;
-}
-
 td {
   font-size: 12pt !important;
 }

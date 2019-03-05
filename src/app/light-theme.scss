@@ -1,46 +1,6 @@
 /* The light theme is default. */
 @import "~@angular/material/theming";
 
-// Small tablets and large smartphones (landscape view)
-$screen-sm-min: 576px;
-
-// Small tablets (portrait view)
-$screen-md-min: 768px;
-
-// Tablets and small desktops
-$screen-lg-min: 992px;
-
-// Large tablets and desktops
-$screen-xl-min: 1200px;
-
-// Small devices
-@mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
-
-// Medium devices
-@mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
-}
-
-// Large devices
-@mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
-}
-
-// Extra large devices
-@mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
-}
-
 @mixin light-theme-style($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -48,6 +8,19 @@ $screen-xl-min: 1200px;
   $background: map-get($theme, background);
   $text: map-get($foreground, text);
   $card: map-get($background, card);
+
+  /* Setting the bg color prevents weird white bars during content load */
+  body {
+    background-color: mat-color($background, background);
+  }
+
+
+  /* a container for pages without a sidenav */
+  .container {
+    min-height: calc(100vh - 154px);
+    background-color: mat-color($background, background) !important;
+  }
+
 
   /* Override the default link colour with the accent color. */
   p a {
@@ -87,18 +60,18 @@ $screen-xl-min: 1200px;
   }
 
   .mat-sidenav-container {
-    min-height: calc(100vh - 125px);
+    min-height: calc(100vh - 155px);
     background-color: $card !important;
   }
 
   mat-sidenav-content {
     position: relative;
-    min-height: calc(100vh - 125px);
+    min-height: calc(100vh - 155px);
   }
 
 
   /* Customization of the stroked buttons */
-  .mat-stroked-button {
+  .stroked-menu {
     background-color: darken($card, 5) !important;
     color: $text !important;
     text-transform: uppercase;
@@ -115,6 +88,8 @@ $screen-xl-min: 1200px;
     border-width: 1px;
   }
 
+
+  /* This overrides the color (only on the light theme) so the search bar isn't bright pink */
   .search-toolbar {
     background-color: darken($card, 10) !important;
   }
