@@ -38,7 +38,7 @@
     </mat-slide-toggle>
   </div>
 
-  <mat-divider [vertical]="true" class="style-fix"></mat-divider>
+  <mat-divider [vertical]="true" class="style-fix" fxShow="false" fxShow.gt-sm></mat-divider>
 
   <!--Login / profile buttons-->
   <div *ngIf="auth.isAuthorized !== null">
