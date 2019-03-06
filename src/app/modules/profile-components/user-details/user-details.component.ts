@@ -15,7 +15,7 @@ export class UserDetailsComponent implements OnInit {
   loading = false;
 
   constructor(public auth: AuthService, public userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar,
-              private parent: ProfileComponent) {
+              public parent: ProfileComponent) {
   }
 
   ngOnInit() {
