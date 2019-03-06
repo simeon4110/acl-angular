@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {MatSnackBar} from '@angular/material';
 import {MatProgressButtonOptions} from 'mat-progress-buttons';
+import {CustomSnackbarComponent} from '../../shared/components/custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-about',
@@ -36,11 +37,23 @@ export class AboutComponent implements OnInit {
     this.btnOpts.active = true;
     this.http.post(environment.apiBaseUrl + 'about/send_message', this.contactForm.value)
       .subscribe(() => {
-        this.snackBar.open('message sent', null, {duration: 2000});
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'message sent',
+            icon: 'check_circle',
+            iconColor: 'primary'
+          }
+        });
         this.btnOpts.active = false;
       }, error => {
         console.log(error);
-        this.snackBar.open('something went wrong', null, {duration: 2000});
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'something went wrong',
+            icon: 'error',
+            iconColor: 'warn'
+          }
+        });
         this.btnOpts.active = false;
       });
   }

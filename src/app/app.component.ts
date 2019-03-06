@@ -10,6 +10,7 @@ import {AuthService} from './core/auth/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import {CustomSnackbarComponent} from './shared/components/custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 export class AppComponent implements OnInit {
   title = 'acl';
   private authState;
-  themeClass = 'light-theme';
+  public themeClass = 'light-theme';
 
   constructor(private swUpdate: SwUpdate, private auth: AuthService, private router: Router,
               private snackBar: MatSnackBar, private overlayContainer: OverlayContainer) {
@@ -30,8 +31,12 @@ export class AppComponent implements OnInit {
     this.authState = this.auth.authState.subscribe((event: boolean) => {
       if (!event && this.auth.isAuthorized) {
         this.router.navigate(['/']);
-        this.snackBar.open('Logout successful', null, {
-          duration: 2000
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'Logout successful',
+            icon: 'check_circle',
+            iconColor: 'primary'
+          }
         });
       }
     });
