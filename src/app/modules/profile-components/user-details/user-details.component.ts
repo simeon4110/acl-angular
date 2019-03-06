@@ -5,6 +5,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {PasswordResetFormComponent} from '../../../shared/forms/password-reset-form/password-reset-form.component';
 import {ChangePasswordModel} from '../../../core/models/change-password.model';
 import {ProfileComponent} from '../../profile/profile.component';
+import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-user-details',
@@ -25,9 +26,21 @@ export class UserDetailsComponent implements OnInit {
     this.dialog.open(PasswordResetFormComponent).componentInstance.formData
       .subscribe((formData: ChangePasswordModel) => {
         this.userService.changePassword(formData).subscribe(() => {
-          this.snackBar.open('your password has been reset', null, {duration: 2000});
+          this.snackBar.openFromComponent(CustomSnackbarComponent, {
+            data: {
+              text: 'your password has been reset',
+              icon: 'check_circle',
+              iconColor: 'primary'
+            }
+          });
         }, error => {
-          this.snackBar.open('something went wrong', null, {duration: 2000});
+          this.snackBar.openFromComponent(CustomSnackbarComponent, {
+            data: {
+              text: 'something went wrong',
+              icon: 'error',
+              iconColor: 'warn'
+            }
+          });
           console.log(error);
         });
       });

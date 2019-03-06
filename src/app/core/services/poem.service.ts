@@ -81,6 +81,13 @@ export class PoemService {
     return this.http.get(environment.apiBaseUrl + 'poem/all_simple');
   }
 
+  modify(poem: PoemModel): Observable<any> {
+    if (this.auth.isAdmin()) {
+      return this.http.put(environment.apiBaseUrl + 'secure/poem/modify', poem);
+    }
+    return this.http.put(environment.apiBaseUrl + 'secure/poem/modify_user', poem);
+  }
+
   getTwoRandomPoems(): Observable<any> {
     return this.http.get(environment.apiBaseUrl + 'poem/two_random');
   }

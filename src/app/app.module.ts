@@ -7,6 +7,7 @@ import {NavComponent} from './core/nav/nav.component';
 import {FooterComponent} from './core/footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
   MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
@@ -73,6 +74,7 @@ import {EditPoemFormComponent} from './shared/forms/edit-poem-form/edit-poem-for
 import {EditBookFormComponent} from './shared/forms/edit-book-form/edit-book-form.component';
 import {EditSectionFormComponent} from './shared/forms/edit-section-form/edit-section-form.component';
 import {ConfirmationDialogComponent} from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import {CustomSnackbarComponent} from './shared/components/custom-snackbar/custom-snackbar.component';
 
 
 const appRoutes: Routes = [
@@ -128,7 +130,8 @@ const appRoutes: Routes = [
     EditPoemFormComponent,
     EditBookFormComponent,
     EditSectionFormComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CustomSnackbarComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -170,7 +173,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, panelClass: 'custom-snack-bar'}}
   ],
   entryComponents: [
     LoginFormComponent,
@@ -188,7 +192,8 @@ const appRoutes: Routes = [
     EditBookFormComponent,
     EditPoemFormComponent,
     EditSectionFormComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CustomSnackbarComponent
   ],
   bootstrap: [
     AppComponent,

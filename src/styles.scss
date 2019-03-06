@@ -10,6 +10,7 @@
 @import "app/modules/home/home.component";
 @import "app/modules/search/search.component";
 @import "app/shared/components/card-book/card-book.component";
+@import "app/shared/components/custom-snackbar/custom-snackbar.component";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 
@@ -28,6 +29,7 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
   @include home-component-theme($light-theme);
   @include search-component-theme($light-theme);
   @include card-book-component-theme($light-theme);
+  @include custom-snackbar-component-theme($light-theme);
 }
 
 $dark-primary: mat-palette($mat-pink);
@@ -42,6 +44,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   @include home-component-theme($dark-theme);
   @include search-component-theme($dark-theme);
   @include card-book-component-theme($dark-theme);
+  @include custom-snackbar-component-theme($dark-theme);
 }
 
 $custom-typography: mat-typography-config(
@@ -70,6 +73,7 @@ body {
 td {
   font-size: 12pt !important;
 }
+
 
 /* Styling for nav links */
 .nav-item-link {

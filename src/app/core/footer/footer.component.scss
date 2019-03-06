@@ -8,6 +8,7 @@
   $text: map-get($foreground, text);
   $card: map-get($background, card);
 
+  /* Keep the footer at the bottom of the page, increase its height on mobile. */
   .footer {
     background-color: darken($card, 5);
     border-top: 1px solid mat-color($accent, 100);
@@ -23,28 +24,22 @@
     }
   }
 
-  /* Stealing class names from Boot Strap. */
-  .text-muted {
-    color: $text;
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 7px !important;
-    margin-top: 7px !important;
-    text-align: center !important;
-  }
-
+  /* keep the elements tightly packed */
   .footer-content-container {
     padding: 0 !important;
     margin: 0 !important;
   }
 
-  .text-muted a {
-    color: mat-color($primary, 300) !important;
+  .footer-content-container .mat-body-2 {
+    margin-bottom: 7px !important;
+    margin-top: 7px !important;
+    text-align: center !important;
   }
 
   .footer-img {
-    max-height: 75px !important;
+    max-height: 80px !important;
     @media (min-width: 922px) {
-      margin-right: 10px;
+      margin: 0 5px 0 5px;
     }
   }
 }

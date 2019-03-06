@@ -8,6 +8,7 @@ import {AdminPasswordResetFormComponent} from '../../../shared/forms/admin-passw
 import {AdminChangePasswordModel} from '../../../core/models/admin-change-password.model';
 import {ConfirmationDialogComponent} from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import {ProfileComponent} from '../../profile/profile.component';
+import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
 
 /**
  * The user manager profile panel.
@@ -47,11 +48,23 @@ export class AdminUserManagerComponent implements OnInit {
     this.dialog.open(UserAddFormComponent).componentInstance.formOut.subscribe((resp: FormGroup) => {
       this.loading = true;
       this.userService.addUser(resp).subscribe(() => {
-        this.snackBar.open('user added successfully', null, {duration: 2000});
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'user added successfully',
+            icon: 'check_circle',
+            iconColor: 'primary'
+          }
+        });
         this.updateTable();
       }, error => {
         console.log(error);
-        this.snackBar.open('something went wrong', null, {duration: 2000});
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'something went wrong',
+            icon: 'error',
+            iconColor: 'warn'
+          }
+        });
         this.updateTable();
       });
     });
@@ -63,11 +76,23 @@ export class AdminUserManagerComponent implements OnInit {
         if (resp) {
           this.loading = true;
           this.userService.deleteUser(username).subscribe(() => {
-            this.snackBar.open('user deleted successfully', null, {duration: 2000});
+            this.snackBar.openFromComponent(CustomSnackbarComponent, {
+              data: {
+                text: 'user deleted successfully',
+                icon: 'check_circle',
+                iconColor: 'primary'
+              }
+            });
             this.updateTable();
           }, error => {
             console.log(error);
-            this.snackBar.open('something went wrong', null, {duration: 2000});
+            this.snackBar.openFromComponent(CustomSnackbarComponent, {
+              data: {
+                text: 'something went wrong',
+                icon: 'error',
+                iconColor: 'warn'
+              }
+            });
             this.updateTable();
           });
         }
@@ -80,11 +105,23 @@ export class AdminUserManagerComponent implements OnInit {
         resp.username = username;
         this.loading = true;
         this.userService.adminChangePassword(resp).subscribe(() => {
-          this.snackBar.open('password reset successfully', null, {duration: 2000});
+          this.snackBar.openFromComponent(CustomSnackbarComponent, {
+            data: {
+              text: 'password reset successfully',
+              icon: 'check_circle',
+              iconColor: 'primary'
+            }
+          });
           this.updateTable();
         }, error => {
           console.log(error);
-          this.snackBar.open('something went wrong', null, {duration: 2000});
+          this.snackBar.openFromComponent(CustomSnackbarComponent, {
+            data: {
+              text: 'something went wrong',
+              icon: 'error',
+              iconColor: 'warn'
+            }
+          });
           this.updateTable();
         });
       });

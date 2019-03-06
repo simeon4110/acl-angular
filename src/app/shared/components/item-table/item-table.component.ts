@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 import {ItemDetailsDialogComponent} from '../item-details-dialog/item-details-dialog.component';
 import {EditPoemFormComponent} from '../../forms/edit-poem-form/edit-poem-form.component';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {CustomSnackbarComponent} from '../custom-snackbar/custom-snackbar.component';
 
 /**
  * General purpose table component for displaying anything that extends the Item model. All item modification,
@@ -197,11 +198,23 @@ export class ItemTableComponent implements OnInit {
               break;
           }
           sub.subscribe(() => {
-            this.snackBar.open('item deleted', null, {duration: 2000});
+            this.snackBar.openFromComponent(CustomSnackbarComponent, {
+              data: {
+                text: 'item deleted',
+                icon: 'check_circle',
+                iconColor: 'primary'
+              }
+            });
             this.updateRequired.emit(true);
           }, error => {
             console.log(error);
-            this.snackBar.open('something went wrong', null, {duration: 2000});
+            this.snackBar.openFromComponent(CustomSnackbarComponent, {
+              data: {
+                text: 'something went wrong',
+                icon: 'error',
+                iconColor: 'warn'
+              }
+            });
             this.updateRequired.emit(true);
           });
         }
@@ -210,17 +223,45 @@ export class ItemTableComponent implements OnInit {
 
   editItem<T extends ItemModel>(item: T): void {
     if (item.simple) {
-      this.getItem(item.category, item.id).subscribe((resp: T) => {
+      this.getItem(item.category, item.id).subscribe((resp: any) => {
         switch (item.category) {
           case 'POEM':
             this.dialog.open(EditPoemFormComponent, {
               data: {poem: resp},
               minWidth: '600px'
             }).componentInstance.poemOut
-              .subscribe((formData: any) => console.log(formData));
+              .subscribe((formData: any) => {
+                resp.authorId = resp.author.id;
+                resp.text = formData.text;
+                resp.title = formData.title;
+                this.modifyPoem(resp);
+              });
         }
       });
     }
+  }
+
+  modifyPoem(newPoem: PoemModel): void {
+    this.poemService.modify(newPoem).subscribe(() => {
+      this.updateRequired.emit(true);
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          text: 'item modified successfully',
+          icon: 'check_circle',
+          iconColor: 'primary'
+        }
+      });
+    }, error => {
+      this.updateRequired.emit(true);
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          text: 'something went wrong',
+          icon: 'error',
+          iconColor: 'warn'
+        }
+      });
+      console.log(error);
+    });
   }
 
   /**
@@ -255,7 +296,6 @@ export class ItemTableComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (item, property) => {
-      console.log(property);
       switch (property) {
         case 'author.firstName':
           return item.author.firstName;

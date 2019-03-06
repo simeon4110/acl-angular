@@ -1,0 +1,32 @@
+@import "~@angular/material/theming";
+
+@mixin custom-snackbar-component-theme($theme) {
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $text: map-get($foreground, text);
+  $card: map-get($background, card);
+
+  .custom-snack-bar {
+    background: $card;
+    color: $text;
+  }
+
+  .custom-snack-bar .snack-bar-text {
+    text-align: left !important;
+  }
+
+  .custom-snack-bar .snack-bar-action {
+    text-align: right;
+  }
+
+  .custom-snack-bar .spacer {
+    flex: 1 1 auto;
+  }
+
+  .snackbar-action .mat-icon-button {
+  }
+
+  .snackbar-action .mat-icon {
+    font-size: 24pt;
+  }
+}

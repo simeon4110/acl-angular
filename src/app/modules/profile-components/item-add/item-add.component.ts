@@ -11,6 +11,7 @@ import {PoemService} from '../../../core/services/poem.service';
 import {BookService} from '../../../core/services/book.service';
 import {ShortStoryService} from '../../../core/services/short-story.service';
 import {ProfileComponent} from '../../profile/profile.component';
+import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
 
 /**
  * This is the form for adding items to the database. The confirmation popup is in item-add-confirmation.
@@ -90,8 +91,12 @@ export class ItemAddComponent implements OnInit {
       });
     }, error => {
       console.log(error);
-      this.snackBar.open(`Something went wrong: ${error.message}`, this.gotoStepperIndex(0), {
-        duration: 2000
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          text: 'something went wrong',
+          icon: 'error',
+          iconColor: 'warn'
+        }
       });
     });
   }
@@ -110,8 +115,12 @@ export class ItemAddComponent implements OnInit {
       });
     }, error => {
       console.log(error);
-      this.snackBar.open(`Something went wrong: ${error.message}`, this.gotoStepperIndex(0), {
-        duration: 2000
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          text: 'something went wrong',
+          icon: 'error',
+          iconColor: 'warn'
+        }
       });
     });
   }
@@ -129,8 +138,12 @@ export class ItemAddComponent implements OnInit {
         }
       }, error => {
         console.log(error);
-        this.snackBar.open(`Something went wrong: ${error.message}`, this.gotoStepperIndex(0), {
-          duration: 2000
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'something went wrong',
+            icon: 'error',
+            iconColor: 'warn'
+          }
         });
       });
     });
@@ -167,9 +180,21 @@ export class ItemAddComponent implements OnInit {
     this.bookService.search(formModel.title.replace(' ', '_')).subscribe((resp: BookModel[]) => {
       if (resp.length === 1) {
         this.selectedBook = resp[0];
-        this.snackBar.open(`${this.selectedBook.title} found, please continue.`, this.stepper.next(), {duration: 2000});
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'book found, please continue.',
+            icon: 'check_circle',
+            iconColor: 'primary'
+          }
+        });
       } else {
-        this.snackBar.open('That book does not exist, please enter it into the database.', null, {duration: 2000});
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'That book does not exist, please enter it into the database.',
+            icon: 'warn',
+            iconColor: 'warn'
+          }
+        });
       }
     });
   }
@@ -225,7 +250,13 @@ export class ItemAddComponent implements OnInit {
     this.dialog.open(AddAuthorComponent, {width: '250px'})
       .componentInstance.addedAuthor.subscribe((author: AuthorModel) => {
       this.author = author;
-      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`)._dismissAfter(2000);
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          text: 'author added successfully',
+          icon: 'check_circle',
+          iconColor: 'primary'
+        }
+      });
       this.stepper.next();
       this.dialog.closeAll();
     });
@@ -323,7 +354,13 @@ export class ItemAddComponent implements OnInit {
     if (resp.length === 1) {
       this.author = resp[0];
       this.stepper.next();
-      this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} found, please continue.`)._dismissAfter(2000);
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          text: 'author found, please continue',
+          icon: 'check_circle',
+          iconColor: 'primary'
+        }
+      });
     }
 
     // No result, user is prompted to enter a new user.
@@ -341,7 +378,13 @@ export class ItemAddComponent implements OnInit {
           this.addAuthor();
         } else {
           this.author = author;
-          this.snackBar.open(`Author ${this.author.firstName} ${this.author.lastName} added, please continue`)._dismissAfter(2000);
+          this.snackBar.openFromComponent(CustomSnackbarComponent, {
+            data: {
+              text: 'author added successfully',
+              icon: 'check_circle',
+              iconColor: 'primary'
+            }
+          });
           this.dialog.closeAll();
         }
       });
