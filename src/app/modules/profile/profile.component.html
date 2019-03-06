@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav #profileSideNav mode="side" opened>
     <mat-nav-list>
       <a [routerLink]="['/profile', {outlets: {'profile-out': ['user-details']}}]" mat-list-item
          routerLinkActive="active sidebar-item-active">

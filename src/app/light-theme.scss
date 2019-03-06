@@ -17,7 +17,7 @@
 
   /* a container for pages without a sidenav */
   .container {
-    min-height: calc(100vh - 154px);
+    min-height: calc(100vh - 194px);
     background-color: mat-color($background, background) !important;
   }
 
@@ -56,17 +56,43 @@
     min-width: 210px;
     margin: 0;
     background-color: darken($card, 5) !important;
-    border-right: 1px solid darken($card, 10) !important;
+    border-right: 1px solid darken($card, 20) !important;
+  }
+
+  mat-sidenav mat-form-field {
+    width: 90% !important;
+    padding: 10px;
   }
 
   .mat-sidenav-container {
-    min-height: calc(100vh - 155px);
+    min-height: calc(100vh - 194px);
     background-color: $card !important;
   }
 
   mat-sidenav-content {
+    min-height: calc(100vh - 194px);
     position: relative;
-    min-height: calc(100vh - 155px);
+    margin-right: -1px; // Corrects slight gap between elements.
+  }
+
+
+  /* styling for the action bars on pages with a side bar */
+  .action-bar {
+    border-bottom: 1px solid mat-color($accent, 500);
+  }
+
+  .action-bar .spacer {
+    flex: 1 1 auto;
+  }
+
+  .action-bar mat-form-field {
+    margin: 0 20px 0 20px;
+    font-size: 12pt !important;
+  }
+
+  .action-bar .mat-icon-button {
+    color: $text !important;
+    margin-right: 10px !important;
   }
 
 

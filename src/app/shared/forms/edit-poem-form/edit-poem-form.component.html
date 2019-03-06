@@ -1,0 +1,31 @@
+<h1 mat-dialog-title style="padding-bottom: 0 !important; margin-bottom: -5px !important;">
+  Editing: {{poem.title}}
+</h1>
+<h3 class="mat-h3" style="padding: 0 !important;">
+  {{poem.author.firstName}} {{poem.author.lastName}}
+</h3>
+<mat-divider></mat-divider>
+<div mat-dialog-content fxLayout="column" fxLayoutGap="10px">
+  <form [formGroup]="poemForm">
+    <div fxLayout="row">
+      <mat-form-field>
+        <input formControlName="title" matInput placeholder="title">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <mat-form-field style="width: 99% !important;">
+        <textarea [required]="true" formControlName="text" matInput placeholder="text"
+                  cdkTextareaAutosize [cdkAutosizeMinRows]="14"></textarea>
+        <mat-error>
+      <span *ngIf="!poemForm.get('text').valid && poemForm.get('text').touched">
+        You must enter the poem's text.
+      </span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="submit()">submit</button>
+  <button mat-raised-button color="warn" mat-dialog-close>close</button>
+</div>

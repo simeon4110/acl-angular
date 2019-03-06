@@ -11,10 +11,11 @@
   .footer {
     background-color: darken($card, 5);
     border-top: 1px solid mat-color($accent, 100);
-    height: 90px;
+    height: 130px;
     display: block;
     position: relative;
     width: 100%;
+    padding-top: 5px;
   }
 
   /* Stealing class names from Boot Strap. */
@@ -28,6 +29,6 @@
   }
 
   .footer-img {
-    max-height: 85px !important;
+    max-height: 75px !important;
   }
 }

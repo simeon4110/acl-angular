@@ -1,4 +1,15 @@
-<app-item-table [isActions]="true" [isFilter]="true"></app-item-table>
+<mat-toolbar class="action-bar">
+  <mat-toolbar-row fxLayout="row" fxLayoutGap="10px">
+    <button (click)="parent.toggleSideNav()" color="primary" mat-icon-button matTooltip="toggle sidebar">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-form-field>
+      <input (keyup)="table.applyFilter($event.target.value)" matInput placeholder="search items">
+    </mat-form-field>
+  </mat-toolbar-row>
+</mat-toolbar>
+<app-item-table [isActions]="true"></app-item-table>
 <mat-card *ngIf="loading">
   <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
 </mat-card>

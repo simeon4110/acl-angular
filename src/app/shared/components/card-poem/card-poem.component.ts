@@ -3,7 +3,6 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 /**
  * Displays a poem's text and details.
- *
  * @author Josh Harkema
  */
 @Component({

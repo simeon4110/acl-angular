@@ -1,0 +1,12 @@
+/* preserve newlines and fit the textarea to the dialog size */
+textarea {
+  white-space: pre-wrap !important;
+  min-width: 99%;
+}
+
+/* add extra padding and fit to the dialog size */
+form {
+  padding-top: 10px;
+  min-width: 99%;
+}
+

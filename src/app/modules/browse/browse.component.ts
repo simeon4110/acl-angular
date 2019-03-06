@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {BookService} from '../../core/services/book.service';
 import {PoemService} from '../../core/services/poem.service';
 import {ItemTableComponent} from '../../shared/components/item-table/item-table.component';
+import {MatSidenav} from '@angular/material';
 
 /**
  * The browse module.
@@ -16,6 +17,7 @@ import {ItemTableComponent} from '../../shared/components/item-table/item-table.
 })
 export class BrowseComponent implements OnInit {
   @ViewChild(ItemTableComponent) table: ItemTableComponent;
+  @ViewChild('browseSideNav') sideNav: MatSidenav;
 
   typeSelectForm: FormGroup;
   types = ['Books', 'Poems'];
@@ -55,6 +57,10 @@ export class BrowseComponent implements OnInit {
         this.loading = false;
       });
     }
+  }
+
+  public toggleSideNav(): void {
+    this.sideNav.toggle();
   }
 
   private createTypeSelectForm(): void {

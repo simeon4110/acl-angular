@@ -10,6 +10,8 @@ import {BookService} from '../../../core/services/book.service';
 import {SectionService} from '../../../core/services/section.service';
 import {Observable} from 'rxjs';
 import {ItemDetailsDialogComponent} from '../item-details-dialog/item-details-dialog.component';
+import {EditPoemFormComponent} from '../../forms/edit-poem-form/edit-poem-form.component';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 /**
  * General purpose table component for displaying anything that extends the Item model. All item modification,
@@ -24,7 +26,6 @@ import {ItemDetailsDialogComponent} from '../item-details-dialog/item-details-di
 })
 export class ItemTableComponent implements OnInit {
   @Input() isActions: boolean; // defines if the actions column should be shown.
-  @Input() isFilter: boolean; // defines if the filter form input should be shown.
   @Input() searchString: string; // defines any text that needs to be highlighted.
 
   @Output() updateRequired: EventEmitter<boolean> = new EventEmitter();
@@ -167,38 +168,59 @@ export class ItemTableComponent implements OnInit {
    * @param id the item's database id.
    */
   deleteItem(type: string, id: number): void {
-    let sub: Observable<any>;
-    switch (type) {
-      case 'BOOK':
-        if (this.auth.isAdmin()) {
-          sub = this.bookService.deleteAdmin(id);
-        } else {
-          sub = this.bookService.deleteUser(id);
+    // A confirmation dialog is popped up before anything is done.
+    this.dialog.open(ConfirmationDialogComponent).componentInstance.confirmation
+      .subscribe((resp: boolean) => {
+        if (resp) {
+          let sub: Observable<any>;
+          switch (type) {
+            case 'BOOK':
+              if (this.auth.isAdmin()) {
+                sub = this.bookService.deleteAdmin(id);
+              } else {
+                sub = this.bookService.deleteUser(id);
+              }
+              break;
+            case 'POEM':
+              if (this.auth.isAdmin()) {
+                sub = this.poemService.deleteAdmin(id);
+              } else {
+                sub = this.poemService.deleteUser(id);
+              }
+              break;
+            case 'SECT':
+              if (this.auth.isAdmin()) {
+                sub = this.sectionService.deleteAdmin(id);
+              } else {
+                sub = this.sectionService.deleteUser(id);
+              }
+              break;
+          }
+          sub.subscribe(() => {
+            this.snackBar.open('item deleted', null, {duration: 2000});
+            this.updateRequired.emit(true);
+          }, error => {
+            console.log(error);
+            this.snackBar.open('something went wrong', null, {duration: 2000});
+            this.updateRequired.emit(true);
+          });
         }
-        break;
-      case 'POEM':
-        if (this.auth.isAdmin()) {
-          sub = this.poemService.deleteAdmin(id);
-        } else {
-          sub = this.poemService.deleteUser(id);
+      });
+  }
+
+  editItem<T extends ItemModel>(item: T): void {
+    if (item.simple) {
+      this.getItem(item.category, item.id).subscribe((resp: T) => {
+        switch (item.category) {
+          case 'POEM':
+            this.dialog.open(EditPoemFormComponent, {
+              data: {poem: resp},
+              minWidth: '600px'
+            }).componentInstance.poemOut
+              .subscribe((formData: any) => console.log(formData));
         }
-        break;
-      case 'SECT':
-        if (this.auth.isAdmin()) {
-          sub = this.sectionService.deleteAdmin(id);
-        } else {
-          sub = this.sectionService.deleteUser(id);
-        }
-        break;
+      });
     }
-    sub.subscribe(() => {
-      this.snackBar.open('item deleted', null, {duration: 2000});
-      this.updateRequired.emit(true);
-    }, error => {
-      console.log(error);
-      this.snackBar.open('something went wrong', null, {duration: 2000});
-      this.updateRequired.emit(true);
-    });
   }
 
   /**
@@ -249,6 +271,7 @@ export class ItemTableComponent implements OnInit {
    * Filters the table data.
    * @param filterValue the filter string to apply.
    */
+  @Input()
   applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

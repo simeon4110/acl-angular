@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ItemTableComponent} from '../../../shared/components/item-table/item-table.component';
 import {ItemService} from '../../../core/services/item.service';
+import {ProfileComponent} from '../../profile/profile.component';
 
 /**
  * The user item manager panel allows users to modify any unconfirmed items they've added to the database.
@@ -15,7 +16,7 @@ export class UserItemManagerComponent implements OnInit {
   @ViewChild(ItemTableComponent) table: ItemTableComponent;
   loading = true;
 
-  constructor(private itemService: ItemService) {
+  constructor(private itemService: ItemService, public parent: ProfileComponent) {
   }
 
   ngOnInit() {

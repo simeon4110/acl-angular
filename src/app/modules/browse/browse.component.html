@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav #browseSideNav mode="side" opened>
     <form [formGroup]="typeSelectForm">
       <mat-form-field>
         <mat-select (selectionChange)="selectType()" formControlName="type" placeholder="item type">
@@ -9,7 +9,18 @@
     </form>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-item-table [isFilter]="true"></app-item-table>
+    <mat-toolbar class="action-bar">
+      <mat-toolbar-row fxLayout="row" fxLayoutGap="10px">
+        <button (click)="toggleSideNav()" color="primary" mat-icon-button matTooltip="toggle sidebar">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <mat-form-field>
+          <input (keyup)="table.applyFilter($event.target.value)" matInput placeholder="search items">
+        </mat-form-field>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <app-item-table></app-item-table>
     <mat-card *ngIf="loading">
       <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
     </mat-card>
