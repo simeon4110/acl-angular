@@ -49,7 +49,7 @@ export class ItemAddComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private snackBar: MatSnackBar,
               private authorService: AuthorService, private poemService: PoemService, private bookService: BookService,
-              private shortStoryService: ShortStoryService, private parent: ProfileComponent) {
+              private shortStoryService: ShortStoryService, public parent: ProfileComponent) {
   }
 
   ngOnInit() {

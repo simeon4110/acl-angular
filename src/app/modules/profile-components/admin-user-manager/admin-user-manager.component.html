@@ -11,7 +11,7 @@
     <button mat-stroked-button color="accent" (click)="addUser()">add user</button>
     <span class="spacer"></span>
     <mat-form-field>
-      <input (keyup)="table.applyFilter($event.target.value)" matInput placeholder="search users">
+      <input (keyup)="applyFilter($event.target.value)" matInput placeholder="search users">
     </mat-form-field>
   </mat-toolbar-row>
 </mat-toolbar>
