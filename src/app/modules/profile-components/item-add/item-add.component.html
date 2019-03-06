@@ -1,3 +1,10 @@
+<mat-toolbar class="action-bar">
+  <mat-toolbar-row fxLayout="row" fxLayoutGap="10px">
+    <button (click)="parent.toggleSideNav()" color="primary" mat-icon-button matTooltip="toggle sidebar">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
 <mat-horizontal-stepper #stepper [linear]="true">
   <mat-step [stepControl]="itemSelectForm">
     <div *ngIf="!selectedType">

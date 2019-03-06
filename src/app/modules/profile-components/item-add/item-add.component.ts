@@ -10,6 +10,7 @@ import {AuthorService} from '../../../core/services/author.service';
 import {PoemService} from '../../../core/services/poem.service';
 import {BookService} from '../../../core/services/book.service';
 import {ShortStoryService} from '../../../core/services/short-story.service';
+import {ProfileComponent} from '../../profile/profile.component';
 
 /**
  * This is the form for adding items to the database. The confirmation popup is in item-add-confirmation.
@@ -48,7 +49,7 @@ export class ItemAddComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private snackBar: MatSnackBar,
               private authorService: AuthorService, private poemService: PoemService, private bookService: BookService,
-              private shortStoryService: ShortStoryService) {
+              private shortStoryService: ShortStoryService, private parent: ProfileComponent) {
   }
 
   ngOnInit() {

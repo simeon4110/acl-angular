@@ -6,6 +6,8 @@ import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from 
 import {UserAddFormComponent} from '../../../shared/forms/user-add-form/user-add-form.component';
 import {AdminPasswordResetFormComponent} from '../../../shared/forms/admin-password-reset-form/admin-password-reset-form.component';
 import {AdminChangePasswordModel} from '../../../core/models/admin-change-password.model';
+import {ConfirmationDialogComponent} from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import {ProfileComponent} from '../../profile/profile.component';
 
 /**
  * The user manager profile panel.
@@ -33,7 +35,8 @@ export class AdminUserManagerComponent implements OnInit {
     'actions'
   ];
 
-  constructor(private userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar,
+              public parent: ProfileComponent) {
   }
 
   ngOnInit() {
@@ -55,15 +58,20 @@ export class AdminUserManagerComponent implements OnInit {
   }
 
   public deleteUser(username: string): void {
-    this.loading = true;
-    this.userService.deleteUser(username).subscribe(() => {
-      this.snackBar.open('user deleted successfully', null, {duration: 2000});
-      this.updateTable();
-    }, error => {
-      console.log(error);
-      this.snackBar.open('something went wrong', null, {duration: 2000});
-      this.updateTable();
-    });
+    this.dialog.open(ConfirmationDialogComponent).componentInstance.confirmation
+      .subscribe((resp: boolean) => {
+        if (resp) {
+          this.loading = true;
+          this.userService.deleteUser(username).subscribe(() => {
+            this.snackBar.open('user deleted successfully', null, {duration: 2000});
+            this.updateTable();
+          }, error => {
+            console.log(error);
+            this.snackBar.open('something went wrong', null, {duration: 2000});
+            this.updateTable();
+          });
+        }
+      });
   }
 
   public resetUserPassword(username: string): void {
@@ -90,5 +98,9 @@ export class AdminUserManagerComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.loading = false;
     }, error => console.log(error));
+  }
+
+  applyFilter(filterValue: string): void {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ItemService} from '../../../core/services/item.service';
 import {ItemTableComponent} from '../../../shared/components/item-table/item-table.component';
+import {ProfileComponent} from '../../profile/profile.component';
 
 /**
  * The admin item manager panel allows admins to modify any item in the database.
@@ -15,7 +16,7 @@ export class AdminItemManagerComponent implements OnInit {
   @ViewChild(ItemTableComponent) table: ItemTableComponent;
   loading = true;
 
-  constructor(private itemService: ItemService) {
+  constructor(private itemService: ItemService, public parent: ProfileComponent) {
   }
 
   ngOnInit() {

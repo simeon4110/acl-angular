@@ -1,0 +1,11 @@
+<h1 mat-dialog-title style="padding-bottom: 0 !important; margin-bottom: 5px !important;">
+  Are you sure?
+</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <p class="mat-body-2">This action cannot be reversed, don't do anything you're not 100% sure of.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="confirm()">yes, I'm sure</button>
+  <button mat-raised-button color="primary" (click)="deny()">no, I'd like to go back</button>
+</div>

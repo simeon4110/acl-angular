@@ -1,7 +1,4 @@
 <div>
-  <mat-form-field *ngIf="isFilter">
-    <input (keyup)="applyFilter($event.target.value)" matInput placeholder="filter item list">
-  </mat-form-field>
   <table [dataSource]="dataSource" mat-table matSort>
     <ng-container matColumnDef="id">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> #</th>
@@ -38,9 +35,16 @@
         <button (click)="deleteItem(element.category, element.id)"
                 *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username && !element.confirmation.confirmed)"
                 appClickStopPropagation
-                color="primary" mat-icon-button
+                color="warn" mat-icon-button
                 matTooltip="delete item">
           <mat-icon>delete</mat-icon>
+        </button>
+        <button (click)="editItem(element)"
+                *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username && !element.confirmation.confirmed)"
+                appClickStopPropagation
+                color="primary" mat-icon-button
+                matTooltip="edit item">
+          <mat-icon>edit</mat-icon>
         </button>
         <button (click)="itemDetails(element)" appClickStopPropagation color="primary" mat-icon-button
                 matTooltip="item details">

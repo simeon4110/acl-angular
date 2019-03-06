@@ -36,7 +36,7 @@ export class NavComponent implements OnInit {
   }
 
   public gotoDocs(): void {
-    window.open('https://app.swaggerhub.com/apis-docs/augmented-criticism/ACL/1.0.0-oas3', '_blank');
+    window.open('https://app.swaggerhub.com/apis-docs/augmented-criticism/ACL/1.0.1', '_blank');
   }
 
   private login() {

@@ -4,6 +4,7 @@ import {UserService} from '../../../core/services/user.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {PasswordResetFormComponent} from '../../../shared/forms/password-reset-form/password-reset-form.component';
 import {ChangePasswordModel} from '../../../core/models/change-password.model';
+import {ProfileComponent} from '../../profile/profile.component';
 
 @Component({
   selector: 'app-user-details',
@@ -13,7 +14,8 @@ import {ChangePasswordModel} from '../../../core/models/change-password.model';
 export class UserDetailsComponent implements OnInit {
   loading = false;
 
-  constructor(public auth: AuthService, public userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(public auth: AuthService, public userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar,
+              private parent: ProfileComponent) {
   }
 
   ngOnInit() {

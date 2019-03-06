@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../core/auth/auth.service';
+import {MatSidenav} from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -7,6 +8,7 @@ import {AuthService} from '../../core/auth/auth.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('profileSideNav') public profileSideNav: MatSidenav;
 
   constructor(public auth: AuthService) {
   }
@@ -14,4 +16,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
+  public toggleSideNav(): void {
+    this.profileSideNav.toggle();
+  }
 }

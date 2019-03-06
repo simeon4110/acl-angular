@@ -69,6 +69,10 @@ import {AdminItemManagerComponent} from './modules/profile-components/admin-item
 import {UserItemManagerComponent} from './modules/profile-components/user-item-manager/user-item-manager.component';
 import {ClickStopPropagationDirective} from './shared/directives/click-stop-propagation.directive';
 import {ItemDetailsDialogComponent} from './shared/components/item-details-dialog/item-details-dialog.component';
+import {EditPoemFormComponent} from './shared/forms/edit-poem-form/edit-poem-form.component';
+import {EditBookFormComponent} from './shared/forms/edit-book-form/edit-book-form.component';
+import {EditSectionFormComponent} from './shared/forms/edit-section-form/edit-section-form.component';
+import {ConfirmationDialogComponent} from './shared/components/confirmation-dialog/confirmation-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -120,7 +124,11 @@ const appRoutes: Routes = [
     AdminItemManagerComponent,
     UserItemManagerComponent,
     ClickStopPropagationDirective,
-    ItemDetailsDialogComponent
+    ItemDetailsDialogComponent,
+    EditPoemFormComponent,
+    EditBookFormComponent,
+    EditSectionFormComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -176,7 +184,11 @@ const appRoutes: Routes = [
     UserAddFormComponent,
     PasswordResetFormComponent,
     AdminPasswordResetFormComponent,
-    ItemDetailsDialogComponent
+    ItemDetailsDialogComponent,
+    EditBookFormComponent,
+    EditPoemFormComponent,
+    EditSectionFormComponent,
+    ConfirmationDialogComponent
   ],
   bootstrap: [
     AppComponent,
