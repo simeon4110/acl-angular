@@ -27,19 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Watch for authstate events and redirect to home.
-    this.authState = this.auth.authState.subscribe((event: boolean) => {
-      if (!event && this.auth.isAuthorized) {
-        this.router.navigate(['/']);
-        this.snackBar.openFromComponent(CustomSnackbarComponent, {
-          data: {
-            text: 'Logout successful',
-            icon: 'check_circle',
-            iconColor: 'primary'
-          }
-        });
-      }
-    });
+    this.checkAuthState();
     // Ensure service worker is up to date.
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
@@ -48,12 +36,48 @@ export class AppComponent implements OnInit {
         }
       });
     }
+  }
+
+  /**
+   * Check if the user has a stored API token. Subscribes to auth events *after* the check.
+   */
+  private checkAuthState(): void {
     // Check for user information in local storage. If found, initialise a verification check on the stored auth_token.
     if (localStorage.getItem('user') !== '' && localStorage.getItem('auth') !== '') {
       this.auth.user = JSON.parse(localStorage.getItem('user'));
       this.auth.auth = JSON.parse(localStorage.getItem('auth'));
       this.auth.checkToken();
+      this.subscribeToAuthEvents();
+    } else {
+      this.subscribeToAuthEvents();
     }
+  }
+
+  /**
+   * Handles the snackbar pop-ups for auth events.
+   */
+  private subscribeToAuthEvents(): void {
+    // Watch for authstate events and redirect to home.
+    this.authState = this.auth.authState.subscribe((event: boolean) => {
+      if (!event) { // logout
+        this.router.navigate(['/']);
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'Logout successful',
+            icon: 'check_circle',
+            iconColor: 'primary'
+          }
+        });
+      } else if (event) { // login
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          data: {
+            text: 'Login successful',
+            icon: 'check_circle',
+            iconColor: 'primary'
+          }
+        });
+      }
+    });
   }
 
   public swapTheme(newTheme: string): void {

@@ -46,6 +46,7 @@
 
   /* The default bold font weight is too heavy. */
   .mat-body-2 b {
+    color: mat-color($primary, 300);
     font-weight: 600;
   }
 

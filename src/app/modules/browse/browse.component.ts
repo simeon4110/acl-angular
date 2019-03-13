@@ -53,8 +53,12 @@ export class BrowseComponent implements OnInit {
       });
     } else if (this.selectedType === 'Books') {
       this.bookService.getAll().subscribe((resp: BookModel[]) => {
-        this.table.updateTable(resp);
-        this.loading = false;
+        if (resp.length === 0) {
+          this.loading = false;
+        } else {
+          this.table.updateTable(resp);
+          this.loading = false;
+        }
       });
     }
   }

@@ -11,22 +11,19 @@
     color: $text;
   }
 
-  .custom-snack-bar .snack-bar-text {
+  .snack-bar-text {
     text-align: left !important;
   }
 
-  .custom-snack-bar .snack-bar-action {
-    text-align: right;
+  .snack-bar-action {
+    text-align: right !important;
   }
 
-  .custom-snack-bar .spacer {
-    flex: 1 1 auto;
-  }
-
-  .snackbar-action .mat-icon-button {
-  }
-
-  .snackbar-action .mat-icon {
+  .mat-icon {
     font-size: 24pt;
+  }
+
+  .snack-bar-spacer {
+    flex: 1 1 auto;
   }
 }
