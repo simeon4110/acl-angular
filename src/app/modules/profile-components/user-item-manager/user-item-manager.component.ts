@@ -26,7 +26,7 @@ export class UserItemManagerComponent implements OnInit {
 
   private getItems(): void {
     this.loading = true;
-    this.itemService.getAllUser().subscribe((resp: ItemModel[]) => {
+    this.itemService.getAllUser().subscribe((resp: any) => {
       this.table.updateTable(resp);
       this.loading = false;
     });

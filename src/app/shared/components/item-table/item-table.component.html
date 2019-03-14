@@ -33,14 +33,14 @@
       <th *matHeaderCellDef mat-header-cell></th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="deleteItem(element.category, element.id)"
-                *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username && !element.confirmation.confirmed)"
+                *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username)"
                 appClickStopPropagation
                 color="warn" mat-icon-button
                 matTooltip="delete item">
           <mat-icon>delete</mat-icon>
         </button>
         <button (click)="editItem(element)"
-                *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username && !element.confirmation.confirmed)"
+                *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username)"
                 appClickStopPropagation
                 color="primary" mat-icon-button
                 matTooltip="edit item">
