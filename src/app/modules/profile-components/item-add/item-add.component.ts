@@ -218,6 +218,7 @@ export class ItemAddComponent implements OnInit {
     this.selectedBook = null;
   }
 
+  // :todo: make this work with search rather than SQL.
   public updateAutoComplete(): void {
     const formValue = this.itemDetailsForm.value.sourceTitle;
     this.bookService.search(formValue).subscribe((resp: BookModel[]) => {
@@ -293,7 +294,7 @@ export class ItemAddComponent implements OnInit {
       journalPageRange: [''],
       journalAbbr: [''],
       language: ['English'],
-      isPublicDomain: [''],
+      isPublicDomain: [false],
       period: ['', Validators.required],
       edition: [''],
       pageRangeBegin: [''],
