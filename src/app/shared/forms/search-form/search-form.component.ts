@@ -111,5 +111,6 @@ export class SearchFormComponent implements OnInit {
         })
       ])
     });
+    this.deleteRow(0);
   }
 }

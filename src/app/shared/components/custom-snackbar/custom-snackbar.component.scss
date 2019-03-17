@@ -3,8 +3,13 @@
 @mixin custom-snackbar-component-theme($theme) {
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+  $accent: map-get($theme, accent);
   $text: map-get($foreground, text);
   $card: map-get($background, card);
+
+  .mat-snack-bar-container {
+    border: 1px solid mat-color($accent, 300) !important;
+  }
 
   .custom-snack-bar {
     background: $card !important;

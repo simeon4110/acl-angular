@@ -57,7 +57,7 @@ import {CardPoemComponent} from './shared/components/card-poem/card-poem.compone
 import 'hammerjs';
 import {CardBookComponent} from './shared/components/card-book/card-book.component';
 import {CardSectionComponent} from './shared/components/card-section/card-section.component';
-import {OverlayContainer, OverlayModule} from '@angular/cdk/overlay';
+import {OverlayModule} from '@angular/cdk/overlay';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {SearchFormComponent} from './shared/forms/search-form/search-form.component';
 import {ItemTableComponent} from './shared/components/item-table/item-table.component';
@@ -174,7 +174,7 @@ const appRoutes: Routes = [
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, panelClass: 'custom-snack-bar'}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6000, panelClass: 'custom-snack-bar'}}
   ],
   entryComponents: [
     LoginFormComponent,
@@ -200,7 +200,6 @@ const appRoutes: Routes = [
   ]
 })
 export class AppModule {
-  constructor(overlayContainer: OverlayContainer) {
-    overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+  constructor() {
   }
 }

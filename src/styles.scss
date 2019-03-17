@@ -6,6 +6,7 @@
 @import '~@angular/material/theming';
 @import "app/dark-theme";
 @import "app/light-theme";
+@import "app/custom-theme-styles";
 @import "app/core/footer/footer.component";
 @import "app/modules/home/home.component";
 @import "app/modules/search/search.component";
@@ -25,6 +26,7 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 .light-theme {
   @include angular-material-theme($light-theme);
   @include light-theme-style($light-theme);
+  @include custom-theme-styles($light-theme);
   @include footer-component-theme($light-theme);
   @include home-component-theme($light-theme);
   @include search-component-theme($light-theme);
@@ -40,6 +42,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .dark-theme {
   @include angular-material-theme($dark-theme);
   @include dark-theme-style($dark-theme);
+  @include custom-theme-styles($dark-theme);
   @include footer-component-theme($dark-theme);
   @include home-component-theme($dark-theme);
   @include search-component-theme($dark-theme);
