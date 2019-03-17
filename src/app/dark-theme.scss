@@ -9,99 +9,6 @@
   $text: map-get($foreground, text);
   $card: map-get($background, card);
 
-  /* Setting the bg color prevents weird white bars during content load */
-  body {
-    background-color: mat-color($background, background);
-  }
-
-
-  /* a container for pages without a sidenav */
-  .container {
-    min-height: calc(100vh - 194px);
-    background-color: mat-color($background, background) !important;
-  }
-
-
-  /* Override the default link colour with the accent color. */
-  p a {
-    color: mat-color($primary, 300);
-  }
-
-
-  /* Additional styling for nav links */
-  .nav-item-link-active {
-    color: mat-color($accent, 300) !important;
-    font-weight: bold;
-  }
-
-  .nav-item-link:hover {
-    background-color: mat-color($primary, A200) !important;
-  }
-
-
-  /* Style for making table row links obvious. */
-  .mat-row:hover {
-    background-color: lighten($card, 5);
-  }
-
-
-  /* The default bold font weight is too heavy. I changed the color instead */
-  .mat-body-2 b {
-    color: mat-color($primary, 300);
-    font-weight: 500;
-  }
-
-
-  /* Styling for the sidenavs */
-  mat-sidenav {
-    width: 12%;
-    min-width: 210px;
-    margin: 0;
-    background-color: darken($card, 5) !important;
-    border-right: 1px solid mat-color($accent, 500) !important;
-  }
-
-  mat-sidenav mat-form-field {
-    width: 90% !important;
-    padding: 10px;
-  }
-
-  .mat-sidenav-container {
-    min-height: calc(100vh - 194px);
-    background-color: $card !important;
-  }
-
-  mat-sidenav-content {
-    min-height: calc(100vh - 194px);
-    position: relative;
-    margin-right: -1px; // Corrects slight gap between elements.
-  }
-
-  .sidebar-item-active {
-    background-color: lighten($card, 5) !important;
-  }
-
-
-  /* styling for the action bars on pages with a side bar */
-  .action-bar {
-    border-bottom: 1px solid mat-color($accent, 500);
-  }
-
-  .action-bar .spacer {
-    flex: 1 1 auto;
-  }
-
-  .action-bar mat-form-field {
-    margin: 0 20px 0 20px;
-    font-size: 12pt !important;
-  }
-
-  .action-bar .mat-icon-button {
-    color: $text !important;
-    margin-right: 10px !important;
-  }
-
-
   /* Customization of the stroked buttons. */
   .stroked-menu {
     background-color: mat-color($accent, 200) !important;
@@ -111,53 +18,13 @@
   }
 
 
-  /* Customization of the divider. */
-  mat-divider.style-fix {
-    height: 36px;
-    margin-left: 8px;
-    margin-right: 10px;
-    border-color: mat-color($accent, 100);
-    border-width: 1px;
-  }
-
-
-  /* scrollbar styling */
-  /* width */
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px $card;
-    border-radius: 5px;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: mat-color($primary);
-    border-radius: 5px;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: mat-color($accent);
+  /* Style for making table row links obvious. */
+  .mat-row:hover {
+    background-color: lighten($card, 5);
   }
 
 
   /* styling for the item details popup table */
-  .details-table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  .details-table td {
-    border: 1px solid #000000;
-    font-size: 15pt !important;
-    padding: 8px;
-    text-align: center;
-  }
-
   .details-table tr:nth-child(even) {
     background-color: mat-color($accent, 700);
   }

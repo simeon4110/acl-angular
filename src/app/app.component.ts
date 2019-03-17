@@ -80,29 +80,19 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /**
+   * Swaps the overlay container class to the proper theme.
+   * @param newTheme the theme to swap to.
+   */
   public swapTheme(newTheme: string): void {
     this.themeClass = `${newTheme} mat-app-background`;
-    let oldTheme = '';
-
-    // This is terrible, but I don't have time to make sense of this.
-    switch (newTheme) {
-      case 'unicorn-dark-theme':
-        oldTheme = 'light-theme';
-        break;
-      case 'dark-theme':
-        oldTheme = 'light-theme';
-        break;
-      case 'light-theme':
-        oldTheme = 'dark-theme';
-        break;
-    }
-
     const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
     const themeClassesToRemove = Array.from(overlayContainerClasses).filter((item: string) => {
-      item.includes(oldTheme);
+      item.includes('-theme');
     });
 
     if (themeClassesToRemove.length > 0) {
+      console.log(themeClassesToRemove);
       overlayContainerClasses.remove(...themeClassesToRemove);
     }
     overlayContainerClasses.add(newTheme);

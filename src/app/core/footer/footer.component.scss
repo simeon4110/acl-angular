@@ -11,7 +11,7 @@
   /* Keep the footer at the bottom of the page, increase its height on mobile. */
   .footer {
     background-color: darken($card, 5);
-    border-top: 1px solid mat-color($accent, 100);
+    border-top: 1px solid mat-color($accent, 400);
     display: block;
     position: relative;
     width: 100%;

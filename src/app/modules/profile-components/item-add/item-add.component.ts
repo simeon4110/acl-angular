@@ -222,27 +222,36 @@ export class ItemAddComponent implements OnInit {
   public updateAutoComplete(): void {
     const formValue = this.itemDetailsForm.value.sourceTitle;
     this.bookService.search(formValue).subscribe((resp: BookModel[]) => {
+      const results = [];
+      results.push(resp);
       this.autoComplete = resp;
+      if (resp !== null && results.length === 1) {
+        console.log(results[0]);
+        this.autoFillForm(results[0]);
+      }
     }, error => console.log(error));
   }
 
 
-  public autoFillForm(book: any): void {
-    const bookValue: BookModel = book.option.value.replace(' ', '_');
-    console.log(bookValue);
+  public autoFillForm(book: BookModel): void {
+    console.log(book);
     this.itemDetailsForm.patchValue({
-      sourceTitle: bookValue.title,
-      placeOfPublication: bookValue.placeOfPublication,
-      publisher: bookValue.publisher,
-      dateOfPublication: this.parseDateToForm(bookValue.dateOfPublication),
-      period: bookValue.period,
-      url: bookValue.url,
-      dateOfAccess: this.parseDateToForm(bookValue.dateOfAccess),
-      journalName: bookValue.journalName,
-      journalVolume: bookValue.journalVolume,
-      journalIssue: bookValue.journalIssue,
-      pageNumberStart: bookValue.pageRange.split('-')[0],
-      pageNumberEnd: bookValue.pageRange.split('-')[1]
+      sourceTitle: book.title,
+      placeOfPublication: book.placeOfPublication,
+      publisher: book.publisher,
+      dateOfPublication: Number.parseFloat(this.parseDateToForm(book.dateOfPublication).substring(0, 5)),
+      url: book.url,
+      dateOfAccess: this.parseDateToForm(book.dateOfAccess),
+      journalName: book.journalName,
+      journalVolume: book.journalVolume,
+      journalIssue: book.journalIssue
+    });
+    this.snackBar.openFromComponent(CustomSnackbarComponent, {
+      data: {
+        text: 'Form autofilled, please ensure the period and page range are correct.',
+        icon: 'check_circle',
+        iconColor: 'primary'
+      }
     });
   }
 
@@ -383,9 +392,10 @@ export class ItemAddComponent implements OnInit {
         } else {
           this.author = author;
           this.authorSelected = true;
+          this.stepper.next();
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: {
-              text: 'author added successfully',
+              text: 'author selected, please continue',
               icon: 'check_circle',
               iconColor: 'primary'
             }
