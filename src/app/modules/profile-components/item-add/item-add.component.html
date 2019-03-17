@@ -99,9 +99,14 @@
           <input (input)="updateAutoComplete()" [matAutocomplete]="autoGroup" [required]="selectedType === 'Poem'"
                  formControlName="sourceTitle" matInput placeholder="title of source text">
           <mat-autocomplete #autoGroup (optionSelected)="autoFillForm($event)">
-            <mat-option *ngFor="let book of autoComplete" [value]="book">
-              {{book.title}}
+            <mat-option *ngIf="autoComplete && autoComplete.length === 1" [value]="autoComplete[0]">
+              {{autoComplete[0].title}}
             </mat-option>
+            <ng-container *ngIf="autoComplete && autoComplete.length > 1">
+              <mat-option *ngFor="let book of autoComplete" [value]="book">
+                {{book.title}}
+              </mat-option>
+            </ng-container>
           </mat-autocomplete>
           <mat-error>
           <span
