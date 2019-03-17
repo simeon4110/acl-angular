@@ -7,12 +7,13 @@
   $card: map-get($background, card);
 
   .custom-snack-bar {
-    background: $card;
-    color: $text;
+    background: $card !important;
+    color: $text !important;
   }
 
   .snack-bar-text {
     text-align: left !important;
+    font-size: 20px;
   }
 
   .snack-bar-action {

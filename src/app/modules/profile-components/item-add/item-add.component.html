@@ -50,14 +50,14 @@
       </div>
     </div>
   </mat-step>
-  <mat-step [stepControl]="authorForm">
+  <mat-step [completed]="authorSelected">
     <div *ngIf="author">
       <div fxLayout="row">
         <ng-template matStepLabel>Selected Author: {{author.firstName}} {{author.lastName}}</ng-template>
         <h3 class="mat-h3"><b>Selected Author:</b> {{author.firstName}} {{author.lastName}}</h3>
       </div>
       <div fxLayout="row" style="padding-top: 10px">
-        <button (click)="resetAuthor()" color="primary" mat-raised-button>Reset author</button>
+        <button (click)="resetAuthor()" color="primary" mat-raised-button>change author</button>
       </div>
     </div>
     <form (ngSubmit)="searchAuthor()" *ngIf="!author" [formGroup]="authorForm">
@@ -132,8 +132,8 @@
         </mat-form-field>
         <mat-form-field>
           <input [required]="true" formControlName="dateOfPublication" matInput
-                 placeholder="date of publication (source)"
-                 type="date">
+                 placeholder="year of publication (source)"
+                 type="number">
           <mat-error>
           <span
             *ngIf="!itemDetailsForm.get('dateOfPublication').valid && itemDetailsForm.get('dateOfPublication').touched">
