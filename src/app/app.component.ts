@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.overlayContainer.getContainerElement().classList.add('light-theme');
     this.checkAuthState();
     // Ensure service worker is up to date.
     if (this.swUpdate.isEnabled) {
