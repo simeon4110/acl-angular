@@ -36,6 +36,7 @@ export class ItemAddComponent implements OnInit {
   selectedType: string;         // all items have types.
   selectedBook: BookModel;      // sections have books.
   author: AuthorModel;          // all items have authors.
+  authorSelected = false;       // blocks the form if an author is not selected.
   autoComplete: BookModel[];    // for auto-filling the source details form.
 
   // Pull constants from env.
@@ -226,7 +227,7 @@ export class ItemAddComponent implements OnInit {
 
 
   public autoFillForm(book: any): void {
-    const bookValue: BookModel = book.option.value;
+    const bookValue: BookModel = book.option.value.replace(' ', '_');
     console.log(bookValue);
     this.itemDetailsForm.patchValue({
       sourceTitle: bookValue.title,
@@ -250,6 +251,7 @@ export class ItemAddComponent implements OnInit {
     this.dialog.open(AddAuthorComponent, {width: '250px'})
       .componentInstance.addedAuthor.subscribe((author: AuthorModel) => {
       this.author = author;
+      this.authorSelected = true;
       this.snackBar.openFromComponent(CustomSnackbarComponent, {
         data: {
           text: 'author added successfully',
@@ -279,7 +281,7 @@ export class ItemAddComponent implements OnInit {
     this.itemDetailsForm = this.fb.group({
       placeOfPublication: ['', Validators.required],
       publisher: ['', Validators.required],
-      dateOfPublication: ['', Validators.required],
+      dateOfPublication: ['', [Validators.required, Validators.min(1000), Validators.max(2020)]],
       shortTitle: [''],
       sourceTitle: [''],
       url: [''],
@@ -353,6 +355,7 @@ export class ItemAddComponent implements OnInit {
     // A single result, only result selected as author and form moved to next step.
     if (resp.length === 1) {
       this.author = resp[0];
+      this.authorSelected = true;
       this.stepper.next();
       this.snackBar.openFromComponent(CustomSnackbarComponent, {
         data: {
@@ -378,6 +381,7 @@ export class ItemAddComponent implements OnInit {
           this.addAuthor();
         } else {
           this.author = author;
+          this.authorSelected = true;
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: {
               text: 'author added successfully',

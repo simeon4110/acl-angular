@@ -41,7 +41,7 @@ export class PoemService {
       url: itemFormValue.url,
       dateOfAccess: itemFormValue.dateOfAccess,
       pageRange: `${itemFormValue.pageRangeBegin}-${itemFormValue.pageRangeEnd}`,
-      isPublicDomain: itemFormValue.isPublicDomain,
+      publicDomain: itemFormValue.isPublicDomain,
       title: poemFormValue.title,
       form: poemFormValue.form,
       text: poemFormValue.text,

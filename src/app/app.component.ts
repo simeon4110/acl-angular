@@ -82,11 +82,32 @@ export class AppComponent implements OnInit {
 
   public swapTheme(newTheme: string): void {
     this.themeClass = `${newTheme} mat-app-background`;
+    let oldTheme = '';
+    console.log('NEW THEME: ' + newTheme);
+
+    // This is terrible, but I don't have time to make sense of this.
+    switch (newTheme) {
+      case 'unicorn-dark-theme':
+        oldTheme = 'light-theme';
+        break;
+      case 'dark-theme':
+        oldTheme = 'light-theme';
+        break;
+      case 'light-theme':
+        oldTheme = 'dark-theme';
+        break;
+    }
+
+    console.log('OLD THEME: ' + oldTheme);
 
     const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
     const themeClassesToRemove = Array.from(overlayContainerClasses).filter((item: string) => {
-      item.includes('-theme');
+      console.log('OVERLAY ITEM: ' + item);
+      item.includes(oldTheme);
     });
+
+    console.log('CLASSES TO REMOVE: ' + themeClassesToRemove);
+
     if (themeClassesToRemove.length > 0) {
       overlayContainerClasses.remove(...themeClassesToRemove);
     }

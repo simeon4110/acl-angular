@@ -32,7 +32,7 @@ export class ShortStoryService {
       pageRange: `${itemFormValue.pageRangeBegin}-${itemFormValue.pageRangeEnd}`,
       url: itemFormValue.url,
       dateOfAccess: itemFormValue.dateOfAccess,
-      isPublicDomain: itemFormValue.isPublicDomain,
+      publicDomain: itemFormValue.isPublicDomain,
       language: 'English'
     };
     console.log(shortStory);

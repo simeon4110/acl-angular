@@ -33,7 +33,7 @@ export class BookService {
       url: itemFormValue.url,
       dateOfAccess: itemFormValue.dateOfAccess,
       pageRange: `${itemFormValue.pageRangeBegin}-${itemFormValue.pageRangeEnd}`,
-      isPublicDomain: itemFormValue.isPublicDomain,
+      publicDomain: itemFormValue.isPublicDomain,
       language: 'English'
     };
 
