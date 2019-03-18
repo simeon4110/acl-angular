@@ -1,5 +1,5 @@
-<div class="login-form-container" style="width: 100%; padding-left: 10px">
-  <form (ngSubmit)="submit()" [formGroup]="loginForm">
+<div mat-dialog-content>
+  <form [formGroup]="loginForm">
     <mat-form-field>
       <input formControlName="username" matInput placeholder="username">
       <mat-error>
@@ -16,6 +16,9 @@
         </span>
       </mat-error>
     </mat-form-field>
-    <button [disabled]="!loginForm.valid" color="primary" mat-raised-button>Submit</button>
   </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="submit()">Submit</button>
+  <button mat-raised-button color="primary" mat-dialog-close>close</button>
 </div>

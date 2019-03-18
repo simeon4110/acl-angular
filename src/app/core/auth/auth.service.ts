@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {UserModel} from '../models/user.model';
 import {AuthModel} from '../models/auth.model';
+import {LoadingBarService} from '../services/loading-bar.service';
 
 /**
  * Handles all auth and user related tasks.
@@ -18,7 +19,7 @@ export class AuthService {
   public authState: EventEmitter<boolean> = new EventEmitter();
   private _isAuthorized = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loadingBar: LoadingBarService) {
   }
 
   get isAuthorized(): boolean {
@@ -31,6 +32,7 @@ export class AuthService {
       this.user = resp;
       localStorage.setItem('user', JSON.stringify(this.user));
       this.authState.emit(true);
+      this.loadingBar.setLoading(false);
     }, e => console.log(e));
   }
 
@@ -39,6 +41,7 @@ export class AuthService {
    * @param password the user's password.
    */
   public login(username: any, password: any): void {
+    this.loadingBar.setLoading(true);
     const body = new HttpParams()
       .set('grant_type', 'password')
       .set('username', username)
@@ -71,9 +74,11 @@ export class AuthService {
   }
 
   public checkToken(): boolean {
+    this.loadingBar.setLoading(true);
     let passed = false;
     if (this.auth == null) {
       this.authState.emit(false);
+      this.loadingBar.setLoading(false);
     } else {
       this.http.get(environment.oauthCheckTokenUrl + '?token=' + this.auth.access_token, {
         headers:
@@ -87,6 +92,7 @@ export class AuthService {
           this.loadUserDetails();
         } else {
           this.logoff();
+          this.loadingBar.setLoading(false);
         }
       });
     }

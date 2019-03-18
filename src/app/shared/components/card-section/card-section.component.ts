@@ -13,6 +13,8 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 })
 export class CardSectionComponent implements OnInit {
   item: any;
+  hasPrevious: boolean;
+  hasNext: boolean;
   searchString: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {

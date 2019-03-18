@@ -58,6 +58,9 @@
   </button>
 </mat-toolbar>
 
+<!--the loading progress bar-->
+<mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
+
 <!--Collapsed menu for small screens-->
 <mat-menu xPosition="before" #collapseMenu="matMenu">
   <button mat-menu-item routerLink="/browse" routerLinkActive="disabled">Browse</button>

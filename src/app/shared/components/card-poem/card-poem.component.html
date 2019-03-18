@@ -4,13 +4,14 @@
 <div mat-dialog-content>
   <p class="poem-text mat-body-2">{{formatText(item.text)}}</p>
   <mat-divider></mat-divider>
-  <p>
-    <b>Date added:</b> {{item.createdDate | date}}<br>
-    <b>Period of initial publication:</b> {{item.period}}<br>
-    <b>Title of source text:</b> {{item.sourceTitle}}<br>
-    <b>Publication date of source text:</b> {{item.dateOfPublication | date}}<br>
+  <p class="mat-body-2">
+    <strong>Date added:</strong> {{item.createdDate | date}}<br>
+    <strong>Period of initial publication:</strong> {{item.period}}<br>
+    <strong>Title of source text:</strong> {{item.sourceTitle}}<br>
+    <strong>Publication date of source text:</strong> {{item.dateOfPublication | date}}<br>
   </p>
 </div>
+<mat-divider></mat-divider>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" mat-dialog-close>close</button>
 </div>

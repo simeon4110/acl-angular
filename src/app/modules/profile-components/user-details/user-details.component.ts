@@ -6,6 +6,7 @@ import {PasswordResetFormComponent} from '../../../shared/forms/password-reset-f
 import {ChangePasswordModel} from '../../../core/models/change-password.model';
 import {ProfileComponent} from '../../profile/profile.component';
 import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
+import {LoadingBarService} from '../../../core/services/loading-bar.service';
 
 @Component({
   selector: 'app-user-details',
@@ -13,19 +14,20 @@ import {CustomSnackbarComponent} from '../../../shared/components/custom-snackba
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-  loading = false;
 
   constructor(public auth: AuthService, public userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar,
-              public parent: ProfileComponent) {
+              public parent: ProfileComponent, private loadingBar: LoadingBarService) {
   }
 
   ngOnInit() {
   }
 
   public resetPassword(): void {
+    this.loadingBar.setLoading(true);
     this.dialog.open(PasswordResetFormComponent).componentInstance.formData
       .subscribe((formData: ChangePasswordModel) => {
         this.userService.changePassword(formData).subscribe(() => {
+          this.loadingBar.setLoading(false);
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: {
               text: 'your password has been reset',
@@ -34,6 +36,7 @@ export class UserDetailsComponent implements OnInit {
             }
           });
         }, error => {
+          this.loadingBar.setLoading(false);
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: {
               text: 'something went wrong',

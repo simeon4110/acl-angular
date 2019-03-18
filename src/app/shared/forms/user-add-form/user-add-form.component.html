@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>add new user</h1>
+<h2 class="mat-h2" mat-dialog-title>add user</h2>
+<mat-divider></mat-divider>
 <div mat-dialog-content>
-  <mat-divider></mat-divider>
   <form [formGroup]="userAddForm">
-    <div fxLayout="row" fxLayoutGap="5px">
+    <div fxLayout="column" fxLayoutGap="5px">
       <mat-form-field>
         <input matInput formControlName="username" placeholder="username" [required]="true">
         <mat-error>
@@ -28,12 +28,12 @@
           </span>
         </mat-error>
       </mat-form-field>
-    </div>
-    <div fxLayout="row" style="padding-top: 10px">
       <mat-checkbox formControlName="isAdmin">administrator?</mat-checkbox>
     </div>
-    <div fxLayout="row" style="padding-top: 10px">
-      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-    </div>
   </form>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+  <button mat-raised-button color="primary" mat-dialog-close>close</button>
 </div>

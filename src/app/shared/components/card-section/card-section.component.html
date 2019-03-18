@@ -1,13 +1,16 @@
 <h1 mat-dialog-title>{{item.parentTitle}} - {{item.title}}</h1>
+<h3 class="mat-h3" style="padding: 0 !important;">{{item.author.firstName}} {{item.author.lastName}}</h3>
+<mat-divider></mat-divider>
 <div mat-dialog-content>
-  <p class="section-paragraphs" *ngFor="let pg of item.text.split('\n')">{{pg}}</p>
+  <p class="section-paragraphs mat-body-2" *ngFor="let pg of item.text.split('\n')">{{pg}}</p>
   <mat-divider></mat-divider>
-  <p>
-    <b>Date added:</b> {{item.createdDate | date}}<br>
-    <b>Period of initial publication:</b> {{item.period}}<br>
-    <b>Publication date of source text:</b> {{item.dateOfPublication | date}}<br>
+  <p class="mat-body-2">
+    <strong>Date added:</strong> {{item.createdDate | date}}<br>
+    <strong>Period of initial publication:</strong> {{item.period}}<br>
+    <strong>Publication date of source text:</strong> {{item.dateOfPublication | date}}<br>
   </p>
 </div>
+<mat-divider></mat-divider>
 <div mat-dialog-actions>
-  <button mat-raised-button color="accent" mat-dialog-close>close</button>
+  <button mat-raised-button color="primary" mat-dialog-close>close</button>
 </div>

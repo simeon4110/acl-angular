@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material';
 import {SearchFormComponent} from '../../shared/forms/search-form/search-form.component';
 import {SearchService} from '../../core/services/search.service';
 import {ItemTableComponent} from '../../shared/components/item-table/item-table.component';
+import {LoadingBarService} from '../../core/services/loading-bar.service';
 
 @Component({
   selector: 'app-search',
@@ -13,11 +14,11 @@ import {ItemTableComponent} from '../../shared/components/item-table/item-table.
 export class SearchComponent implements OnInit {
   @ViewChild(ItemTableComponent) table: ItemTableComponent;
   searchEveryWhereForm: FormGroup;
-  loading = false;
   isEmpty = true;
   searchString = '';
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService,
+              private loadingBar: LoadingBarService) {
   }
 
   /**
@@ -40,7 +41,7 @@ export class SearchComponent implements OnInit {
    */
   public openAdvancedSearchDialog(): void {
     this.dialog.open(SearchFormComponent).componentInstance.formValue.subscribe((resp: FormGroup) => {
-      this.loading = true;
+      this.loadingBar.setLoading(true);
       this.doSearch(resp);
       this.isEmpty = false;
     });
@@ -50,17 +51,17 @@ export class SearchComponent implements OnInit {
    * Runs the basic search (the non-advanced search.)
    */
   public doSearchEveryWhere(): void {
-    this.loading = true;
+    this.loadingBar.setLoading(true);
     let searchString = '';
     searchString = SearchComponent.parseAnyFieldQuery(searchString, this.searchEveryWhereForm.value.searchString);
     this.searchService.doBasicSearch(searchString).subscribe((resp: ItemModel[]) => {
       this.table.updateTable(resp);
       console.log(resp);
-      this.loading = false;
+      this.loadingBar.setLoading(false);
       this.isEmpty = false;
     }, error => {
       console.log(error);
-      this.loading = false;
+      this.loadingBar.setLoading(false);
     });
   }
 
@@ -82,10 +83,10 @@ export class SearchComponent implements OnInit {
         }
       }
       this.table.updateTable(resp);
-      this.loading = false;
+      this.loadingBar.setLoading(false);
     }, error => {
       console.log(error);
-      this.loading = false;
+      this.loadingBar.setLoading(false);
     });
   }
 

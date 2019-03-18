@@ -21,7 +21,6 @@ export class EditPoemFormComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder,
               private dialogRef: MatDialogRef<EditPoemFormComponent>) {
     this.poem = data.poem;
-    console.log(this.poem);
   }
 
   ngOnInit() {
