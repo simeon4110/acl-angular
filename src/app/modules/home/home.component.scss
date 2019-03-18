@@ -22,6 +22,10 @@
     margin-bottom: 10px
   }
 
+  .jumbotron h3 {
+    text-align: center;
+  }
+
   @media (min-width: 576px) {
     .jumbotron {
       padding: 2rem 3rem;
@@ -50,6 +54,6 @@
   }
 
   .header-image-offset {
-    margin-top: 7px;
+    margin-top: 5px;
   }
 }

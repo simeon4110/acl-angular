@@ -20,6 +20,7 @@ import {
   MatListModule,
   MatMenuModule,
   MatPaginatorModule,
+  MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
@@ -164,6 +165,7 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     HttpClientModule,
     NgxSpinnerModule,
@@ -174,7 +176,8 @@ const appRoutes: Routes = [
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6000, panelClass: 'custom-snack-bar'}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6000, panelClass: 'custom-snack-bar'}},
+    NavComponent
   ],
   entryComponents: [
     LoginFormComponent,

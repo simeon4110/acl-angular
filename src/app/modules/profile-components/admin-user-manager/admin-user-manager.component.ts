@@ -9,6 +9,7 @@ import {AdminChangePasswordModel} from '../../../core/models/admin-change-passwo
 import {ConfirmationDialogComponent} from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import {ProfileComponent} from '../../profile/profile.component';
 import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
+import {LoadingBarService} from '../../../core/services/loading-bar.service';
 
 /**
  * The user manager profile panel.
@@ -21,7 +22,6 @@ import {CustomSnackbarComponent} from '../../../shared/components/custom-snackba
 })
 export class AdminUserManagerComponent implements OnInit {
   users: UserModel[];
-  loading = true;
 
   // The table data and bindings.
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,7 +37,7 @@ export class AdminUserManagerComponent implements OnInit {
   ];
 
   constructor(private userService: UserService, private dialog: MatDialog, private snackBar: MatSnackBar,
-              public parent: ProfileComponent) {
+              public parent: ProfileComponent, private loadingBar: LoadingBarService) {
   }
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class AdminUserManagerComponent implements OnInit {
 
   public addUser(): void {
     this.dialog.open(UserAddFormComponent).componentInstance.formOut.subscribe((resp: FormGroup) => {
-      this.loading = true;
+      this.loadingBar.setLoading(true);
       this.userService.addUser(resp).subscribe(() => {
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
           data: {
@@ -74,7 +74,7 @@ export class AdminUserManagerComponent implements OnInit {
     this.dialog.open(ConfirmationDialogComponent).componentInstance.confirmation
       .subscribe((resp: boolean) => {
         if (resp) {
-          this.loading = true;
+          this.loadingBar.setLoading(true);
           this.userService.deleteUser(username).subscribe(() => {
             this.snackBar.openFromComponent(CustomSnackbarComponent, {
               data: {
@@ -103,7 +103,7 @@ export class AdminUserManagerComponent implements OnInit {
     this.dialog.open(AdminPasswordResetFormComponent).componentInstance.formData
       .subscribe((resp: AdminChangePasswordModel) => {
         resp.username = username;
-        this.loading = true;
+        this.loadingBar.setLoading(true);
         this.userService.adminChangePassword(resp).subscribe(() => {
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: {
@@ -133,7 +133,7 @@ export class AdminUserManagerComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.users);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.loading = false;
+      this.loadingBar.setLoading(false);
     }, error => console.log(error));
   }
 

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ItemService} from '../../../core/services/item.service';
 import {ItemTableComponent} from '../../../shared/components/item-table/item-table.component';
 import {ProfileComponent} from '../../profile/profile.component';
+import {LoadingBarService} from '../../../core/services/loading-bar.service';
 
 /**
  * The admin item manager panel allows admins to modify any item in the database.
@@ -14,9 +15,8 @@ import {ProfileComponent} from '../../profile/profile.component';
 })
 export class AdminItemManagerComponent implements OnInit {
   @ViewChild(ItemTableComponent) table: ItemTableComponent;
-  loading = true;
 
-  constructor(private itemService: ItemService, public parent: ProfileComponent) {
+  constructor(private itemService: ItemService, public parent: ProfileComponent, private loadingBar: LoadingBarService) {
   }
 
   ngOnInit() {
@@ -25,10 +25,10 @@ export class AdminItemManagerComponent implements OnInit {
   }
 
   private getItems(): void {
-    this.loading = true;
+    this.loadingBar.setLoading(true);
     this.itemService.getAll().subscribe((resp: ItemModel[]) => {
       this.table.updateTable(resp);
-      this.loading = false;
+      this.loadingBar.setLoading(false);
     });
   }
 }

@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material';
 import {LoginFormComponent} from '../../shared/forms/login-form/login-form.component';
 import {AuthService} from '../auth/auth.service';
 import {AppComponent} from '../../app.component';
+import {LoadingBarService} from '../services/loading-bar.service';
 
 /**
  * The nav bar component. Also handles theme switching.
@@ -17,12 +18,15 @@ import {AppComponent} from '../../app.component';
 export class NavComponent implements OnInit {
   themeClass: string;
   isDark: boolean;
+  loading = false;
 
-  constructor(private appComponent: AppComponent, public auth: AuthService, private dialog: MatDialog) {
+  constructor(private appComponent: AppComponent, public auth: AuthService, private dialog: MatDialog,
+              private loadingBar: LoadingBarService) {
   }
 
   ngOnInit() {
     this.themeClass = this.appComponent.themeClass;
+    this.subscribeToLoadingBar();
     if (localStorage.getItem('theme')) {
       if (localStorage.getItem('theme') === 'dark-theme') {
         this.isDark = true;
@@ -37,6 +41,10 @@ export class NavComponent implements OnInit {
 
   public gotoDocs(): void {
     window.open('https://app.swaggerhub.com/apis-docs/augmented-criticism/ACL/1.0.1', '_blank');
+  }
+
+  private subscribeToLoadingBar(): void {
+    this.loadingBar.isLoading.subscribe((event: boolean) => this.loading = event);
   }
 
   private login() {

@@ -4,6 +4,7 @@ import {BookService} from '../../core/services/book.service';
 import {PoemService} from '../../core/services/poem.service';
 import {ItemTableComponent} from '../../shared/components/item-table/item-table.component';
 import {MatSidenav} from '@angular/material';
+import {LoadingBarService} from '../../core/services/loading-bar.service';
 
 /**
  * The browse module.
@@ -23,12 +24,12 @@ export class BrowseComponent implements OnInit {
   types = ['Books', 'Poems'];
   selectedType = 'Poems';
 
-  loading = true; // Always loads with no data.
-
-  constructor(private fb: FormBuilder, private bookService: BookService, private poemService: PoemService) {
+  constructor(private fb: FormBuilder, private bookService: BookService, private poemService: PoemService,
+              private loadingBar: LoadingBarService) {
   }
 
   ngOnInit() {
+    this.loadingBar.setLoading(true);
     this.createTypeSelectForm();
     this.getItems();
   }
@@ -45,21 +46,21 @@ export class BrowseComponent implements OnInit {
    * Swaps out the table's dataSource and triggers a binding update.
    */
   public getItems(): void {
-    this.loading = true;
+    this.loadingBar.setLoading(true);
     if (this.selectedType === 'Poems') {
       this.poemService.getAll().subscribe((resp: PoemModel[]) => {
         this.table.updateTable(resp);
-        this.loading = false;
-      });
+        this.loadingBar.setLoading(false);
+      }, error => console.log(error));
     } else if (this.selectedType === 'Books') {
       this.bookService.getAll().subscribe((resp: BookModel[]) => {
         if (resp.length === 0) {
-          this.loading = false;
+          this.loadingBar.setLoading(false);
         } else {
           this.table.updateTable(resp);
-          this.loading = false;
+          this.loadingBar.setLoading(false);
         }
-      });
+      }, error => console.log(error));
     }
   }
 

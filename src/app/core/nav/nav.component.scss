@@ -15,5 +15,15 @@
 
 .nav-home-link {
   font-size: 15pt;
-  font-family: 'Roboto Slab', sans-serif;
+  font-family: 'Roboto Slab', serif;
+}
+
+/* defines the positioning for the loading bar */
+mat-progress-bar {
+  position: absolute;
+  width: 100%;
+  top: 64px;
+  z-index: 1001;
+  padding: 0;
+  margin: 0;
 }
