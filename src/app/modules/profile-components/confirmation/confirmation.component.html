@@ -1,0 +1,50 @@
+<mat-toolbar class="action-bar">
+  <mat-toolbar-row fxLayout="row" fxLayoutGap="10px">
+    <button (click)="parent.toggleSideNav()" color="primary" mat-icon-button matTooltip="toggle sidebar">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container" fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="center start">
+  <mat-card *ngIf="toConfirm">
+    <mat-card-header>
+      <mat-card-title>{{toConfirm.title}}</mat-card-title>
+      <mat-card-subtitle>{{toConfirm.author.firstName}} {{toConfirm.author.lastName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="poem-text mat-body-2" style="white-space: pre">{{toConfirm.text}}</p>
+      <mat-divider></mat-divider>
+      <p class="mat-body-2">
+        <strong>source title:</strong> {{toConfirm.sourceTitle}} <br/>
+        <strong>page:</strong> {{toConfirm.pageRange}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="confirmForm">
+        <div fxLayout="row">
+          <mat-radio-group aria-label="select an option" formControlName="confirmRadio">
+            <mat-radio-button value="true">this poem <strong>is correct</strong></mat-radio-button>
+            <mat-radio-button value="false">this poem <strong>contains errors</strong></mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field *ngIf="confirmForm.get('confirmRadio').value === 'false'">
+            <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="14" formControlName="rejectMessage"
+                      placeholder="please explain what is incorrect about this poem"></textarea>
+          <mat-error>
+              <span *ngIf="!confirmForm.get('rejectMessage').valid && confirmForm.get('rejectMessage').touched">
+                you must provide a reason for rejecting the poem.
+              </span>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="!confirmForm.valid">
+        submit
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

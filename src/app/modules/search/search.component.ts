@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {SearchFormComponent} from '../../shared/forms/search-form/search-form.component';
 import {SearchService} from '../../core/services/search.service';
-import {ItemTableComponent} from '../../shared/components/item-table/item-table.component';
 import {LoadingBarService} from '../../core/services/loading-bar.service';
 
 @Component({
@@ -12,9 +11,17 @@ import {LoadingBarService} from '../../core/services/loading-bar.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  @ViewChild(ItemTableComponent) table: ItemTableComponent;
   searchEveryWhereForm: FormGroup;
-  isEmpty = true;
+  dataSource: MatTableDataSource<any>;
+
+  displayedColumns: string[] = [
+    'title',
+    'author',
+    'hits',
+    'context',
+    'actions'
+  ];
+
   searchString = '';
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService,
@@ -43,7 +50,6 @@ export class SearchComponent implements OnInit {
     this.dialog.open(SearchFormComponent).componentInstance.formValue.subscribe((resp: FormGroup) => {
       this.loadingBar.setLoading(true);
       this.doSearch(resp);
-      this.isEmpty = false;
     });
   }
 
@@ -55,10 +61,10 @@ export class SearchComponent implements OnInit {
     let searchString = '';
     searchString = SearchComponent.parseAnyFieldQuery(searchString, this.searchEveryWhereForm.value.searchString);
     this.searchService.doBasicSearch(searchString).subscribe((resp: ItemModel[]) => {
-      this.table.updateTable(resp);
+
+
       console.log(resp);
       this.loadingBar.setLoading(false);
-      this.isEmpty = false;
     }, error => {
       console.log(error);
       this.loadingBar.setLoading(false);
@@ -73,6 +79,7 @@ export class SearchComponent implements OnInit {
     this.searchService.doSearch(searchForm).subscribe((resp: ItemModel[]) => {
       // This pulls out a string to highlight in the item cards if it is applicable.
       const formValue = searchForm.value;
+      console.log(resp);
       if (formValue.firstFieldName === 'text') {
         this.searchString = formValue.firstFieldSearchString;
       } else {
@@ -82,7 +89,8 @@ export class SearchComponent implements OnInit {
           }
         }
       }
-      this.table.updateTable(resp);
+
+
       this.loadingBar.setLoading(false);
     }, error => {
       console.log(error);

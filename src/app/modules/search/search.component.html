@@ -15,6 +15,30 @@
     <span class="nav-spacer" fxShow.gt-xs></span>
   </div>
   <div>
-    <app-item-table [searchString]="searchString"></app-item-table>
+    <table [dataSource]="dataSource" mat-table matSort>
+      <ng-container matColumnDef="title">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> title</th>
+        <td *matCellDef="let element" mat-cell>{{element.title}}</td>
+      </ng-container>
+      <ng-container matColumnDef="author">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> author</th>
+        <td *matCellDef="let element" mat-cell>{{element.author.lastName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="hits">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> hits</th>
+        <td *matCellDef="let element" mat-cell>{{element.search.hits}}</td>
+      </ng-container>
+      <ng-container matColumnDef="context">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> context</th>
+        <td *matCellDef="let element" mat-cell></td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> #</th>
+        <td *matCellDef="let element" mat-cell></td>
+      </ng-container>
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" align="left" showFirstLastButtons></mat-paginator>
   </div>
 </div>

@@ -22,6 +22,7 @@ import {
   MatPaginatorModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
+  MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
   MatSlideToggleModule,
@@ -76,6 +77,8 @@ import {EditBookFormComponent} from './shared/forms/edit-book-form/edit-book-for
 import {EditSectionFormComponent} from './shared/forms/edit-section-form/edit-section-form.component';
 import {ConfirmationDialogComponent} from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import {CustomSnackbarComponent} from './shared/components/custom-snackbar/custom-snackbar.component';
+import {ConfirmationComponent} from './modules/profile-components/confirmation/confirmation.component';
+import {PoemArrayFormatPipe} from './shared/pipes/poem-array-format-pipe';
 
 
 const appRoutes: Routes = [
@@ -93,7 +96,8 @@ const appRoutes: Routes = [
       {path: 'user-details', component: UserDetailsComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
       {path: 'user-items', component: UserItemManagerComponent, outlet: 'profile-out', canActivate: [AuthGuard]},
       {path: 'add-user', component: AdminUserManagerComponent, outlet: 'profile-out', canActivate: [AdminGuard]},
-      {path: 'admin-items', component: AdminItemManagerComponent, outlet: 'profile-out', canActivate: [AdminGuard]}
+      {path: 'admin-items', component: AdminItemManagerComponent, outlet: 'profile-out', canActivate: [AdminGuard]},
+      {path: 'confirm-poem', component: ConfirmationComponent, outlet: 'profile-out', canActivate: [AuthGuard]}
     ]
   }
 ];
@@ -132,7 +136,9 @@ const appRoutes: Routes = [
     EditBookFormComponent,
     EditSectionFormComponent,
     ConfirmationDialogComponent,
-    CustomSnackbarComponent
+    CustomSnackbarComponent,
+    ConfirmationComponent,
+    PoemArrayFormatPipe
   ],
   imports: [
     RouterModule.forRoot(
@@ -166,6 +172,7 @@ const appRoutes: Routes = [
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatRadioModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     HttpClientModule,
     NgxSpinnerModule,

@@ -60,11 +60,11 @@
 
   .mat-sidenav-container {
     min-height: calc(100vh - 194px);
-    background-color: $card !important;
+    background-color: map-get($background, background) !important;
   }
 
   mat-sidenav-content {
-    min-height: calc(100vh - 194px);
+    min-height: calc(100vh - 195px);
     position: relative;
     margin-right: -1px; // Corrects slight gap between elements.
   }

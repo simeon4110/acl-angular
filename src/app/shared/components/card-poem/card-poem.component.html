@@ -2,7 +2,7 @@
 <h3 class="mat-h3" style="padding: 0 !important;">{{item.author.firstName}} {{item.author.lastName}}</h3>
 <mat-divider></mat-divider>
 <div mat-dialog-content>
-  <p class="poem-text mat-body-2">{{formatText(item.text)}}</p>
+  <p class="poem-text mat-body-2">{{item.text | formatPoemFromArray}}</p>
   <mat-divider></mat-divider>
   <p class="mat-body-2">
     <strong>Date added:</strong> {{item.createdDate | date}}<br>
