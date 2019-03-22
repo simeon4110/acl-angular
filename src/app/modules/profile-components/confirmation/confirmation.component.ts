@@ -41,6 +41,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   getPoem(): void {
+    this.loadingBar.setLoading(true);
     this.poemService.getPoemToConfirm().subscribe((resp: PoemModel) => {
       if (resp !== null) {
         this.toConfirm = resp[0];
