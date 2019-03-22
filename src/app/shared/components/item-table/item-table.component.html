@@ -1,9 +1,5 @@
 <div>
   <table [dataSource]="dataSource" mat-table matSort>
-    <ng-container matColumnDef="id">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> #</th>
-      <td *matCellDef="let element" mat-cell>{{element.id}}</td>
-    </ng-container>
     <ng-container matColumnDef="title">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> title</th>
       <td *matCellDef="let element" mat-cell>
@@ -29,18 +25,35 @@
       <th *matHeaderCellDef mat-header-cell mat-sort-header> form / genre</th>
       <td *matCellDef="let element" mat-cell>{{element.type ? element.type : element.form | titlecase}}</td>
     </ng-container>
+    <ng-container matColumnDef="confirmed">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> confirmed</th>
+      <td *matCellDef="let element" mat-cell style="text-align: center !important;">
+        <span *ngIf="element.confirmed">{{element.confirmed === 'base64:type16:AQ==' ? ' yes' : ' no'}}</span>
+        <span *ngIf="!element.confirmed"> N/A</span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="revision">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> revision</th>
+      <td *matCellDef="let element" mat-cell style="text-align: center !important;">
+        <span
+          *ngIf="element.pendingRevision">{{element.pendingRevision === 'base64:type16:AQ==' ? ' yes' : ' no'}}</span>
+        <span *ngIf="!element.pendingRevision"> N/A</span>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell></th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="deleteItem(element.category, element.id)"
-                *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username)"
+                *ngIf="auth.isAdmin() ||
+                  (element.createdBy == auth.user.username && element.confirmed !== 'base64:type16:AQ==')"
                 appClickStopPropagation
                 color="warn" mat-icon-button
                 matTooltip="delete item">
           <mat-icon>delete</mat-icon>
         </button>
         <button (click)="editItem(element)"
-                *ngIf="auth.isAdmin() || (element.createdBy == auth.user.username)"
+                *ngIf="auth.isAdmin() ||
+                  (element.createdBy == auth.user.username && element.confirmed !== 'base64:type16:AQ==')"
                 appClickStopPropagation
                 color="primary" mat-icon-button
                 matTooltip="edit item">

@@ -21,18 +21,4 @@ export class CardPoemComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  /**
-   * Converts the poem's text from an array into a formatted string.
-   * @param input the input array to format.
-   * @return a formatted string: newlines are added.
-   */
-  public formatText(input: string[]): string {
-    let result = '';
-    for (const s of input) {
-      result += s;
-      result += '\n';
-    }
-    return result;
-  }
 }

@@ -18,6 +18,8 @@
 
 @include mat-core();
 
+$green: mat-palette($mat-green);
+
 $light-primary: mat-palette($mat-indigo);
 $light-accent: mat-palette($mat-pink);
 $light-warn: mat-palette($mat-deep-orange);

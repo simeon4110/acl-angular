@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
           data: {
             text: 'Login successful',
             icon: 'check_circle',
-            iconColor: 'primary'
+            iconColor: 'green'
           }
         });
       }

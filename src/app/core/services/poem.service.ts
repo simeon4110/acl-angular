@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../auth/auth.service';
+import {ConfirmationDto} from '../models/confirmation.dto';
 
 /**
  * Interactions with /poem and /secure/poem endpoints are defined here.
@@ -17,7 +18,6 @@ export class PoemService {
 
   constructor(private http: HttpClient, private auth: AuthService) {
   }
-
 
   /**
    * Handles request to: /secure/poem/add
@@ -91,4 +91,17 @@ export class PoemService {
   getTwoRandomPoems(): Observable<any> {
     return this.http.get(environment.apiBaseUrl + 'poem/two_random');
   }
+
+  getPoemToConfirm(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + 'secure/confirmation/get_poem');
+  }
+
+  confirmPoem(confirmation: ConfirmationDto): Observable<any> {
+    return this.http.put(environment.apiBaseUrl + 'secure/confirmation/confirm_poem', confirmation);
+  }
+
+  rejectPoem(confirmation: ConfirmationDto): Observable<any> {
+    return this.http.put(environment.apiBaseUrl + 'secure/confirmation/reject_poem', confirmation);
+  }
+
 }

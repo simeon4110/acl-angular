@@ -1,0 +1,31 @@
+.container {
+  min-height: calc(100vh - 301px);
+  padding-top: 15px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+mat-card {
+  min-width: 400px !important;
+  max-width: calc(50vw - 225px) !important;
+}
+
+mat-icon {
+  padding-left: 15px !important;
+  margin-right: 10px !important;
+}
+
+.form-card {
+  padding: 20px !important;
+}
+
+mat-form-field {
+  min-width: 100% !important;
+  padding-top: 25px !important;
+}
+
+textarea {
+  min-width: 100% !important;
+}

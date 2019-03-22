@@ -11,6 +11,11 @@
         <mat-icon color="primary">library_add</mat-icon>
         <span>Add Item</span>
       </a>
+      <a [routerLink]="['/profile', {outlets: {'profile-out': ['confirm-poem']}}]" mat-list-item
+         routerLinkActive="active sidebar-item-active">
+        <mat-icon color="primary">check_box</mat-icon>
+        <span>Confirm Item</span>
+      </a>
       <a [routerLink]="['/profile', {outlets: {'profile-out': ['user-items']}}]" mat-list-item
          routerLinkActive="active sidebar-item-active">
         <mat-icon color="primary">description</mat-icon>
