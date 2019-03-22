@@ -1,5 +1,5 @@
 .container {
-  min-height: calc(100vh - 300px);
+  min-height: calc(100vh - 301px);
   padding-top: 15px;
 }
 
@@ -8,8 +8,13 @@
 }
 
 mat-card {
-  min-width: 520px !important;
-  max-width: 650px !important;
+  min-width: 400px !important;
+  max-width: calc(50vw - 225px) !important;
+}
+
+mat-icon {
+  padding-left: 15px !important;
+  margin-right: 10px !important;
 }
 
 .form-card {
@@ -17,10 +22,10 @@ mat-card {
 }
 
 mat-form-field {
-  min-width: 500px !important;
+  min-width: 100% !important;
   padding-top: 25px !important;
 }
 
 textarea {
-  min-width: 500px !important;
+  min-width: 100% !important;
 }

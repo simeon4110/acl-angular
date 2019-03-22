@@ -18,6 +18,7 @@ import {LoadingBarService} from '../../../core/services/loading-bar.service';
 export class ConfirmationComponent implements OnInit {
   toConfirm: PoemModel;
   confirmForm: FormGroup;
+  nothingToConfirm = false;
 
   constructor(private fb: FormBuilder, private poemService: PoemService, private snackBar: MatSnackBar,
               private loadingBar: LoadingBarService) {
@@ -26,6 +27,7 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit() {
     this.getPoem();
     this.createConfirmForm();
+
     // Updates form validity for when a reject message is required.
     this.confirmForm.get('confirmRadio').valueChanges.subscribe(value => {
       if (value === 'false') {
@@ -39,7 +41,11 @@ export class ConfirmationComponent implements OnInit {
 
   getPoem(): void {
     this.poemService.getPoemToConfirm().subscribe((resp: PoemModel) => {
-      this.toConfirm = resp[0];
+      if (resp !== null) {
+        this.toConfirm = resp[0];
+      } else {
+        this.nothingToConfirm = true;
+      }
       this.loadingBar.setLoading(false);
     }, error1 => console.log(error1));
   }
@@ -50,6 +56,7 @@ export class ConfirmationComponent implements OnInit {
   submit(): void {
     this.loadingBar.setLoading(true);
     const formValue = this.confirmForm.value;
+    console.log(formValue);
     if (formValue.confirmRadio === 'true') {
       this.poemService.confirmPoem(new ConfirmationDto(this.toConfirm.id, 'POEM', true, null))
         .subscribe(() => {

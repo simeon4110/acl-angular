@@ -27,6 +27,7 @@ import {CustomSnackbarComponent} from '../custom-snackbar/custom-snackbar.compon
 })
 export class ItemTableComponent implements OnInit {
   @Input() isActions: boolean; // defines if the actions column should be shown.
+  @Input() isUser: boolean;
   @Input() searchString: string; // defines any text that needs to be highlighted.
 
   @Output() updateRequired: EventEmitter<boolean> = new EventEmitter();
@@ -37,7 +38,6 @@ export class ItemTableComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = [
-    'id',
     'title',
     'category',
     'author.firstName',
@@ -51,6 +51,11 @@ export class ItemTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    // adds the confirmation and revision columns to the user table.
+    if (this.isUser) {
+      this.displayedColumns.push('confirmed');
+      this.displayedColumns.push('revision');
+    }
     // adds the action column if isActions is true.
     if (this.isActions) {
       this.displayedColumns.push('actions');

@@ -5,14 +5,35 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="container" fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="center start">
+<div class="container" fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center start">
+  <mat-card *ngIf="nothingToConfirm">
+    <mat-card-content>
+      <h2 class="mat-h2" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon color="accent">question_answer</mat-icon>
+        There is nothing for you to confirm right now...
+      </h2>
+      <mat-divider></mat-divider>
+      <p class="mat-body-2">
+        You have either finished confirming your assigned number of poems, or you have an item awaiting corrections.
+        You can view and correct any of your rejected items in the 'My Items' page of your profile or by clicking the
+        'My Items' button below.
+      </p>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [routerLink]="['/profile', {outlets: {'profile-out': ['user-items']}}]">
+        My Items
+      </button>
+    </mat-card-actions>
+  </mat-card>
   <mat-card *ngIf="toConfirm">
     <mat-card-header>
       <mat-card-title>{{toConfirm.title}}</mat-card-title>
       <mat-card-subtitle>{{toConfirm.author.firstName}} {{toConfirm.author.lastName}}</mat-card-subtitle>
     </mat-card-header>
+    <mat-divider></mat-divider>
     <mat-card-content>
-      <p class="poem-text mat-body-2" style="white-space: pre">{{toConfirm.text}}</p>
+      <p class="poem-text mat-body-2">{{toConfirm.text}}</p>
       <mat-divider></mat-divider>
       <p class="mat-body-2">
         <strong>source title:</strong> {{toConfirm.sourceTitle}} <br/>
@@ -20,7 +41,7 @@
       </p>
     </mat-card-content>
   </mat-card>
-  <mat-card class="form-card">
+  <mat-card *ngIf="toConfirm" class="form-card">
     <mat-card-content>
       <form [formGroup]="confirmForm">
         <div fxLayout="row">
@@ -48,3 +69,4 @@
     </mat-card-actions>
   </mat-card>
 </div>
+`

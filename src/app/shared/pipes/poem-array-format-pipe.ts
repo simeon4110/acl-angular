@@ -5,7 +5,7 @@ export class PoemArrayFormatPipe implements PipeTransform {
   transform(value: string[], ...args): string {
     let result = '';
     for (const s of value) {
-      result += s + '\n';
+      result += s.trim() + '\n';
     }
     return result;
   }
