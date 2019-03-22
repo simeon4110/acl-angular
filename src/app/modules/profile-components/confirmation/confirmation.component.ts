@@ -5,6 +5,7 @@ import {ConfirmationDto} from '../../../core/models/confirmation.dto';
 import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
 import {MatSnackBar} from '@angular/material';
 import {LoadingBarService} from '../../../core/services/loading-bar.service';
+import {ProfileComponent} from '../../profile/profile.component';
 
 /**
  * Handles poem confirmation.
@@ -21,7 +22,7 @@ export class ConfirmationComponent implements OnInit {
   nothingToConfirm = false;
 
   constructor(private fb: FormBuilder, private poemService: PoemService, private snackBar: MatSnackBar,
-              private loadingBar: LoadingBarService) {
+              private loadingBar: LoadingBarService, public parent: ProfileComponent) {
   }
 
   ngOnInit() {
