@@ -5,12 +5,12 @@
     </button>
     <span class="spacer"></span>
     <div class="confirmation-progress" fxLayout="column" fxLayoutAlign="center center">
-      <p class="mat-h2">confirmation progress: {{currentConfirmation}} / {{totalConfirmation}}</p>
+      <p class="mat-h2 no-margin">confirmation progress: {{currentConfirmation}} / {{totalConfirmation}}</p>
       <mat-progress-bar mode="determinate" value="{{percentConfirmation}}"></mat-progress-bar>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="container">
+<div class="container" fxLayout="row" fxLayoutAlign="center start">
   <mat-card *ngIf="nothingToConfirm">
     <mat-card-content>
       <h2 class="mat-h2" fxLayout="row" fxLayoutAlign="start center">
