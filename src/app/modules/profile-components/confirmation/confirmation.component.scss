@@ -29,3 +29,24 @@ mat-form-field {
 textarea {
   min-width: 100% !important;
 }
+
+.confirmation-progress {
+  max-width: 100%;
+  width: 20rem !important;
+  margin: 0 15px;
+}
+
+mat-progress-bar {
+  height: 6px !important;
+  margin: 5px 0 !important;
+}
+
+.mat-h2 {
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+.action-bar .spacer {
+  flex: 1 1 auto;
+}
+

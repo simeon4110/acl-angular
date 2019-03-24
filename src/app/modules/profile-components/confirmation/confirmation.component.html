@@ -3,9 +3,14 @@
     <button (click)="parent.toggleSideNav()" color="primary" mat-icon-button matTooltip="toggle sidebar">
       <mat-icon>menu</mat-icon>
     </button>
+    <span class="spacer"></span>
+    <div class="confirmation-progress" fxLayout="column" fxLayoutAlign="center center">
+      <p class="mat-h2">confirmation progress: {{currentConfirmation}} / {{totalConfirmation}}</p>
+      <mat-progress-bar mode="determinate" value="{{percentConfirmation}}"></mat-progress-bar>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="container" fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center start">
+<div class="container">
   <mat-card *ngIf="nothingToConfirm">
     <mat-card-content>
       <h2 class="mat-h2" fxLayout="row" fxLayoutAlign="start center">
@@ -26,47 +31,49 @@
       </button>
     </mat-card-actions>
   </mat-card>
-  <mat-card *ngIf="toConfirm">
-    <mat-card-header>
-      <mat-card-title>{{toConfirm.title}}</mat-card-title>
-      <mat-card-subtitle>{{toConfirm.author.firstName}} {{toConfirm.author.lastName}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      <p class="poem-text mat-body-2">{{toConfirm.text}}</p>
+  <div *ngIf="toConfirm" fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center start">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{toConfirm.title}}</mat-card-title>
+        <mat-card-subtitle>{{toConfirm.author.firstName}} {{toConfirm.author.lastName}}</mat-card-subtitle>
+      </mat-card-header>
       <mat-divider></mat-divider>
-      <p class="mat-body-2">
-        <strong>source title:</strong> {{toConfirm.sourceTitle}} <br/>
-        <strong>page:</strong> {{toConfirm.pageRange}}
-      </p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card *ngIf="toConfirm" class="form-card">
-    <mat-card-content>
-      <form [formGroup]="confirmForm">
-        <div fxLayout="row">
-          <mat-radio-group aria-label="select an option" formControlName="confirmRadio">
-            <mat-radio-button value="true">this poem <strong>is correct</strong></mat-radio-button>
-            <mat-radio-button value="false">this poem <strong>contains errors</strong></mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <mat-form-field *ngIf="confirmForm.get('confirmRadio').value === 'false'">
+      <mat-card-content>
+        <p class="poem-text mat-body-2">{{toConfirm.text}}</p>
+        <mat-divider></mat-divider>
+        <p class="mat-body-2">
+          <strong>source title:</strong> {{toConfirm.sourceTitle}} <br/>
+          <strong>page:</strong> {{toConfirm.pageRange}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="form-card">
+      <mat-card-content>
+        <form [formGroup]="confirmForm">
+          <div fxLayout="row">
+            <mat-radio-group aria-label="select an option" formControlName="confirmRadio">
+              <mat-radio-button value="true">this poem <strong>is correct</strong></mat-radio-button>
+              <mat-radio-button value="false">this poem <strong>contains errors</strong></mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <mat-form-field *ngIf="confirmForm.get('confirmRadio').value === 'false'">
             <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="14" formControlName="rejectMessage"
                       placeholder="please explain what is incorrect about this poem"></textarea>
-          <mat-error>
+            <mat-error>
               <span *ngIf="!confirmForm.get('rejectMessage').valid && confirmForm.get('rejectMessage').touched">
                 you must provide a reason for rejecting the poem.
               </span>
-          </mat-error>
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="submit()" [disabled]="!confirmForm.valid">
-        submit
-      </button>
-    </mat-card-actions>
-  </mat-card>
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="!confirmForm.valid">
+          submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
 `

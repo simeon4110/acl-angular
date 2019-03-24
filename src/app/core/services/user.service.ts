@@ -42,4 +42,8 @@ export class UserService {
   adminChangePassword(data: AdminChangePasswordModel): Observable<any> {
     return this.http.put(environment.apiBaseUrl + 'secure/user/modify_password', data);
   }
+
+  getConfirmationProgress(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + 'secure/user/get_confirmation_progress');
+  }
 }
