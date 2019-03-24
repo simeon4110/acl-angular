@@ -6,6 +6,7 @@ import {CustomSnackbarComponent} from '../../../shared/components/custom-snackba
 import {MatSnackBar} from '@angular/material';
 import {LoadingBarService} from '../../../core/services/loading-bar.service';
 import {ProfileComponent} from '../../profile/profile.component';
+import {UserService} from '../../../core/services/user.service';
 
 /**
  * Handles poem confirmation.
@@ -19,10 +20,13 @@ import {ProfileComponent} from '../../profile/profile.component';
 export class ConfirmationComponent implements OnInit {
   toConfirm: PoemModel;
   confirmForm: FormGroup;
+  currentConfirmation: number;
+  totalConfirmation: number;
+  percentConfirmation: number;
   nothingToConfirm = false;
 
   constructor(private fb: FormBuilder, private poemService: PoemService, private snackBar: MatSnackBar,
-              private loadingBar: LoadingBarService, public parent: ProfileComponent) {
+              private loadingBar: LoadingBarService, public parent: ProfileComponent, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -50,6 +54,11 @@ export class ConfirmationComponent implements OnInit {
       }
       this.loadingBar.setLoading(false);
     }, error1 => console.log(error1));
+    this.userService.getConfirmationProgress().subscribe((resp: number[]) => {
+      this.currentConfirmation = resp[1];
+      this.totalConfirmation = resp[0];
+      this.percentConfirmation = (this.currentConfirmation / this.totalConfirmation) * 100;
+    });
   }
 
   /**
