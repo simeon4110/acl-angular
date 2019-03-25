@@ -33,7 +33,7 @@ export class PoemService {
     // Parse the form models into a dict.
     // :todo: fix this so the form fields match the dict fields.
     const poem = {
-      sourceTitle: poemFormValue.sourceTitle,
+      sourceTitle: itemFormValue.sourceTitle,
       placeOfPublication: itemFormValue.placeOfPublication,
       publisher: itemFormValue.publisher,
       dateOfPublication: itemFormValue.dateOfPublication,
