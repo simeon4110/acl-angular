@@ -1,0 +1,11 @@
+<h1 mat-dialog-title style="padding-bottom: 0 !important; margin-bottom: -5px !important;">{{item.subject}}</h1>
+<h3 class="mat-h3" style="padding: 0 !important;">from: {{item.userFrom}}</h3>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <p class="mat-body-2" style="white-space: pre">{{item.message}}</p>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close>close</button>
+  <button mat-raised-button color="warn" (click)="delete()">delete</button>
+</div>
