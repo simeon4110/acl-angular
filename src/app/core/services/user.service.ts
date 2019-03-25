@@ -46,4 +46,16 @@ export class UserService {
   getConfirmationProgress(): Observable<any> {
     return this.http.get(environment.apiBaseUrl + 'secure/user/get_confirmation_progress');
   }
+
+  getInbox(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + 'secure/message/get_inbox');
+  }
+
+  deleteMessage(id: number): Observable<any> {
+    return this.http.delete(environment.apiBaseUrl + 'secure/message/delete_message/' + id);
+  }
+
+  readMessage(id: number): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + 'secure/message/read_message/' + id);
+  }
 }

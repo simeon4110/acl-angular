@@ -103,5 +103,4 @@ export class PoemService {
   rejectPoem(confirmation: ConfirmationDto): Observable<any> {
     return this.http.put(environment.apiBaseUrl + 'secure/confirmation/reject_poem', confirmation);
   }
-
 }

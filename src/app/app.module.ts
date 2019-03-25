@@ -79,6 +79,7 @@ import {ConfirmationDialogComponent} from './shared/components/confirmation-dial
 import {CustomSnackbarComponent} from './shared/components/custom-snackbar/custom-snackbar.component';
 import {ConfirmationComponent} from './modules/profile-components/confirmation/confirmation.component';
 import {PoemArrayFormatPipe} from './shared/pipes/poem-array-format-pipe';
+import {MessageDialogComponent} from './modules/profile/message-dialog/message-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -138,7 +139,8 @@ const appRoutes: Routes = [
     ConfirmationDialogComponent,
     CustomSnackbarComponent,
     ConfirmationComponent,
-    PoemArrayFormatPipe
+    PoemArrayFormatPipe,
+    MessageDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -203,7 +205,8 @@ const appRoutes: Routes = [
     EditPoemFormComponent,
     EditSectionFormComponent,
     ConfirmationDialogComponent,
-    CustomSnackbarComponent
+    CustomSnackbarComponent,
+    MessageDialogComponent
   ],
   bootstrap: [
     AppComponent,
