@@ -3,13 +3,12 @@
   padding-top: 15px;
 }
 
-.mat-radio-button ~ .mat-radio-button {
-  margin-left: 16px;
+.mat-radio-button {
+  margin-right: 16px;
 }
 
 mat-card {
-  min-width: 400px !important;
-  max-width: calc(50vw - 225px) !important;
+  max-width: calc(95vw - 225px) !important;
 }
 
 mat-icon {
