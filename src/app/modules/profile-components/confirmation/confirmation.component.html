@@ -31,8 +31,10 @@
       </button>
     </mat-card-actions>
   </mat-card>
-  <div *ngIf="toConfirm" fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center start">
-    <mat-card>
+  <div *ngIf="toConfirm" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center start"
+       fxLayoutAlign.lt-md="center center"
+       fxLayoutGap="15px">
+    <mat-card fxFlex="1 0 auto">
       <mat-card-header>
         <mat-card-title>{{toConfirm.title}}</mat-card-title>
         <mat-card-subtitle>{{toConfirm.author.firstName}} {{toConfirm.author.lastName}}</mat-card-subtitle>
@@ -47,10 +49,10 @@
         </p>
       </mat-card-content>
     </mat-card>
-    <mat-card class="form-card">
+    <mat-card class="form-card" fxFlex="1 0 auto">
       <mat-card-content>
         <form [formGroup]="confirmForm">
-          <div fxLayout="row">
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="17px">
             <mat-radio-group aria-label="select an option" formControlName="confirmRadio">
               <mat-radio-button value="true">this poem <strong>is correct</strong></mat-radio-button>
               <mat-radio-button value="false">this poem <strong>contains errors</strong></mat-radio-button>

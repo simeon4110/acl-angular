@@ -18,8 +18,6 @@
 
 @include mat-core();
 
-$green: mat-palette($mat-green);
-
 $light-primary: mat-palette($mat-indigo);
 $light-accent: mat-palette($mat-pink);
 $light-warn: mat-palette($mat-deep-orange);
@@ -132,6 +130,12 @@ td {
 
 .mat-button {
   font-family: 'Roboto', sans-serif;
+}
+
+
+/* a green color for success badges */
+.mat-green {
+  color: #3e9441 !important;
 }
 
 

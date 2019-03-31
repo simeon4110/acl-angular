@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
           data: {
             text: 'Logout successful',
             icon: 'check_circle',
-            iconColor: 'primary'
+            iconColor: 'green'
           }
         });
       } else if (event) { // login
