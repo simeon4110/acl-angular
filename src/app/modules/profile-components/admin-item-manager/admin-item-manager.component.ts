@@ -3,6 +3,7 @@ import {ItemService} from '../../../core/services/item.service';
 import {ItemTableComponent} from '../../../shared/components/item-table/item-table.component';
 import {ProfileComponent} from '../../profile/profile.component';
 import {LoadingBarService} from '../../../core/services/loading-bar.service';
+import {ItemModel} from '../../../core/models/item.model';
 
 /**
  * The admin item manager panel allows admins to modify any item in the database.

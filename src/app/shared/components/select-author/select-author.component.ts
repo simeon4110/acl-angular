@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {AuthorModel} from '../../../core/models/author.model';
 
 /**
  * Used to select an author when more than one result is returned from a search.

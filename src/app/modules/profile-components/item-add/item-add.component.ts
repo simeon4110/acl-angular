@@ -12,6 +12,8 @@ import {BookService} from '../../../core/services/book.service';
 import {ShortStoryService} from '../../../core/services/short-story.service';
 import {ProfileComponent} from '../../profile/profile.component';
 import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
+import {BookModel} from '../../../core/models/book.model';
+import {AuthorModel} from '../../../core/models/author.model';
 
 /**
  * This is the form for adding items to the database. The confirmation popup is in item-add-confirmation.

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PoemService} from '../../core/services/poem.service';
+import {PoemModel} from '../../core/models/poem.model';
 
 @Component({
   selector: 'app-home',

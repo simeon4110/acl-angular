@@ -13,6 +13,8 @@ import {ItemDetailsDialogComponent} from '../item-details-dialog/item-details-di
 import {EditPoemFormComponent} from '../../forms/edit-poem-form/edit-poem-form.component';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 import {CustomSnackbarComponent} from '../custom-snackbar/custom-snackbar.component';
+import {ItemModel} from '../../../core/models/item.model';
+import {PoemModel} from '../../../core/models/poem.model';
 
 /**
  * General purpose table component for displaying anything that extends the Item model. All item modification,

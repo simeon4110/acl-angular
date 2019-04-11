@@ -1,4 +1,4 @@
-interface ConfirmationModel {
+export interface ConfirmationModel {
   confirmed: boolean;
   confirmedBy: string;
   confirmedAt: string;

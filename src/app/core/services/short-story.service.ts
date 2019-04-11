@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../auth/auth.service';
 import {environment} from '../../../environments/environment';
+import {AuthorModel} from '../models/author.model';
 
 @Injectable({
   providedIn: 'root'
