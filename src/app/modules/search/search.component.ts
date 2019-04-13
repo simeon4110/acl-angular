@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {SearchFormComponent} from '../../shared/forms/search-form/search-form.component';
 import {SearchService} from '../../core/services/search.service';
 import {LoadingBarService} from '../../core/services/loading-bar.service';
@@ -13,15 +13,8 @@ import {ItemModel} from '../../core/models/item.model';
 })
 export class SearchComponent implements OnInit {
   searchEveryWhereForm: FormGroup;
-  dataSource: MatTableDataSource<any>;
-
-  displayedColumns: string[] = [
-    'title',
-    'author',
-    'hits',
-    'context',
-    'actions'
-  ];
+  searchResults: ItemModel[];
+  searchForm: FormGroup;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService,
               private loadingBar: LoadingBarService) {
@@ -35,9 +28,17 @@ export class SearchComponent implements OnInit {
    * Pops up the advanced search form and runs a search on the returned value.
    */
   public openAdvancedSearchDialog(): void {
-    this.dialog.open(SearchFormComponent).componentInstance.formValue.subscribe((resp: FormGroup) => {
+    this.dialog.open(SearchFormComponent, {
+      data: {
+        searchForm: this.searchForm
+      }
+    }).componentInstance.formValue.subscribe((formValue: FormGroup) => {
+      this.searchForm = formValue;
       this.loadingBar.setLoading(true);
-      this.searchService.search(resp);
+      this.searchService.search(formValue).subscribe((resp: ItemModel[]) => {
+        this.searchResults = resp;
+        this.loadingBar.setLoading(false);
+      });
     });
   }
 
@@ -48,7 +49,7 @@ export class SearchComponent implements OnInit {
     this.loadingBar.setLoading(true);
     this.searchService.basicSearch(this.searchEveryWhereForm.value.searchString)
       .subscribe((resp: ItemModel[]) => {
-        console.log(resp);
+        this.searchResults = resp;
         this.loadingBar.setLoading(false);
       }, error => {
         console.log(error);

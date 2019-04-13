@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 /**
  * Advanced search form component.
@@ -17,23 +17,23 @@ export class SearchFormComponent implements OnInit {
   searchForm: FormGroup;
 
   // Define search params.
-  joinParameters = ['and', 'or', 'not'];
+  joinParameters = ['AND', 'OR', 'NOT'];
   matchTypes = ['contains', 'is (exact)', 'starts with'];
 
   // Define all search fields here, adding / removing fields won't break anything.
   fields = {
-    'any': 'any',
-    'author.firstName': 'author\'s first name',
-    'author.lastName': 'author\'s last name',
+    'firstName': 'author\'s first name',
+    'lastName': 'author\'s last name',
     'title': 'book / poem title',
-    'chapter_title': 'chapter title (sections)',
     'parent_title': 'book title (sections)',
     'period': 'period',
     'poem_form': 'poetic form',
     'text': 'text'
   };
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<SearchFormComponent>) {
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<SearchFormComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.searchForm = data.searchForm;
   }
 
   get rows(): FormArray {
@@ -41,7 +41,9 @@ export class SearchFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createSearchForm();
+    if (this.searchForm == null) {
+      this.createSearchForm();
+    }
   }
 
   /**
@@ -52,7 +54,6 @@ export class SearchFormComponent implements OnInit {
       this.fb.group({
         joinParameter: [this.joinParameters[0], Validators.required],
         fieldName: [this.fields['any'], Validators.required],
-        matchType: [this.matchTypes[0], Validators.required],
         searchString: ['', Validators.required]
       })
     );
@@ -93,8 +94,7 @@ export class SearchFormComponent implements OnInit {
 
   private createSearchForm(): void {
     this.searchForm = this.fb.group({
-      firstFieldName: [this.fields['any'], Validators.required],
-      firstFieldMatchType: [this.matchTypes[0], Validators.required],
+      firstFieldName: [this.fields['text'], Validators.required],
       firstFieldSearchString: ['', Validators.required],
       itemTypeAny: [true],
       itemTypeBook: [''],
@@ -106,7 +106,6 @@ export class SearchFormComponent implements OnInit {
         this.fb.group({
           joinParameter: [this.joinParameters[0], Validators.required],
           fieldName: [this.fields['any'], Validators.required],
-          matchType: [this.matchTypes[0], Validators.required],
           searchString: ['', Validators.required]
         })
       ])

@@ -25,11 +25,6 @@
           <mat-option *ngFor="let field of fields | keyvalue" [value]="field.key">{{field.value}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field>
-        <mat-select formControlName="firstFieldMatchType" placeholder="match type" [required]="true">
-          <mat-option *ngFor="let matchType of matchTypes" [value]="matchType">{{matchType}}</mat-option>
-        </mat-select>
-      </mat-form-field>
       <mat-form-field style="width: 25rem !important;">
         <input matInput formControlName="firstFieldSearchString" placeholder="search string" [required]="true">
         <mat-error>
@@ -54,11 +49,6 @@
         <mat-form-field>
           <mat-select formControlName="fieldName" placeholder="field" [required]="true">
             <mat-option *ngFor="let field of fields | keyvalue" [value]="field.key">{{field.value}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-select formControlName="matchType" placeholder="match type" [required]="true">
-            <mat-option *ngFor="let type of matchTypes" [value]="type">{{type}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field style="width: 25rem !important;">
