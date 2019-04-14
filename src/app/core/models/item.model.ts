@@ -1,4 +1,7 @@
-interface ItemModel {
+import {AuthorModel} from './author.model';
+import {ConfirmationModel} from './confirmation.model';
+
+export interface ItemModel {
   id: number;
   category: string;
   author: AuthorModel;

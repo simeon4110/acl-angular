@@ -14,31 +14,33 @@
     </button>
     <span class="nav-spacer" fxShow.gt-xs></span>
   </div>
-  <div>
-    <table [dataSource]="dataSource" mat-table matSort>
-      <ng-container matColumnDef="title">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> title</th>
-        <td *matCellDef="let element" mat-cell>{{element.title}}</td>
-      </ng-container>
-      <ng-container matColumnDef="author">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> author</th>
-        <td *matCellDef="let element" mat-cell>{{element.author.lastName}}</td>
-      </ng-container>
-      <ng-container matColumnDef="hits">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> hits</th>
-        <td *matCellDef="let element" mat-cell>{{element.search.hits}}</td>
-      </ng-container>
-      <ng-container matColumnDef="context">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> context</th>
-        <td *matCellDef="let element" mat-cell></td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> #</th>
-        <td *matCellDef="let element" mat-cell></td>
-      </ng-container>
-      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" align="left" showFirstLastButtons></mat-paginator>
-  </div>
+  <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+    <ng-container cdkColumnDef="category">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="5%" mat-sort-header=""> type</mat-header-cell>
+      <mat-cell *cdkCellDef="let element" fxFlex="5%">
+        <p class="mat-body-2">{{element.category | categoryPipe}} </p>
+      </mat-cell>
+    </ng-container>
+    <ng-container cdkColumnDef="author">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10%"> author</mat-header-cell>
+      <mat-cell *cdkCellDef="let element" fxFlex="10%">
+        <p class="mat-body-2">{{element.firstName}} {{element.lastName}}</p>
+      </mat-cell>
+    </ng-container>
+    <ng-container cdkColumnDef="title">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10%"> title</mat-header-cell>
+      <mat-cell *cdkCellDef="let element" fxFlex="10%">
+        <p class="mat-body-2">
+          {{element.category === 'SECT' ? element.parentTitle + " - " + element.title : element.title}}
+        </p>
+      </mat-cell>
+    </ng-container>
+    <ng-container cdkColumnDef="context">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="75%"> context</mat-header-cell>
+      <mat-cell *cdkCellDef="let element" [innerHTML]="getContext(element.context)" fxFlex="75%"></mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" align="left" showFirstLastButtons></mat-paginator>
 </div>

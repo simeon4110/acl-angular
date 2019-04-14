@@ -80,6 +80,8 @@ import {CustomSnackbarComponent} from './shared/components/custom-snackbar/custo
 import {ConfirmationComponent} from './modules/profile-components/confirmation/confirmation.component';
 import {PoemArrayFormatPipe} from './shared/pipes/poem-array-format-pipe';
 import {MessageDialogComponent} from './modules/profile/message-dialog/message-dialog.component';
+import {CategoryPipePipe} from './shared/pipes/category-pipe.pipe';
+import {CdkTableModule} from '@angular/cdk/table';
 
 
 const appRoutes: Routes = [
@@ -140,7 +142,8 @@ const appRoutes: Routes = [
     CustomSnackbarComponent,
     ConfirmationComponent,
     PoemArrayFormatPipe,
-    MessageDialogComponent
+    MessageDialogComponent,
+    CategoryPipePipe
   ],
   imports: [
     RouterModule.forRoot(
@@ -180,7 +183,8 @@ const appRoutes: Routes = [
     NgxSpinnerModule,
     FlexLayoutModule,
     OverlayModule,
-    MatProgressButtonsModule.forRoot()
+    MatProgressButtonsModule.forRoot(),
+    CdkTableModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

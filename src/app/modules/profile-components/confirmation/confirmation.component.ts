@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material';
 import {LoadingBarService} from '../../../core/services/loading-bar.service';
 import {ProfileComponent} from '../../profile/profile.component';
 import {UserService} from '../../../core/services/user.service';
+import {PoemModel} from '../../../core/models/poem.model';
 
 /**
  * Handles poem confirmation.

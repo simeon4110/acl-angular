@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthorService} from '../../../core/services/author.service';
 import {MatDialogRef} from '@angular/material';
+import {AuthorModel} from '../../../core/models/author.model';
 
 @Component({
   selector: 'app-add-author',

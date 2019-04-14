@@ -5,6 +5,8 @@ import {PoemService} from '../../core/services/poem.service';
 import {ItemTableComponent} from '../../shared/components/item-table/item-table.component';
 import {MatSidenav} from '@angular/material';
 import {LoadingBarService} from '../../core/services/loading-bar.service';
+import {PoemModel} from '../../core/models/poem.model';
+import {BookModel} from '../../core/models/book.model';
 
 /**
  * The browse module.

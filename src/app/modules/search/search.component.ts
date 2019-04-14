@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SearchFormComponent} from '../../shared/forms/search-form/search-form.component';
 import {SearchService} from '../../core/services/search.service';
 import {LoadingBarService} from '../../core/services/loading-bar.service';
+import {SearchResultModel} from '../../core/models/search-result.model';
 
 @Component({
   selector: 'app-search',
@@ -12,31 +13,24 @@ import {LoadingBarService} from '../../core/services/loading-bar.service';
 })
 export class SearchComponent implements OnInit {
   searchEveryWhereForm: FormGroup;
+  searchForm: FormGroup;
+
+  searchResults: SearchResultModel[];
+
+  // The table data and bindings.
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = [
-    'title',
+    'category',
     'author',
-    'hits',
-    'context',
-    'actions'
+    'title',
+    'context'
   ];
-
-  searchString = '';
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService,
               private loadingBar: LoadingBarService) {
-  }
-
-  /**
-   * A basic parser that searches an item's text, title, and author first/last name.
-   * @param queryString the query string to append to.
-   * @param searchString the search string to search for.
-   */
-  private static parseAnyFieldQuery(queryString: string, searchString: string): string {
-    queryString += `(text:"${searchString}"~ OR title:"${searchString}"~ OR author.firstName:"${searchString}"~ ` +
-      `OR author.lastName:"${searchString}"~) `;
-    return queryString;
   }
 
   ngOnInit() {
@@ -47,9 +41,18 @@ export class SearchComponent implements OnInit {
    * Pops up the advanced search form and runs a search on the returned value.
    */
   public openAdvancedSearchDialog(): void {
-    this.dialog.open(SearchFormComponent).componentInstance.formValue.subscribe((resp: FormGroup) => {
+    this.dialog.open(SearchFormComponent, {
+      data: {
+        searchForm: this.searchForm
+      }
+    }).componentInstance.formValue.subscribe((formValue: FormGroup) => {
+      this.searchForm = formValue;
       this.loadingBar.setLoading(true);
-      this.doSearch(resp);
+      this.searchService.search(formValue).subscribe((resp: SearchResultModel[]) => {
+        this.searchResults = resp;
+        this.updateTable();
+        this.loadingBar.setLoading(false);
+      });
     });
   }
 
@@ -58,49 +61,33 @@ export class SearchComponent implements OnInit {
    */
   public doSearchEveryWhere(): void {
     this.loadingBar.setLoading(true);
-    let searchString = '';
-    searchString = SearchComponent.parseAnyFieldQuery(searchString, this.searchEveryWhereForm.value.searchString);
-    this.searchService.doBasicSearch(searchString).subscribe((resp: ItemModel[]) => {
-
-
-      console.log(resp);
-      this.loadingBar.setLoading(false);
-    }, error => {
-      console.log(error);
-      this.loadingBar.setLoading(false);
-    });
+    this.searchService.basicSearch(this.searchEveryWhereForm.value.searchString)
+      .subscribe((resp: SearchResultModel[]) => {
+        this.searchResults = resp;
+        this.updateTable();
+        this.loadingBar.setLoading(false);
+      }, error => {
+        console.log(error);
+        this.loadingBar.setLoading(false);
+      });
   }
 
-  /**
-   * Runs the advanced search and extracts a searchString for item text highlighting if needed.
-   * @param searchForm the value of the searchForm.
-   */
-  public doSearch(searchForm: FormGroup): void {
-    this.searchService.doSearch(searchForm).subscribe((resp: ItemModel[]) => {
-      // This pulls out a string to highlight in the item cards if it is applicable.
-      const formValue = searchForm.value;
-      console.log(resp);
-      if (formValue.firstFieldName === 'text') {
-        this.searchString = formValue.firstFieldSearchString;
-      } else {
-        for (const f of formValue.rows) {
-          if (this.searchString === '' && f.fieldName === 'text') {
-            this.searchString = f.searchString;
-          }
-        }
-      }
-
-
-      this.loadingBar.setLoading(false);
-    }, error => {
-      console.log(error);
-      this.loadingBar.setLoading(false);
-    });
+  public getContext(text: string): string {
+    if (text.trim() === '') {
+      return `<p class="mat-body-2"><em>No search hits in text body...</em></p>`;
+    }
+    return '<p class="mat-body-2">' + text + '</p>';
   }
 
   private createSearchEveryWhereForm(): void {
     this.searchEveryWhereForm = this.fb.group({
       searchString: ['']
     });
+  }
+
+  private updateTable(): void {
+    this.dataSource = new MatTableDataSource<any>(this.searchResults);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }

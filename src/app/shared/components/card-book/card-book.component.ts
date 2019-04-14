@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {CardSectionComponent} from '../card-section/card-section.component';
 import {Overlay} from '@angular/cdk/overlay';
+import {SectionModel} from '../../../core/models/section.model';
 
 /**
  * Displays a book's contents as a list of chapters / sections.

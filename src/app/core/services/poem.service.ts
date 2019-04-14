@@ -5,6 +5,8 @@ import {FormGroup} from '@angular/forms';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../auth/auth.service';
 import {ConfirmationDto} from '../models/confirmation.dto';
+import {AuthorModel} from '../models/author.model';
+import {PoemModel} from '../models/poem.model';
 
 /**
  * Interactions with /poem and /secure/poem endpoints are defined here.

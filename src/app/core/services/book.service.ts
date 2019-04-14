@@ -4,6 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../auth/auth.service';
+import {AuthorModel} from '../models/author.model';
 
 /**
  * Interactions with /book and /secure/book endpoints are defined here.
