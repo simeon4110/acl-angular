@@ -28,4 +28,8 @@
   .details-table tr:nth-child(even) {
     background-color: mat-color($accent, 700);
   }
+
+  .highlight {
+    background-color: mat-color($accent, 600) !important;
+  }
 }

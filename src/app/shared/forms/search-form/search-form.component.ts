@@ -18,7 +18,6 @@ export class SearchFormComponent implements OnInit {
 
   // Define search params.
   joinParameters = ['AND', 'OR', 'NOT'];
-  matchTypes = ['contains', 'is (exact)', 'starts with'];
 
   // Define all search fields here, adding / removing fields won't break anything.
   fields = {

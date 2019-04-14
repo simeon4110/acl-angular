@@ -8,19 +8,6 @@
   $text: map-get($foreground, text);
   $card: map-get($background, card);
 
-  table {
-    width: 100%;
-    padding: 0 5px 0 5px;
-  }
-
-  th {
-    font-size: 15pt !important;
-  }
-
-  td {
-    font-size: 14pt !important;
-  }
-
   .search-toolbar {
     background-color: mat-color($accent, 600);
     height: 130px;
@@ -55,8 +42,28 @@
     max-width: 30%;
   }
 
-  .checkbox-row {
+  mat-header-cell {
+    font-size: 16pt;
+    padding-left: 5px;
+  }
 
+  mat-row {
+    min-height: 100%;
+    align-items: stretch;
+    padding: 5px;
+  }
+
+  mat-cell {
+    flex-grow: 1;
+    min-height: 100%;
+    padding: 5px;
+  }
+
+  .highlight {
+    background-color: mat-color($accent, A100);
+    border: 1px solid mat-color($accent, 400);
+    padding: 2px;
+    border-radius: 2px;
   }
 }
 

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SearchFormComponent} from '../../shared/forms/search-form/search-form.component';
 import {SearchService} from '../../core/services/search.service';
 import {LoadingBarService} from '../../core/services/loading-bar.service';
-import {ItemModel} from '../../core/models/item.model';
+import {SearchResultModel} from '../../core/models/search-result.model';
 
 @Component({
   selector: 'app-search',
@@ -13,8 +13,21 @@ import {ItemModel} from '../../core/models/item.model';
 })
 export class SearchComponent implements OnInit {
   searchEveryWhereForm: FormGroup;
-  searchResults: ItemModel[];
   searchForm: FormGroup;
+
+  searchResults: SearchResultModel[];
+
+  // The table data and bindings.
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource: MatTableDataSource<any>;
+
+  displayedColumns: string[] = [
+    'category',
+    'author',
+    'title',
+    'context'
+  ];
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService,
               private loadingBar: LoadingBarService) {
@@ -35,8 +48,9 @@ export class SearchComponent implements OnInit {
     }).componentInstance.formValue.subscribe((formValue: FormGroup) => {
       this.searchForm = formValue;
       this.loadingBar.setLoading(true);
-      this.searchService.search(formValue).subscribe((resp: ItemModel[]) => {
+      this.searchService.search(formValue).subscribe((resp: SearchResultModel[]) => {
         this.searchResults = resp;
+        this.updateTable();
         this.loadingBar.setLoading(false);
       });
     });
@@ -48,8 +62,9 @@ export class SearchComponent implements OnInit {
   public doSearchEveryWhere(): void {
     this.loadingBar.setLoading(true);
     this.searchService.basicSearch(this.searchEveryWhereForm.value.searchString)
-      .subscribe((resp: ItemModel[]) => {
+      .subscribe((resp: SearchResultModel[]) => {
         this.searchResults = resp;
+        this.updateTable();
         this.loadingBar.setLoading(false);
       }, error => {
         console.log(error);
@@ -57,9 +72,22 @@ export class SearchComponent implements OnInit {
       });
   }
 
+  public getContext(text: string): string {
+    if (text.trim() === '') {
+      return `<p class="mat-body-2"><em>No search hits in text body...</em></p>`;
+    }
+    return '<p class="mat-body-2">' + text + '</p>';
+  }
+
   private createSearchEveryWhereForm(): void {
     this.searchEveryWhereForm = this.fb.group({
       searchString: ['']
     });
+  }
+
+  private updateTable(): void {
+    this.dataSource = new MatTableDataSource<any>(this.searchResults);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }
