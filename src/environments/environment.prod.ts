@@ -11,7 +11,7 @@ export const environment = {
     'Sonnet': 'SONNET',
     'Free Verse': 'OPEN'
   },
-  itemTypes: ['Poem', 'Book', 'Chapter / Section'],
+  itemTypes: ['Poem', 'Book', 'Chapter / Section', 'Short Story'],
   bookTypes: {
     'Fiction': 'FICTION',
     'Non-fiction': 'NON-FICTION',
