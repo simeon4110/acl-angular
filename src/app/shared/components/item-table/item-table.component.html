@@ -28,16 +28,16 @@
     <ng-container matColumnDef="confirmed">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> confirmed</th>
       <td *matCellDef="let element" mat-cell style="text-align: center !important;">
-        <span *ngIf="element.confirmed">{{element.confirmed === 'base64:type16:AQ==' ? ' yes' : ' no'}}</span>
-        <span *ngIf="!element.confirmed"> N/A</span>
+        <span *ngIf="element.confirmation">{{element.confirmation.confirmed ? ' yes' : ' no'}}</span>
+        <span *ngIf="!element.confirmation"> N/A</span>
       </td>
     </ng-container>
     <ng-container matColumnDef="revision">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> revision</th>
       <td *matCellDef="let element" mat-cell style="text-align: center !important;">
         <span
-          *ngIf="element.pendingRevision">{{element.pendingRevision === 'base64:type16:AQ==' ? ' yes' : ' no'}}</span>
-        <span *ngIf="!element.pendingRevision"> N/A</span>
+          *ngIf="element.confirmation">{{element.confirmation.pendingRevision ? ' yes' : ' no'}}</span>
+        <span *ngIf="!element.confirmation"> N/A</span>
       </td>
     </ng-container>
     <ng-container matColumnDef="actions">
@@ -45,7 +45,7 @@
       <td *matCellDef="let element" mat-cell>
         <button (click)="deleteItem(element.category, element.id)"
                 *ngIf="auth.isAdmin() ||
-                  (element.createdBy == auth.user.username && element.confirmed !== 'base64:type16:AQ==')"
+                  (element.createdBy == auth.user.username && !element.confirmation.confirmed)"
                 appClickStopPropagation
                 color="warn" mat-icon-button
                 matTooltip="delete item">
@@ -53,7 +53,7 @@
         </button>
         <button (click)="editItem(element)"
                 *ngIf="auth.isAdmin() ||
-                  (element.createdBy == auth.user.username && element.confirmed !== 'base64:type16:AQ==')"
+                  (element.createdBy == auth.user.username && !element.confirmation.confirmed)"
                 appClickStopPropagation
                 color="primary" mat-icon-button
                 matTooltip="edit item">
