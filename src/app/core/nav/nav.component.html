@@ -41,11 +41,11 @@
   <mat-divider [vertical]="true" class="style-fix" fxShow="false" fxShow.gt-sm></mat-divider>
 
   <!--Login / profile buttons-->
-  <div *ngIf="auth.isAuthorized !== null">
+  <div>
     <button (click)="login()" *ngIf="!auth.isAuthorized" class="stroked-menu" color="accent" mat-stroked-button>
       LOGIN
     </button>
-    <button *ngIf="auth.isAuthorized" [matMenuTriggerFor]="userMenu" class="stroked-menu" color="accent"
+    <button *ngIf="auth.isAuthorized && auth.user" [matMenuTriggerFor]="userMenu" class="stroked-menu" color="accent"
             mat-stroked-button>
       {{auth.user.username}}
       <mat-icon style="padding-bottom: 4px">arrow_drop_down</mat-icon>
