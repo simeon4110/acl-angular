@@ -87,7 +87,7 @@ export class AuthService {
             'grant_type': 'password'
           }
       }).subscribe(resp => {
-        if (resp['active']) {
+        if (resp['authorities'] !== null) {
           passed = true;
           this.loadUserDetails();
         } else {
