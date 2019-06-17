@@ -40,7 +40,7 @@ export class NavComponent implements OnInit {
   }
 
   public gotoDocs(): void {
-    window.open('https://app.swaggerhub.com/apis-docs/augmented-criticism/ACL/1.0.1', '_blank');
+    window.open('https://api.acriticismlab.org/swagger-ui.html', '_blank');
   }
 
   private subscribeToLoadingBar(): void {

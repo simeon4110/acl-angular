@@ -14,7 +14,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.poemService.getTwoRandomPoems().subscribe((resp: PoemModel[]) => this.randomPoems = resp);
+    this.poemService.getTwoRandomPoems().subscribe((resp: any[]) => {
+      console.log(resp);
+      this.randomPoems = resp;
+    });
   }
 
   public michaelsBlog(): void {

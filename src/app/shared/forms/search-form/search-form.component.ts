@@ -24,9 +24,9 @@ export class SearchFormComponent implements OnInit {
     'firstName': 'author\'s first name',
     'lastName': 'author\'s last name',
     'title': 'book / poem title',
-    'parent_title': 'book title (sections)',
+    'parentTitle': 'book title (sections)',
     'period': 'period',
-    'poem_form': 'poetic form',
+    'poemForm': 'poetic form',
     'text': 'text'
   };
 
