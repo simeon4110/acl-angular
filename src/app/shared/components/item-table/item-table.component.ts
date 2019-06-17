@@ -15,6 +15,8 @@ import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-d
 import {CustomSnackbarComponent} from '../custom-snackbar/custom-snackbar.component';
 import {ItemModel} from '../../../core/models/item.model';
 import {PoemModel} from '../../../core/models/poem.model';
+import {BookModel} from '../../../core/models/book.model';
+import {SectionModel} from '../../../core/models/section.model';
 
 /**
  * General purpose table component for displaying anything that extends the Item model. All item modification,
@@ -107,18 +109,20 @@ export class ItemTableComponent implements OnInit {
    * @param item the item to popup a dialog display for.
    */
   showItem<T extends ItemModel>(item: T): void {
-    if (item.simple) { // Catch simple items and retrieve their full details.
-      this.getItem(item.category, item.id).subscribe((resp: T) => {
-        switch (item.category) {
-          case 'POEM':
+    switch (item.category) {
+      case 'POEM':
+        this.poemService.getById(item.id).subscribe((resp: PoemModel) => {
             this.dialog.open(CardPoemComponent, {
               data: {
                 item: resp,
                 searchString: this.searchString
               }
             });
-            break;
-          case 'BOOK':
+        });
+        break;
+      case 'BOOK':
+        this.bookService.getById(item.id).subscribe((resp: BookModel) => {
+          console.log(resp);
             this.dialog.open(CardBookComponent, {
               data: {
                 item: resp,
@@ -126,8 +130,10 @@ export class ItemTableComponent implements OnInit {
               },
               scrollStrategy: this.overlay.scrollStrategies.noop()
             });
-            break;
-          case 'SECT':
+        });
+        break;
+      case 'SECT':
+        this.sectionService.getById(item.id).subscribe((resp: SectionModel) => {
             this.dialog.open(CardSectionComponent, {
               data: {
                 item: resp,
@@ -135,39 +141,9 @@ export class ItemTableComponent implements OnInit {
               },
               scrollStrategy: this.overlay.scrollStrategies.noop()
             });
-            break;
-        }
-      });
-    } else {
-      switch (item.category) {
-        case 'POEM':
-          this.dialog.open(CardPoemComponent, {
-            data: {
-              item: item,
-              searchString: this.searchString
-            }
-          });
-          break;
-        case 'BOOK':
-          this.dialog.open(CardBookComponent, {
-            data: {
-              item: item,
-              searchString: this.searchString
-            },
-            scrollStrategy: this.overlay.scrollStrategies.noop()
-          });
-          break;
-        case 'SECT':
-          this.dialog.open(CardSectionComponent, {
-            data: {
-              item: item,
-              searchString: this.searchString
-            },
-            scrollStrategy: this.overlay.scrollStrategies.noop()
           });
           break;
       }
-    }
   }
 
   /**
@@ -190,11 +166,7 @@ export class ItemTableComponent implements OnInit {
               }
               break;
             case 'POEM':
-              if (this.auth.isAdmin()) {
-                sub = this.poemService.deleteAdmin(id);
-              } else {
-                sub = this.poemService.deleteUser(id);
-              }
+              sub = this.poemService.delete(id);
               break;
             case 'SECT':
               if (this.auth.isAdmin()) {

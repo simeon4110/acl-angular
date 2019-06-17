@@ -76,7 +76,7 @@ export class SearchComponent implements OnInit {
     if (text.trim() === '') {
       return `<p class="mat-body-2"><em>No search hits in text body...</em></p>`;
     }
-    return '<p class="mat-body-2">' + text + '</p>';
+    return '<p class="mat-body-2" style="white-space: pre-wrap">' + text + '</p>';
   }
 
   private createSearchEveryWhereForm(): void {

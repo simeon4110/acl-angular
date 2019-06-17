@@ -49,7 +49,7 @@ export class BookService {
   }
 
   getById(id: number): Observable<any> {
-    return this.http.get(environment.apiBaseUrl + 'book/by_id/' + id);
+    return this.http.get(environment.apiBaseUrl + 'book/' + id);
   }
 
   deleteAdmin(id: number): Observable<any> {

@@ -50,19 +50,15 @@ export class PoemService {
       authorId: author.id
     };
 
-    return this.http.post(environment.apiBaseUrl + 'secure/poem/add', poem);
+    return this.http.post(environment.apiBaseUrl + 'secure/poem', poem);
   }
 
-  deleteAdmin(id: number): Observable<any> {
-    return this.http.delete(environment.apiBaseUrl + 'secure/poem/delete/' + id);
-  }
-
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete(environment.apiBaseUrl + 'secure/poem/user_delete/' + id);
+  delete(id: number): Observable<any> {
+    return this.http.delete(environment.apiBaseUrl + 'secure/poem/' + id);
   }
 
   getById(id: number): Observable<any> {
-    return this.http.get(environment.apiBaseUrl + 'poem/by_id/' + id);
+    return this.http.get(environment.apiBaseUrl + 'poem/' + id);
   }
 
   getByIds(ids: number[]): Observable<any> {
@@ -76,18 +72,8 @@ export class PoemService {
     return this.http.get(environment.apiBaseUrl + 'poem/all');
   }
 
-  getAllSimple(): Observable<any> {
-    if (this.auth.isAuthorized) {
-      return this.http.get(environment.apiBaseUrl + 'secure/poem/all_simple');
-    }
-    return this.http.get(environment.apiBaseUrl + 'poem/all_simple');
-  }
-
   modify(poem: PoemModel): Observable<any> {
-    if (this.auth.isAdmin()) {
-      return this.http.put(environment.apiBaseUrl + 'secure/poem/modify', poem);
-    }
-    return this.http.put(environment.apiBaseUrl + 'secure/poem/modify_user', poem);
+    return this.http.put(environment.apiBaseUrl + 'secure/poem', poem);
   }
 
   getTwoRandomPoems(): Observable<any> {
