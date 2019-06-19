@@ -49,6 +49,7 @@ export class SearchComponent implements OnInit {
       this.searchForm = formValue;
       this.loadingBar.setLoading(true);
       this.searchService.search(formValue).subscribe((resp: SearchResultModel[]) => {
+        console.log(resp);
         this.searchResults = resp;
         this.updateTable();
         this.loadingBar.setLoading(false);
@@ -76,6 +77,7 @@ export class SearchComponent implements OnInit {
     if (text.trim() === '') {
       return `<p class="mat-body-2"><em>No search hits in text body...</em></p>`;
     }
+    text = text.split('\n').join('<br />');
     return '<p class="mat-body-2" style="white-space: pre-wrap">' + text + '</p>';
   }
 

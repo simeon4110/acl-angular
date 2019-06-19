@@ -23,7 +23,7 @@ export class SearchFormComponent implements OnInit {
   fields = {
     'firstName': 'author\'s first name',
     'lastName': 'author\'s last name',
-    'title': 'book / poem title',
+    'title': 'item (play, poem) title',
     'parentTitle': 'book title (sections)',
     'period': 'period',
     'poemForm': 'poetic form',
@@ -87,6 +87,7 @@ export class SearchFormComponent implements OnInit {
       this.searchForm.get('itemTypePoem').patchValue(false);
       this.searchForm.get('itemTypeSection').patchValue(false);
       this.searchForm.get('itemTypeShortStory').patchValue(false);
+      this.searchForm.get('itemTypePlay').patchValue(false);
       this.searchForm.get('itemTypeAny').patchValue(true);
     }
   }
@@ -100,6 +101,7 @@ export class SearchFormComponent implements OnInit {
       itemTypePoem: [''],
       itemTypeSection: [''],
       itemTypeShortStory: [''],
+      itemTypePlay: [''],
       publicationDate: [''],
       rows: this.fb.array([
         this.fb.group({

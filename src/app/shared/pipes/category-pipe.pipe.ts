@@ -13,6 +13,10 @@ export class CategoryPipePipe implements PipeTransform {
         return 'Chapter';
       case 'SHST':
         return 'Short Story';
+      case 'PLAY':
+        return 'Play';
+      case 'DILI':
+        return 'Play - Lines';
       default:
         return 'Unknown';
     }

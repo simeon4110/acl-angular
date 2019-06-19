@@ -16,8 +16,8 @@
   </div>
   <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
     <ng-container cdkColumnDef="category">
-      <mat-header-cell *cdkHeaderCellDef fxFlex="5%" mat-sort-header=""> type</mat-header-cell>
-      <mat-cell *cdkCellDef="let element" fxFlex="5%">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10%" mat-sort-header=""> type</mat-header-cell>
+      <mat-cell *cdkCellDef="let element" fxFlex="10%">
         <p class="mat-body-2">{{element.category | categoryPipe}} </p>
       </mat-cell>
     </ng-container>
@@ -36,8 +36,8 @@
       </mat-cell>
     </ng-container>
     <ng-container cdkColumnDef="context">
-      <mat-header-cell *cdkHeaderCellDef fxFlex="75%"> context</mat-header-cell>
-      <mat-cell *cdkCellDef="let element" [innerHTML]="getContext(element.context)" fxFlex="75%"></mat-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="65%"> context</mat-header-cell>
+      <mat-cell *cdkCellDef="let element" [innerHTML]="getContext(element.context)" fxFlex="65%"></mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

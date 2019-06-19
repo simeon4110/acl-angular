@@ -18,6 +18,9 @@
       <mat-checkbox formControlName="itemTypeShortStory" (change)="updateChecked(false)">
         short stories
       </mat-checkbox>
+      <mat-checkbox (change)="updateChecked(false)" formControlName="itemTypePlay">
+        plays
+      </mat-checkbox>
     </div>
     <div fxLayout="row" fxLayoutGap="5px">
       <mat-form-field style="width: 10rem !important;">

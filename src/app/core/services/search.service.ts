@@ -18,6 +18,8 @@ export class SearchService {
   public static POEM_TYPE = 'POEM';
   public static SECTION_TYPE = 'SECT';
   public static SHORT_STORY_TYPE = 'SHST';
+  public static PLAY_TYPE = 'PLAY';
+  public static PLAY_DIALOG_TYPE = 'DILI';
 
   constructor(private http: HttpClient) {
   }
@@ -44,6 +46,8 @@ export class SearchService {
       queryItemTypes.push(SearchService.POEM_TYPE);
       queryItemTypes.push(SearchService.SECTION_TYPE);
       queryItemTypes.push(SearchService.SHORT_STORY_TYPE);
+      queryItemTypes.push(SearchService.PLAY_DIALOG_TYPE);
+      queryItemTypes.push(SearchService.PLAY_TYPE);
     } else {
       if (formValue.itemTypePoem) {
         queryItemTypes.push(SearchService.POEM_TYPE);
@@ -53,6 +57,10 @@ export class SearchService {
       }
       if (formValue.itemTypeShortStory) {
         queryItemTypes.push(SearchService.SHORT_STORY_TYPE);
+      }
+      if (formValue.itemTypePlay) {
+        queryItemTypes.push(SearchService.PLAY_DIALOG_TYPE);
+        queryItemTypes.push(SearchService.PLAY_TYPE);
       }
     }
 
