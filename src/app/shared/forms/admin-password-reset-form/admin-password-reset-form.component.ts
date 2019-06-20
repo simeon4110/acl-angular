@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 import {AdminChangePasswordModel} from '../../../core/models/admin-change-password.model';
 import {PasswordValidation} from '../../validators/password-validation';
 

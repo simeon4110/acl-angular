@@ -1,5 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import {CardPoemComponent} from '../card-poem/card-poem.component';
 import {CardBookComponent} from '../card-book/card-book.component';
 import {Overlay} from '@angular/cdk/overlay';
@@ -17,6 +20,7 @@ import {ItemModel} from '../../../core/models/item.model';
 import {PoemModel} from '../../../core/models/poem.model';
 import {BookModel} from '../../../core/models/book.model';
 import {SectionModel} from '../../../core/models/section.model';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 /**
  * General purpose table component for displaying anything that extends the Item model. All item modification,

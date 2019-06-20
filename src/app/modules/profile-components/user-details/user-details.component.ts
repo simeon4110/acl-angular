@@ -1,7 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../../core/auth/auth.service';
 import {UserService} from '../../../core/services/user.service';
-import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import {PasswordResetFormComponent} from '../../../shared/forms/password-reset-form/password-reset-form.component';
 import {ChangePasswordModel} from '../../../core/models/change-password.model';
 import {ProfileComponent} from '../../profile/profile.component';

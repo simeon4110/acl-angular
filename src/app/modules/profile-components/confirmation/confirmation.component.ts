@@ -3,7 +3,7 @@ import {PoemService} from '../../../core/services/poem.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ConfirmationDto} from '../../../core/models/confirmation.dto';
 import {CustomSnackbarComponent} from '../../../shared/components/custom-snackbar/custom-snackbar.component';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {LoadingBarService} from '../../../core/services/loading-bar.service';
 import {ProfileComponent} from '../../profile/profile.component';
 import {UserService} from '../../../core/services/user.service';

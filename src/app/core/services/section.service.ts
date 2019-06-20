@@ -16,14 +16,14 @@ export class SectionService {
   }
 
   getById(id: number): Observable<any> {
-    return this.http.get(environment.apiBaseUrl + 'section/by_id/' + id);
+    return this.http.get(environment.apiBaseUrl + 'section/' + id);
   }
 
   deleteAdmin(id: number): Observable<any> {
-    return this.http.delete(environment.apiBaseUrl + 'secure/section/delete/' + id);
+    return this.http.delete(environment.apiBaseUrl + 'secure/section/' + id);
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(environment.apiBaseUrl + 'secure/section/user_delete' + id);
+    return this.http.delete(environment.apiBaseUrl + 'secure/section/' + id);
   }
 }

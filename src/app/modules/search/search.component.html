@@ -40,7 +40,7 @@
       <mat-cell *cdkCellDef="let element" [innerHTML]="getContext(element.context)" fxFlex="65%"></mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" align="left" showFirstLastButtons></mat-paginator>
 </div>

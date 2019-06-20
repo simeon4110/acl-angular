@@ -8,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {AuthService} from './core/auth/auth.service';
 import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {CustomSnackbarComponent} from './shared/components/custom-snackbar/custom-snackbar.component';
 
