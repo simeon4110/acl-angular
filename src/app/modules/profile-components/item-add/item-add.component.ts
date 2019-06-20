@@ -48,8 +48,8 @@ export class ItemAddComponent implements OnInit {
   bookTypes = environment.bookTypes;
 
   // Get bindings to child elements.
-  @ViewChild('stepper') stepper;
-  @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
+  @ViewChild('stepper', {static: true}) stepper;
+  @ViewChild(FormGroupDirective, {static: false}) formDirective: FormGroupDirective;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private snackBar: MatSnackBar,
               private authorService: AuthorService, private poemService: PoemService, private bookService: BookService,

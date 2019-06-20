@@ -15,7 +15,7 @@ import {ItemModel} from '../../../core/models/item.model';
   styleUrls: ['./admin-item-manager.component.scss']
 })
 export class AdminItemManagerComponent implements OnInit {
-  @ViewChild(ItemTableComponent) table: ItemTableComponent;
+  @ViewChild(ItemTableComponent, {static: true}) table: ItemTableComponent;
 
   constructor(private itemService: ItemService, public parent: ProfileComponent, private loadingBar: LoadingBarService) {
   }

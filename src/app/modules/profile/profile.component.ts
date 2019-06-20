@@ -8,7 +8,7 @@ import {MatSidenav} from '@angular/material';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  @ViewChild('profileSideNav') public profileSideNav: MatSidenav;
+  @ViewChild('profileSideNav', {static: true}) public profileSideNav: MatSidenav;
 
   constructor(public auth: AuthService) {
   }

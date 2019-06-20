@@ -18,8 +18,8 @@ export class SearchComponent implements OnInit {
   searchResults: SearchResultModel[];
 
   // The table data and bindings.
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = [
@@ -91,5 +91,19 @@ export class SearchComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>(this.searchResults);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'category':
+          return item.category;
+        case 'author':
+          return item.lastName;
+        case 'title':
+          return item.title;
+        case 'context':
+          return item.text;
+        default:
+          return item[property];
+      }
+    };
   }
 }

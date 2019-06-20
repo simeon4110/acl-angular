@@ -37,8 +37,8 @@ export class ItemTableComponent implements OnInit {
   @Output() updateRequired: EventEmitter<boolean> = new EventEmitter();
 
   // The table data and bindings.
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = [

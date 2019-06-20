@@ -14,7 +14,7 @@ import {LoadingBarService} from '../../../core/services/loading-bar.service';
   styleUrls: ['./user-item-manager.component.scss']
 })
 export class UserItemManagerComponent implements OnInit {
-  @ViewChild(ItemTableComponent) table: ItemTableComponent;
+  @ViewChild(ItemTableComponent, {static: true}) table: ItemTableComponent;
 
   constructor(private itemService: ItemService, public parent: ProfileComponent, private loadingBar: LoadingBarService) {
   }

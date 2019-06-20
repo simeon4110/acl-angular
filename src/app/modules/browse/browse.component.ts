@@ -19,8 +19,8 @@ import {BookModel} from '../../core/models/book.model';
   styleUrls: ['./browse.component.scss']
 })
 export class BrowseComponent implements OnInit {
-  @ViewChild(ItemTableComponent) table: ItemTableComponent;
-  @ViewChild('browseSideNav') sideNav: MatSidenav;
+  @ViewChild(ItemTableComponent, {static: true}) table: ItemTableComponent;
+  @ViewChild('browseSideNav', {static: true}) sideNav: MatSidenav;
 
   typeSelectForm: FormGroup;
   types = ['Books', 'Poems'];

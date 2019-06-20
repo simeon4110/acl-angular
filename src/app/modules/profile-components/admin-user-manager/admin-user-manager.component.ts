@@ -24,8 +24,8 @@ export class AdminUserManagerComponent implements OnInit {
   users: UserModel[];
 
   // The table data and bindings.
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<UserModel>;
 
   displayedColumns: string[] = [
