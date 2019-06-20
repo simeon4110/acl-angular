@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../core/auth/auth.service';
-import {MatSidenav} from '@angular/material';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +8,7 @@ import {MatSidenav} from '@angular/material';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  @ViewChild('profileSideNav') public profileSideNav: MatSidenav;
+  @ViewChild('profileSideNav', {static: true}) public profileSideNav: MatSidenav;
 
   constructor(public auth: AuthService) {
   }

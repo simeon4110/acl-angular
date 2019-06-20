@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {CardSectionComponent} from '../card-section/card-section.component';
 import {Overlay} from '@angular/cdk/overlay';
 import {SectionModel} from '../../../core/models/section.model';

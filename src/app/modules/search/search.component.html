@@ -16,19 +16,19 @@
   </div>
   <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
     <ng-container cdkColumnDef="category">
-      <mat-header-cell *cdkHeaderCellDef fxFlex="10%" mat-sort-header=""> type</mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10%" mat-sort-header> type</mat-header-cell>
       <mat-cell *cdkCellDef="let element" fxFlex="10%">
         <p class="mat-body-2">{{element.category | categoryPipe}} </p>
       </mat-cell>
     </ng-container>
     <ng-container cdkColumnDef="author">
-      <mat-header-cell *cdkHeaderCellDef fxFlex="10%"> author</mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10%" mat-sort-header> author</mat-header-cell>
       <mat-cell *cdkCellDef="let element" fxFlex="10%">
         <p class="mat-body-2">{{element.firstName}} {{element.lastName}}</p>
       </mat-cell>
     </ng-container>
     <ng-container cdkColumnDef="title">
-      <mat-header-cell *cdkHeaderCellDef fxFlex="10%"> title</mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10%" mat-sort-header> title</mat-header-cell>
       <mat-cell *cdkCellDef="let element" fxFlex="10%">
         <p class="mat-body-2">
           {{element.category === 'SECT' ? element.parentTitle + " - " + element.title : element.title}}
@@ -36,11 +36,11 @@
       </mat-cell>
     </ng-container>
     <ng-container cdkColumnDef="context">
-      <mat-header-cell *cdkHeaderCellDef fxFlex="65%"> context</mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef fxFlex="65%" mat-sort-header> context</mat-header-cell>
       <mat-cell *cdkCellDef="let element" [innerHTML]="getContext(element.context)" fxFlex="65%"></mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row (click)="showItem(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" align="left" showFirstLastButtons></mat-paginator>
 </div>

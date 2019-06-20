@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {BookService} from '../../core/services/book.service';
 import {PoemService} from '../../core/services/poem.service';
 import {ItemTableComponent} from '../../shared/components/item-table/item-table.component';
-import {MatSidenav} from '@angular/material';
+import {MatSidenav} from '@angular/material/sidenav';
 import {LoadingBarService} from '../../core/services/loading-bar.service';
 import {PoemModel} from '../../core/models/poem.model';
 import {BookModel} from '../../core/models/book.model';
@@ -19,8 +19,8 @@ import {BookModel} from '../../core/models/book.model';
   styleUrls: ['./browse.component.scss']
 })
 export class BrowseComponent implements OnInit {
-  @ViewChild(ItemTableComponent) table: ItemTableComponent;
-  @ViewChild('browseSideNav') sideNav: MatSidenav;
+  @ViewChild(ItemTableComponent, {static: true}) table: ItemTableComponent;
+  @ViewChild('browseSideNav', {static: true}) sideNav: MatSidenav;
 
   typeSelectForm: FormGroup;
   types = ['Books', 'Poems'];

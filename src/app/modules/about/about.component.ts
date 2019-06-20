@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatProgressButtonOptions} from 'mat-progress-buttons';
 import {CustomSnackbarComponent} from '../../shared/components/custom-snackbar/custom-snackbar.component';
 

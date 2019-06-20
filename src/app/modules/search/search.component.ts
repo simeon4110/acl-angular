@@ -1,10 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import {SearchFormComponent} from '../../shared/forms/search-form/search-form.component';
 import {SearchService} from '../../core/services/search.service';
 import {LoadingBarService} from '../../core/services/loading-bar.service';
 import {SearchResultModel} from '../../core/models/search-result.model';
+import {ItemModel} from '../../core/models/item.model';
+import {PoemService} from '../../core/services/poem.service';
+import {PoemModel} from '../../core/models/poem.model';
+import {CardPoemComponent} from '../../shared/components/card-poem/card-poem.component';
+import {SectionService} from '../../core/services/section.service';
+import {SectionModel} from '../../core/models/section.model';
+import {CardSectionComponent} from '../../shared/components/card-section/card-section.component';
 
 @Component({
   selector: 'app-search',
@@ -18,8 +28,8 @@ export class SearchComponent implements OnInit {
   searchResults: SearchResultModel[];
 
   // The table data and bindings.
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = [
@@ -30,7 +40,7 @@ export class SearchComponent implements OnInit {
   ];
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private searchService: SearchService,
-              private loadingBar: LoadingBarService) {
+              private loadingBar: LoadingBarService, private poemService: PoemService, private sectionService: SectionService) {
   }
 
   ngOnInit() {
@@ -81,6 +91,32 @@ export class SearchComponent implements OnInit {
     return '<p class="mat-body-2" style="white-space: pre-wrap">' + text + '</p>';
   }
 
+  public showItem<T extends ItemModel>(item: T): void {
+    this.loadingBar.setLoading(true);
+    switch (item.category) {
+      case 'POEM':
+        this.poemService.getById(item.id).subscribe((resp: PoemModel) => {
+          this.loadingBar.setLoading(false);
+          this.dialog.open(CardPoemComponent, {
+            data: {
+              item: resp
+            }
+          });
+        });
+        break;
+      case 'SECT':
+        this.sectionService.getById(item.id).subscribe((resp: SectionModel) => {
+          this.loadingBar.setLoading(false);
+          this.dialog.open(CardSectionComponent, {
+            data: {
+              item: resp
+            }
+          });
+        });
+        break;
+    }
+  }
+
   private createSearchEveryWhereForm(): void {
     this.searchEveryWhereForm = this.fb.group({
       searchString: ['']
@@ -91,5 +127,19 @@ export class SearchComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>(this.searchResults);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'category':
+          return item.category;
+        case 'author':
+          return item.lastName;
+        case 'title':
+          return item.title;
+        case 'context':
+          return item.text;
+        default:
+          return item[property];
+      }
+    };
   }
 }

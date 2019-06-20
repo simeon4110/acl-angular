@@ -2,7 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../core/services/user.service';
 import {UserModel} from '../../../core/models/user.model';
 import {FormGroup} from '@angular/forms';
-import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import {UserAddFormComponent} from '../../../shared/forms/user-add-form/user-add-form.component';
 import {AdminPasswordResetFormComponent} from '../../../shared/forms/admin-password-reset-form/admin-password-reset-form.component';
 import {AdminChangePasswordModel} from '../../../core/models/admin-change-password.model';
@@ -24,8 +28,8 @@ export class AdminUserManagerComponent implements OnInit {
   users: UserModel[];
 
   // The table data and bindings.
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<UserModel>;
 
   displayedColumns: string[] = [

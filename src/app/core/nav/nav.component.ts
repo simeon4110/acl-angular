@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {LoginFormComponent} from '../../shared/forms/login-form/login-form.component';
 import {AuthService} from '../auth/auth.service';
 import {AppComponent} from '../../app.component';
